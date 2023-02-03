@@ -1,5 +1,8 @@
 ﻿@page "/R_Emergencia"
 
+
+@inject EmergenciaBLL emergenciaBll
+
 <head>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
 <style>
@@ -141,5 +144,9 @@
 
 </body>
 @code {
+
+
+    public Emergencia emergencia {get; set;} = new Emergencia();
+    
 
 }

@@ -1,4 +1,9 @@
 ﻿@page "/R_Paciente"
+
+@inject PacienteBLL pacienteBll
+
+
+
     <head>
         <style>
     .Entrada{
@@ -26,35 +31,35 @@
         </style>
     </head>
 
-    <body>
+    
         <h1>Registrar Paciente</h1>
 
-        <form class="form">
+        <EditForm model="Paciente">
 
         <div class="Entrada">
         <label for="Nombre" >Nombre:</label>
-        <input type="Nombre"  id="Nombre"  name="Nombre">
+        <input @bind-value="paciente.PrimerNombre" type="Nombre"  id="Nombre"  name="Nombre">
         </div>
 
         <div class="Entrada">
         <label for="S_Nombre" >Segundo Nombre:</label>
-        <input type="S_Nombre"  id="S_Nombre"  name="S_Nombre">
+        <input @bind-value="paciente.SegundoNombre" type="S_Nombre"  id="S_Nombre"  name="S_Nombre">
         </div>
         <br>
         <div class="Entrada">
         <label for="P_Apellido" >Primer Apellido:</label>
-        <input type="P_Apellido"  id="P_Apellido"  name="P_Apellido">
+        <input @bind-value="paciente.PrimerApellido" type="P_Apellido"  id="P_Apellido"  name="P_Apellido">
         </div>
 
         <div class="Entrada">
         <label for="S_Apellido" >Segundo Apellido:</label>
-        <input type="S_Apellido"  id="S_Apellido"  name="S_Apellido">
+        <input @bind-value="paciente.SegundoApellido" type="S_Apellido"  id="S_Apellido"  name="S_Apellido">
         </div>
         <br>
 
         <div class="Entrada">
         <label for="Sexo" >Sexo:</label>
-        <input type="Sexo"  id="Sexo"  name="Sexo">
+        <input @bind-value="paciente.sexo" type="Sexo"  id="Sexo"  name="Sexo">
         </div>
 
         <div class="Entrada">
@@ -98,27 +103,106 @@
 
         <div class="Entrada">
         <label for="Direccion" >Direccion:</label>
-        <input type="Direccion"  id="Direccion"  name="Direccion">
+        <input @bind-value="paciente.Direccion" type="Direccion"  id="Direccion"  name="Direccion">
         </div>
 
         <div class="Entrada">
         <label for="Provincia" >Provincia:</label>
-        <input type="Provincia"  id="Provincia"  name="Provincia">
+        <input @bind-value="paciente.Provincia" type="Provincia"  id="Provincia"  name="Provincia">
         </div>
 
         <div class="Entrada">
         <label for="Municipio" >Municipio:</label>
-        <input type="Municipio"  id="Municipio"  name="Municipio">
+        <input @bind-value="paciente.Municipio" type="Municipio"  id="Municipio"  name="Municipio">
         </div>
 
     <center>
-        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</button>
+        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"@onclick ="Guardar">Registrar</button>
     </center>
 
-        </form>
-    </body>
+    </EditForm>
+    
 
 
 @code {
+
+
+
+
+    public Paciente paciente {get; set;} = new Paciente();
+
+
+    protected override void OnInitialized(){
+
+        paciente.OrdenID=0;
+    }
+
+     private void Buscar()
+    {
+        var pacienteEncontrado = pacienteBll.Buscar(paciente.OrdenID);
+        if(pacienteEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.paciente.OrdenID}");
+            this.paciente = pacienteEncontrado;
+            
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo(){
+        this.paciente = new Paciente();
+    }
+
+     public void Guardar(){
+
+        pacienteBll.Guardar(this.paciente);
+        Console.WriteLine($"Se guardo en el {this.paciente.OrdenID}");
+        this.Nuevo();
+        
+        
+        //Console.WriteLine("Campos no validos o no completados");
+    }
+    
+
+
+
+    public void eliminar(){
+
+       
+        
+    bool RES = pacienteBll.Eliminar(this.paciente);
+
+    if(RES == false){
+        Console.WriteLine("Eliminado Correctamente");
+        Nuevo();
+    }
+    else{
+       Console.WriteLine("No se borro nada");
+    }
+            
+            
+
+        
+       
+        
+    //Nuevo();
+    //Console.WriteLine("Id no valido");
+            
+        
+        
+        
+      
+       
+       
+        
+        
+        
+    }
+
 
 }

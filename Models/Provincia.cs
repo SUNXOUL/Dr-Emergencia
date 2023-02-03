@@ -1,6 +1,6 @@
 public enum Provincia
 {
-    Hombre,
-    Mujer,
+    MTS,
+    Duarte,
     Otro
 }

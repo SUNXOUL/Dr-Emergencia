@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrEmergencias.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230203095958_Inicial")]
-    partial class Inicial
+    [Migration("20230203164250_inicial")]
+    partial class inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,71 +27,63 @@ namespace DrEmergencias.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Antecedentes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("AtencionesPrevias")
+                    b.Property<bool?>("AtencionesPrevias")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Coprologico")
+                    b.Property<int?>("Coprologico")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Diagnostico")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Donde")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EmergenciaID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Especifique")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Ex_Orina")
+                    b.Property<int?>("Ex_Orina")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FC")
+                    b.Property<int?>("FC")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FR")
+                    b.Property<int?>("FR")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Fecha")
+                    b.Property<DateTime?>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Glisemia")
+                    b.Property<int?>("Glisemia")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Hemogramas")
+                    b.Property<int?>("Hemogramas")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Hora")
+                    b.Property<int?>("Hora")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Imagenes")
+                    b.Property<int?>("Imagenes")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("M_Consulta")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MedicoBase")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Peso")
+                    b.Property<int?>("Peso")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TA")
+                    b.Property<int?>("TA")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("TyM")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrdenID");
@@ -105,113 +97,97 @@ namespace DrEmergencias.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("ARS")
+                    b.Property<int?>("ARS")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Abdomen")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Antecedentes")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool>("AtencionesPrevias")
+                    b.Property<bool?>("AtencionesPrevias")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Cabeza")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Coprologico")
+                    b.Property<int?>("Coprologico")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Corazon")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Cuello")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Diagnostico")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Donde")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("E_Inferiores")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("E_Superiores")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("EmergenciaID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Especifique")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Ex_Orina")
+                    b.Property<int?>("Ex_Orina")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FC")
+                    b.Property<int?>("FC")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("FR")
+                    b.Property<int?>("FR")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Fecha")
+                    b.Property<DateTime?>("Fecha")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Glisemia")
+                    b.Property<int?>("Glisemia")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Hemogramas")
+                    b.Property<int?>("Hemogramas")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Hora")
+                    b.Property<int?>("Hora")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Imagenes")
+                    b.Property<int?>("Imagenes")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("M_Consulta")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("MedicoBase")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("NSS")
+                    b.Property<int?>("NSS")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Peso")
+                    b.Property<int?>("Peso")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Pulmones")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("TA")
+                    b.Property<int?>("TA")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Temperatura")
+                    b.Property<int?>("Temperatura")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Torax")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("TyM")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("OrdenID");
@@ -222,62 +198,84 @@ namespace DrEmergencias.Migrations
             modelBuilder.Entity("DrEmergencias.Paciente", b =>
                 {
                     b.Property<int>("OrdenID")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Direccion")
-                        .IsRequired()
+                    b.Property<string>("Alergia")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Edad")
+                    b.Property<string>("Cedula")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("CedulaTutor")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Edad")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("FechadeNacimiento")
+                    b.Property<int?>("EmergenciaAOrdenID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int?>("EmergenciaOrdenID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("FechadeNacimiento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Municipio")
-                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Ocupacion")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PacienteID")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimerApellido")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimerNombre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Provincia")
+                    b.Property<int?>("Provincia")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("SegundoApellido")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("SegundoNombre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("sexo")
+                    b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("sexo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("tutor")
+                        .HasColumnType("TEXT");
+
                     b.HasKey("OrdenID");
+
+                    b.HasIndex("EmergenciaAOrdenID");
+
+                    b.HasIndex("EmergenciaOrdenID");
 
                     b.ToTable("Paciente");
                 });
 
             modelBuilder.Entity("DrEmergencias.Paciente", b =>
                 {
-                    b.HasOne("DrEmergencias.Emergencia", null)
-                        .WithMany("Paciente")
-                        .HasForeignKey("OrdenID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("DrEmergencias.EmergenciaA", null)
                         .WithMany("Paciente")
-                        .HasForeignKey("OrdenID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EmergenciaAOrdenID");
+
+                    b.HasOne("DrEmergencias.Emergencia", null)
+                        .WithMany("Paciente")
+                        .HasForeignKey("EmergenciaOrdenID");
                 });
 
             modelBuilder.Entity("DrEmergencias.Emergencia", b =>
