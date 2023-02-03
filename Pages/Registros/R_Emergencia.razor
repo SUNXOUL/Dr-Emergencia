@@ -67,7 +67,7 @@
     <br>
     <div class="Entrada">
         <label for="M_Consulta" >Motivo de Consulta:</label>
-        <input type="M_Consulta"  id="M_Consulta"   name="M_Consulta">
+        <input @bind-value="emergencia.M_Consulta"type="M_Consulta"  id="M_Consulta"   name="M_Consulta">
     </div>
 
     <div class="Entrada">
@@ -136,7 +136,7 @@
         <textarea type="TyM"  id="TyM"  style="width: 100%;" name="TyM"></textarea>
     </div>
     <center>
-        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</button>
+        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" @onclick ="Guardar">Registrar</button>
     </center>
 
 
@@ -147,6 +147,65 @@
 
 
     public Emergencia emergencia {get; set;} = new Emergencia();
+
+     protected override void OnInitialized(){
+
+        emergencia.OrdenID=0;
+    }
+
+
+     private void Buscar()
+    {
+        var emergenciaEncontrada = emergenciaBll.Buscar(emergencia.OrdenID);
+        if(emergenciaEncontrada != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");
+            this.emergencia = emergenciaEncontrada;
+            
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo(){
+        this.emergencia = new Emergencia();
+    }
+
+     public void Guardar(){
+
+        emergenciaBll.Guardar(this.emergencia);
+        Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
+        this.Nuevo();
+        
+        
+        //Console.WriteLine("Campos no validos o no completados");
+    }
+    
+
+
+
+    public void eliminar(){
+
+       
+        
+    bool RES = emergenciaBll.Eliminar(this.emergencia);
+
+    if(RES == false){
+        Console.WriteLine("Eliminado Correctamente");
+        Nuevo();
+    }
+    else{
+       Console.WriteLine("No se borro nada");
+    }
+            
+            
+
+        
+    }
     
 
 }

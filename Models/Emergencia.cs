@@ -31,7 +31,7 @@ namespace DrEmergencias
         public string? Especifique { get; set; }
         public string? TyM { get; set; }
 
-        public bool Visible {get; set;}
+        public bool? Visible {get; set;}
 
     }
 }

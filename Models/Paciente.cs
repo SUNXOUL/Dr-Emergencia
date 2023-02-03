@@ -34,6 +34,6 @@ namespace DrEmergencias
         public Provincia? Provincia { get; set; }
         public string? Municipio { get; set; }
 
-         public bool Visible {get; set;}
+         public bool? Visible {get; set;}
     }
 }
