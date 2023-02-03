@@ -1,0 +1,124 @@
+﻿@page "/R_Paciente"
+    <head>
+        <style>
+    .Entrada{
+        display: inline-block;
+        padding: 5px;
+        align-items: center;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+        </style>
+    </head>
+
+    <body>
+        <h1>Registrar Paciente</h1>
+
+        <form class="form">
+
+        <div class="Entrada">
+        <label for="Nombre" >Nombre:</label>
+        <input type="Nombre"  id="Nombre"  name="Nombre">
+        </div>
+
+        <div class="Entrada">
+        <label for="S_Nombre" >Segundo Nombre:</label>
+        <input type="S_Nombre"  id="S_Nombre"  name="S_Nombre">
+        </div>
+        <br>
+        <div class="Entrada">
+        <label for="P_Apellido" >Primer Apellido:</label>
+        <input type="P_Apellido"  id="P_Apellido"  name="P_Apellido">
+        </div>
+
+        <div class="Entrada">
+        <label for="S_Apellido" >Segundo Apellido:</label>
+        <input type="S_Apellido"  id="S_Apellido"  name="S_Apellido">
+        </div>
+        <br>
+
+        <div class="Entrada">
+        <label for="Sexo" >Sexo:</label>
+        <input type="Sexo"  id="Sexo"  name="Sexo">
+        </div>
+
+        <div class="Entrada">
+        <label for="F_Nacimiento" >Fecha de Nacimiento:</label>
+        <input type="F_Nacimiento"  id="F_Nacimiento"  name="F_Nacimiento">
+        </div>
+        <br>
+        <div class="Entrada">
+        <label for="Cedula" >Cedula:</label>
+        <input type="Cedula"  id="Cedula"  name="Cedula">
+        </div>
+
+        <div class="Entrada">
+        <label for="O_Laboral" >Ocupacion Laboral:</label>
+        <input type="O_Laboral"  id="O_Laboral"  name="O_Laboral">
+        </div>
+
+        <hr>
+        <span style="color: rgb(103, 100, 100);">En caso de ser menor</span><br>
+        <div class="Entrada">
+        <label for="N_Tutor" >Nombre Tutor:</label>
+        <input type="N_Tutor"  id="N_Tutor"  name="N_Tutor">
+        </div>
+
+        <div class="Entrada">
+        <label for="C_Tutor" >Cedula Tutor:</label>
+        <input type="C_Tutor"  id="C_Tutor"  name="C_Tutor">
+        </div>
+
+        <hr>
+        
+        <div class="Entrada">
+        <label for="Alergias" >Alergias:</label>
+        <input type="Alergias"  id="Alergias"  name="Alergias">
+        </div>
+
+        <div class="Entrada">
+        <label for="Telefono" >Telefono:</label>
+        <input type="Telefono"  id="Telefono"  name="Telefono">
+        </div>
+
+        <div class="Entrada">
+        <label for="Direccion" >Direccion:</label>
+        <input type="Direccion"  id="Direccion"  name="Direccion">
+        </div>
+
+        <div class="Entrada">
+        <label for="Provincia" >Provincia:</label>
+        <input type="Provincia"  id="Provincia"  name="Provincia">
+        </div>
+
+        <div class="Entrada">
+        <label for="Municipio" >Municipio:</label>
+        <input type="Municipio"  id="Municipio"  name="Municipio">
+        </div>
+
+    <center>
+        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</button>
+    </center>
+
+        </form>
+    </body>
+
+
+@code {
+
+}

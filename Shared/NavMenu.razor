@@ -1,6 +1,6 @@
 ﻿<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href=""><h3 style="color: black;">Dr.Emergencias</h3></a>
+       
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,24 +9,20 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
+         <a class="navbar-brand" href=""><h3 style="color: black;"><img src="https://blogger.googleusercontent.com/img/a/AVvXsEjnynydZ-MWCTzvQubx7xJQa48UiXqX7HknXL3WZL4tw9bY2xiijuEboFVoNJjgIAU7-JrCxxaaJQ7EPvx4itucGscMIMkeupaUtngeWK2zKJHp1ou5ww6Js7KtLfC8EfSPwkNR6gRf6G-XGgekSmn8ldSfYwgYGpBkW7WFX5rY28Li6D8KYIfdmYdb" alt="" style="height: 90px;"></h3></a>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span style="color: black;" class="oi oi-home" aria-hidden="true"></span> <h6 style="color: black; margin:10px;"> Emergencia Asegurada</h6>
+            <NavLink class="nav-link" href="/R_Paciente" Match="NavLinkMatch.All">
+                <span style="color: black;"  aria-hidden="true"></span> <h6 style="color: black; margin:10px;"> Pacientes</h6>
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span style="color: black;"  class="oi oi-plus" aria-hidden="true"></span><h6 style="color: black; margin:10px;"> Emergencia Asegurada</h6>
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span style="color: black;"  class="oi oi-list-rich" aria-hidden="true"></span > <h6 style="color: black; margin:10px;"> Emergencidaa Asegura</h6>
+            <NavLink class="nav-link" href="R_Emergencia">
+                <span style="color: black;" aria-hidden="true" ></span><h6 style="color: black; margin:10px;"> Emergencia</h6>
             </NavLink>
         </div>
                 <div class="nav-item px-3">
             <NavLink class="nav-link" href="R_EmergenciaAsegurada">
-                <span  style="color: black;"  class="oi oi-list-rich" aria-hidden="true"></span> <h6 style="color: black; margin:10px;"> Emergencia Asegurada</h6>
+                <span  style="color: black;"   aria-hidden="true"></span> <h6 style="color: black; margin:10px;"> Emergencia Asegurada</h6>
             </NavLink>
         </div>
     </nav>
