@@ -1,13 +1,22 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using DrEmergencias.Data;
+using Microsoft.EntityFrameworkCore;
+using DrEmergencias;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var ConStr = builder.Configuration.GetConnectionString("ConStr");
+builder.Services.AddDbContext<Contexto>(Options =>Options.UseSqlite(ConStr));
+
+builder.Services.AddScoped<EmergenciaBLL>();
+
+builder.Services.AddScoped<EmergenciaABLL>();
+
+builder.Services.AddScoped<PacienteBLL>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 
