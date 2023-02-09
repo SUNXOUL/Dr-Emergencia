@@ -1,4 +1,5 @@
-﻿@page "/R_EmergenciaAsegurada"
+﻿@page "/V_EmergenciaA"
+@page "/V_EmergenciaA/{OrdenID:int}"
 
 @inject EmergenciaABLL EmergenciaA
 
@@ -11,7 +12,7 @@
             align-items: center;
         }
 
-        .Entrada input {
+        .Entrada labe> {
             border-radius: 50px;
             background-color: #D9D9D9;
             border-color: #D9D9D9;
@@ -34,7 +35,7 @@
             display: block;
         }
 
-        #Hallazgos input {
+        #Hallazgos labe> {
             width: 100%;
         }
     </style>
@@ -57,13 +58,13 @@
             <div>
                 <div class="Entrada">
                     <label for="fecha">Fecha:</label>
-                    <input type="date" class="form-control" aria-label="Recipient's username"
-                        aria-describedby="basic-addon2" id="fecha" name="fecha">
+                    <label> type="date" class="form-control" aria-label="Recipient's username"
+                        aria-describedby="basic-addon2" id="fecha" name="fecha"></label>
                 </div>
 
                 <div class="Entrada">
                     <label for="Hora">Hora:</label>
-                    <input type="Hora" id="Hora" name="Hora">
+                    <labe> type="Hora" id="Hora" name="Hora"></labe>
                 </div>
             </div>
         </div>
@@ -73,53 +74,53 @@
     <div>
         <div class="Entrada">
             <label for="ars">ARS:</label>
-            <input type="ars" id="ars" name="ars">
+            <labe> type="ars" id="ars" name="ars"></labe>
         </div>
 
         <div class="Entrada" style="">
             <label for="nss">NSS:</label>
-            <input type="nss" id="nss" name="nss">
+            <labe> type="nss" id="nss" name="nss"></labe>
         </div>
         <br>
         <div class="Entrada">
             <label for="M_Consulta">Motivo de Consulta:</label>
-            <input type="M_Consulta" id="M_Consulta" name="M_Consulta">
+            <labe> type="M_Consulta" id="M_Consulta" name="M_Consulta"></labe>
         </div>
 
         <div class="Entrada">
             <label for="A_Relacionados">Antecedentes Relacionados:</label>
-            <input type="A_Relacionados" id="A_Relacionados" name="A_Relacionados">
+            <labe> type="A_Relacionados" id="A_Relacionados" name="A_Relacionados"></labe>
         </div>
         <br>
         <div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <input type="A_Previas" id="A_Previas" name="A_Previas">
+            <labe> type="A_Previas" id="A_Previas" name="A_Previas"></labe>
         </div>
 
         <div class="Entrada">
             <label for="Donde">Donde?</label>
-            <input type="Donde" id="Donde" name="Donde">
+            <labe> type="Donde" id="Donde" name="Donde"></labe>
         </div>
 
         <div class="Entrada">
             <label for="M_Base">Medico Base:</label>
-            <input type="M_Base" id="M_Base" name="M_Base">
+            <labe> type="M_Base" id="M_Base" name="M_Base"></labe>
         </div>
 
         <div class="Entrada">
             <label for="Peso">Peso:</label>
-            <input type="Peso" id="Peso" name="Peso">
+            <labe> type="Peso" id="Peso" name="Peso"></labe>
             <label for="Peso">lbs</label>
         </div>
         <br>
         <div class="Entrada">
             <label>Signos Vitales</label>
             <label for="TA">TA:</label>
-            <input type="TA" id="TA" name="TA">
+            <labe> type="TA" id="TA" name="TA"></labe>
             <label for="FC">FC:</label>
-            <input type="FC" id="FC" name="FC">
+            <labe> type="FC" id="FC" name="FC"></labe>
             <label for="Temperatura">Temperatura:</label>
-            <input type="Temperatura" id="Temperatura" name="Temperatura">
+            <labe> type="Temperatura" id="Temperatura" name="Temperatura"></labe>
             <label for="Temperatura">C</label>
         </div>
 
@@ -128,39 +129,39 @@
             <label style="color: rgb(103, 100, 100);">Hallazgos Positivos en el examen fisico</label>
             <div style="display: flex;">
                 <label for="Cabeza">Cabeza</label>
-                <input type="Cabeza" id="Cabeza" name="Cabeza">
+                <labe> type="Cabeza" id="Cabeza" name="Cabeza"></labe>
             </div>
             <div style="display: flex;">
                 <label for="Cuello">Cuello</label>
-                <input type="Cuello" id="Cuello" name="Cuello">
+                <labe> type="Cuello" id="Cuello" name="Cuello"></labe>
             </div>
             <div style="display: flex;">
                 <label for="Torax">Torax</label>
-                <input type="Torax" id="Torax" name="Torax">
+                <labe> type="Torax" id="Torax" name="Torax"></labe>
             </div>
             <div style="display: flex;">
                 <label for="Pulmones">Pulmones</label>
-                <input type="Pulmones" id="Pulmones" name="Pulmones">
+                <labe> type="Pulmones" id="Pulmones" name="Pulmones"></labe>
             </div>
             <div style="display: flex;">
                 <label for="Corazon">Corazon</label>
-                <input type="Corazon" id="Corazon" name="Corazon">
+                <labe> type="Corazon" id="Corazon" name="Corazon"></labe>
             </div>
             <div style="display: flex;">
                 <label for="Abdomen">Abdomen</label>
-                <input type="Abdomen" id="Abdomen" name="Abdomen">
+                <labe> type="Abdomen" id="Abdomen" name="Abdomen"></labe>
             </div>
             <div style="display: flex;">
                 <label for="E_Inferiores">Extreminades Inferiores</label>
-                <input type="E_Inferiores" id="E_Inferiores" name="E_Inferiores">
+                <labe> type="E_Inferiores" id="E_Inferiores" name="E_Inferiores"></labe>
             </div>
             <div style="display: flex;">
                 <label for="E_Superiores">Extreminades Superiores</label>
-                <input type="E_Superiores" id="E_Superiores" name="E_Superiores">
+                <labe> type="E_Superiores" id="E_Superiores" name="E_Superiores"></labe>
             </div>
             <div style="display: flex;">
                 <label for="Diagnostico">Diagnostico</label>
-                <input type="Diagnostico" id="Diagnostico" name="Diagnostico">
+                <labe> type="Diagnostico" id="Diagnostico" name="Diagnostico"></labe>
             </div>
         </div>
         <hr>
@@ -168,21 +169,21 @@
             <label>Laboratorios</label>
             <br>
             <label for="Hemograma">Hemograma:</label>
-            <input type="Hemograma" id="Hemograma" name="Hemograma">
+            <labe> type="Hemograma" id="Hemograma" name="Hemograma"></labe>
             <label for="Ex_Orina">Ex.Orina:</label>
-            <input type="Ex_Orina" id="Ex_Orina" name="Ex_Orina">
+            <labe> type="Ex_Orina" id="Ex_Orina" name="Ex_Orina"></labe>
             <label for="Glisemia">Glisemia:</label>
-            <input type="Glisemia" id="Glisemia" name="Glisemia">
+            <labe> type="Glisemia" id="Glisemia" name="Glisemia"></labe>
             <label for="Coprologico">Coprologico:</label>
-            <input type="Coprologico" id="Coprologico" name="Coprologico">
+            <labe> type="Coprologico" id="Coprologico" name="Coprologico"></labe>
         </div>
         <br>
         <div class="Entrada" style="display: flex; align-items: center;">
             <label for="Imagenes">Imagenes:</label>
-            <input type="Imagenes" id="Imagenes" name="Imagenes">
+            <labe> type="Imagenes" id="Imagenes" name="Imagenes"></labe>
 
             <label for="Especificacion">Especfique</label>
-            <textarea type="Especificacion" id="Especificacion" name="Especificacion"></textarea>
+            <p type="Especificacion" id="Especificacion" name="Especificacion"></p>
         </div>
     </div>
     <br>
@@ -194,20 +195,19 @@
         <button type="button" class="btn btn-primary"
             style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</button>
     </center>
-
-
-
-
 </body>
+
 @code {
     
     public EmergenciaA emergencia {get; set;} = new EmergenciaA();
-
+    public int OrdenID {get;set;}
 
     protected override void OnInitialized(){
-
-        emergencia.OrdenID=0;
-
+        if (OrdenID > 0)
+        {
+            this.emergencia.OrdenID = this.OrdenID;
+            this.Buscar();
+        }
     }
 
 

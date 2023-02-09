@@ -1,0 +1,211 @@
+﻿@page "/E_Emergencia"
+
+
+@inject EmergenciaBLL emergenciaBll
+
+<head>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+<style>
+    .Entrada{
+        display: inline-block;
+        padding: 5px;
+        align-items: center;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+    .Form{
+        display: block;
+    }
+    #Hallazgos input{
+        width: 100%;
+    }
+
+</style>
+
+</head>
+
+<body>
+    
+
+    
+    <div class="RHeader" style="z-index: -1;">
+    </div>
+
+        
+    <div class="Form"  style="z-index: 1;">
+    
+        <div style="justify-content: space-between; display: inline-flex;; width:100%;">
+        <h1>Editar Emergencia</h1>
+            <div >
+    <div class="Entrada">
+        <label for="fecha" >Fecha:</label>
+        <input type="date" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" id="fecha" name="fecha">
+    </div>
+
+    <div class="Entrada">
+        <label for="Hora">Hora:</label>
+        <input type="Hora"  id="Hora"  name="Hora">
+    </div>
+    </div>
+    </div>
+
+    <br>
+    <div class="Entrada">
+        <label for="M_Consulta" >Motivo de Consulta:</label>
+        <input @bind-value="emergencia.M_Consulta"type="M_Consulta"  id="M_Consulta"   name="M_Consulta">
+    </div>
+
+    <div class="Entrada">
+        <label for="A_Relacionados" >Antecedentes Relacionados:</label>
+        <input type="A_Relacionados"  id="A_Relacionados"   name="A_Relacionados">
+    </div>
+    <br>
+    <div class="Entrada">
+        <label for="A_Previas" >Atenciones Previas:</label>
+        <input type="A_Previas"  id="A_Previas"   name="A_Previas">
+    </div>
+
+    <div class="Entrada">
+        <label for="Donde" >Donde?</label>
+        <input type="Donde"  id="Donde"   name="Donde">
+    </div>
+
+    <div class="Entrada">
+        <label for="M_Base" >Medico Base:</label>
+        <input type="M_Base"  id="M_Base"   name="M_Base">
+    </div>
+
+    <div class="Entrada">
+        <label for="Peso" >Peso:</label>
+        <input type="Peso"  id="Peso"   name="Peso">
+        <label for="Peso" >lbs</label>
+    </div>
+    <br>
+    <div class="Entrada">
+        <label >Signos Vitales</label>
+        <label for="TA" >TA:</label>
+        <input type="TA"  id="TA"   name="TA">
+        <label for="FC" >FC:</label>
+        <input type="FC"  id="FC"   name="FC">
+        <label for="Temperatura" >Temperatura:</label>
+        <input type="Temperatura"  id="Temperatura"   name="Temperatura">
+        <label for="Temperatura" >C</label>
+    </div>
+
+    <div class="Entrada" style="display: inline-block;">
+        <label >Laboratorios</label>
+        <label for="Hemograma" >Hemograma:</label>
+        <input type="Hemograma"  id="Hemograma"   name="Hemograma">
+        <label for="Ex_Orina" >Ex.Orina:</label>
+        <input type="Ex_Orina"  id="Ex_Orina"   name="Ex_Orina">
+        <label for="Glisemia" >Glisemia:</label>
+        <input type="Glisemia"  id="Glisemia"   name="Glisemia">
+        <label for="Coprologico" >Coprologico:</label>
+        <input type="Coprologico"  id="Coprologico"   name="Coprologico">
+    </div>
+    <br>
+    <div class="Entrada" style="display: flex; align-items: center;" >
+        <label for="Imagenes" >Imagenes:</label>
+        <input type="Imagenes"  id="Imagenes"   name="Imagenes">
+
+        <label for="Especificacion" >Especfique</label>
+        <textarea type="Especificacion"  id="Especificacion"   name="Especificacion"></textarea>
+    </div>
+    </div>
+    <div  class="Entrada" style="display: flex;">
+        <label for="Diagnostico">Diagnostico</label>
+        <input type="Diagnostico" id="Diagnostico" style="width: 100%;" name="Diagnostico">
+    </div>
+        <div class="Entrada " style="display:flex;" >
+        <label for="TyM" >Tratamientos y Medicamentos:</label>
+        <textarea type="TyM"  id="TyM"  style="width: 100%;" name="TyM"></textarea>
+    </div>
+    <center>
+        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" @onclick ="Guardar">Registrar</button>
+    </center>
+
+
+
+
+</body>
+@code {
+
+
+    public Emergencia emergencia {get; set;} = new Emergencia();
+
+     protected override void OnInitialized(){
+
+        emergencia.OrdenID=0;
+    }
+
+
+     private void Buscar()
+    {
+        var emergenciaEncontrada = emergenciaBll.Buscar(emergencia.OrdenID);
+        if(emergenciaEncontrada != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");
+            this.emergencia = emergenciaEncontrada;
+            
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo(){
+        this.emergencia = new Emergencia();
+    }
+
+     public void Guardar(){
+
+        emergenciaBll.Guardar(this.emergencia);
+        Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
+        this.Nuevo();
+        
+        
+        //Console.WriteLine("Campos no validos o no completados");
+    }
+    
+
+
+
+    public void eliminar(){
+
+       
+        
+    bool RES = emergenciaBll.Eliminar(this.emergencia);
+
+    if(RES == false){
+        Console.WriteLine("Eliminado Correctamente");
+        Nuevo();
+    }
+    else{
+       Console.WriteLine("No se borro nada");
+    }
+            
+            
+
+        
+    }
+    
+
+}

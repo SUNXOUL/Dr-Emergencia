@@ -1,6 +1,4 @@
-﻿@page "/R_EmergenciaAsegurada"
-
-@inject EmergenciaABLL EmergenciaA
+﻿@page "/E_EmergenciaA"
 
 <head>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -53,7 +51,7 @@
     <div class="Form">
 
         <div style="justify-content: space-between; display: inline-flex;; width:100%;">
-            <h1>Nueva Emergencia</h1>
+            <h1>Editar Emergencia</h1>
             <div>
                 <div class="Entrada">
                     <label for="fecha">Fecha:</label>
@@ -192,7 +190,7 @@
     </div>
     <center>
         <button type="button" class="btn btn-primary"
-            style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</button>
+            style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Guardar</button>
     </center>
 
 
@@ -200,66 +198,5 @@
 
 </body>
 @code {
-    
-    public EmergenciaA emergencia {get; set;} = new EmergenciaA();
-
-
-    protected override void OnInitialized(){
-
-        emergencia.OrdenID=0;
-
-    }
-
-
-    private void Buscar()
-    {
-        var emergenciaEncontrada = EmergenciaA.Buscar(emergencia.OrdenID);
-        if(emergenciaEncontrada != null)
-        {
-            Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");
-            this.emergencia = emergenciaEncontrada;
-            
-        }
-        else
-        {
-            Nuevo();
-            Console.WriteLine("Id no existente");
-        }
-    }
-
-
-    public void Nuevo(){
-        this.emergencia = new EmergenciaA();
-    }
-
-    public void Guardar(){
-
-        EmergenciaA.Guardar(this.emergencia);
-        Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
-        this.Nuevo();
-        
-        
-        //Console.WriteLine("Campos no validos o no completados");
-    }
-    
-
-
-
-    public void eliminar(){
-    bool RES = EmergenciaA.Eliminar(this.emergencia);
-
-    if(RES == false){
-        Console.WriteLine("Eliminado Correctamente");
-        Nuevo();
-    }
-    else{
-       Console.WriteLine("No se borro nada");
-    }
-            
-            
-
-        
-    }
-    
 
 }

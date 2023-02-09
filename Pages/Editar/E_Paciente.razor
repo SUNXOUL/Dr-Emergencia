@@ -1,0 +1,208 @@
+﻿@page "/E_Paciente"
+
+@inject PacienteBLL pacienteBll
+
+
+
+    <head>
+        <style>
+    .Entrada{
+        display: inline-block;
+        padding: 5px;
+        align-items: center;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+        </style>
+    </head>
+
+    
+        <h1>Editar Paciente</h1>
+
+        <EditForm model="Paciente">
+
+        <div class="Entrada">
+        <label for="Nombre" >Nombre:</label>
+        <input @bind-value="paciente.PrimerNombre" type="Nombre"  id="Nombre"  name="Nombre">
+        </div>
+
+        <div class="Entrada">
+        <label for="S_Nombre" >Segundo Nombre:</label>
+        <input @bind-value="paciente.SegundoNombre" type="S_Nombre"  id="S_Nombre"  name="S_Nombre">
+        </div>
+        <br>
+        <div class="Entrada">
+        <label for="P_Apellido" >Primer Apellido:</label>
+        <input @bind-value="paciente.PrimerApellido" type="P_Apellido"  id="P_Apellido"  name="P_Apellido">
+        </div>
+
+        <div class="Entrada">
+        <label for="S_Apellido" >Segundo Apellido:</label>
+        <input @bind-value="paciente.SegundoApellido" type="S_Apellido"  id="S_Apellido"  name="S_Apellido">
+        </div>
+        <br>
+
+        <div class="Entrada">
+        <label for="Sexo" >Sexo:</label>
+        <input @bind-value="paciente.sexo" type="Sexo"  id="Sexo"  name="Sexo">
+        </div>
+
+        <div class="Entrada">
+        <label for="F_Nacimiento" >Fecha de Nacimiento:</label>
+        <input type="F_Nacimiento"  id="F_Nacimiento"  name="F_Nacimiento">
+        </div>
+        <br>
+        <div class="Entrada">
+        <label for="Cedula" >Cedula:</label>
+        <input type="Cedula"  id="Cedula"  name="Cedula">
+        </div>
+
+        <div class="Entrada">
+        <label for="O_Laboral" >Ocupacion Laboral:</label>
+        <input type="O_Laboral"  id="O_Laboral"  name="O_Laboral">
+        </div>
+
+        <hr>
+        <span style="color: rgb(103, 100, 100);">En caso de ser menor</span><br>
+        <div class="Entrada">
+        <label for="N_Tutor" >Nombre Tutor:</label>
+        <input type="N_Tutor"  id="N_Tutor"  name="N_Tutor">
+        </div>
+
+        <div class="Entrada">
+        <label for="C_Tutor" >Cedula Tutor:</label>
+        <input type="C_Tutor"  id="C_Tutor"  name="C_Tutor">
+        </div>
+
+        <hr>
+        
+        <div class="Entrada">
+        <label for="Alergias" >Alergias:</label>
+        <input type="Alergias"  id="Alergias"  name="Alergias">
+        </div>
+
+        <div class="Entrada">
+        <label for="Telefono" >Telefono:</label>
+        <input type="Telefono"  id="Telefono"  name="Telefono">
+        </div>
+
+        <div class="Entrada">
+        <label for="Direccion" >Direccion:</label>
+        <input @bind-value="paciente.Direccion" type="Direccion"  id="Direccion"  name="Direccion">
+        </div>
+
+        <div class="Entrada">
+        <label for="Provincia" >Provincia:</label>
+        <input @bind-value="paciente.Provincia" type="Provincia"  id="Provincia"  name="Provincia">
+        </div>
+
+        <div class="Entrada">
+        <label for="Municipio" >Municipio:</label>
+        <input @bind-value="paciente.Municipio" type="Municipio"  id="Municipio"  name="Municipio">
+        </div>
+
+    <center>
+        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"@onclick ="Guardar">Guardar</button>
+    </center>
+
+    </EditForm>
+    
+
+
+@code {
+
+
+
+
+    public Paciente paciente {get; set;} = new Paciente();
+
+
+    protected override void OnInitialized(){
+
+        paciente.OrdenID=0;
+    }
+
+     private void Buscar()
+    {
+        var pacienteEncontrado = pacienteBll.Buscar(paciente.OrdenID);
+        if(pacienteEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.paciente.OrdenID}");
+            this.paciente = pacienteEncontrado;
+            
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo(){
+        this.paciente = new Paciente();
+    }
+
+     public void Guardar(){
+
+        pacienteBll.Guardar(this.paciente);
+        Console.WriteLine($"Se guardo en el {this.paciente.OrdenID}");
+        this.Nuevo();
+        
+        
+        //Console.WriteLine("Campos no validos o no completados");
+    }
+    
+
+
+
+    public void eliminar(){
+
+       
+        
+    bool RES = pacienteBll.Eliminar(this.paciente);
+
+    if(RES == false){
+        Console.WriteLine("Eliminado Correctamente");
+        Nuevo();
+    }
+    else{
+       Console.WriteLine("No se borro nada");
+    }
+            
+            
+
+        
+       
+        
+    //Nuevo();
+    //Console.WriteLine("Id no valido");
+            
+        
+        
+        
+      
+       
+       
+        
+        
+        
+    }
+
+
+}
