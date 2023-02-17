@@ -59,7 +59,7 @@
 
         <div class="Entrada">
         <label for="Sexo" >Sexo:</label>
-        <input @bind-value="paciente.sexo" type="Sexo"  id="Sexo"  name="Sexo">
+        <input @bind-value="paciente.Sexo" type="Sexo"  id="Sexo"  name="Sexo">
         </div>
 
         <div class="Entrada">
@@ -134,15 +134,15 @@
 
     protected override void OnInitialized(){
 
-        paciente.OrdenID=0;
+        paciente.PacienteID=0;
     }
 
      private void Buscar()
     {
-        var pacienteEncontrado = pacienteBll.Buscar(paciente.OrdenID);
+        var pacienteEncontrado = pacienteBll.Buscar(paciente.PacienteID);
         if(pacienteEncontrado != null)
         {
-            Console.WriteLine($"Se encontro una ocupacion con el ID{this.paciente.OrdenID}");
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.paciente.PacienteID}");
             this.paciente = pacienteEncontrado;
             
         }
@@ -161,7 +161,7 @@
      public void Guardar(){
 
         pacienteBll.Guardar(this.paciente);
-        Console.WriteLine($"Se guardo en el {this.paciente.OrdenID}");
+        Console.WriteLine($"Se guardo en el {this.paciente.PacienteID}");
         this.Nuevo();
         
         

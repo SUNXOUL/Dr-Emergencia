@@ -200,7 +200,7 @@ namespace DrEmergencias.Migrations
 
             modelBuilder.Entity("DrEmergencias.Paciente", b =>
                 {
-                    b.Property<int>("OrdenID")
+                    b.Property<int>("PacienteID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -234,9 +234,6 @@ namespace DrEmergencias.Migrations
                     b.Property<string>("Ocupacion")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("PacienteID")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("PrimerApellido")
                         .HasColumnType("TEXT");
 
@@ -252,19 +249,19 @@ namespace DrEmergencias.Migrations
                     b.Property<string>("SegundoNombre")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("Sexo")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Telefono")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Tutor")
                         .HasColumnType("TEXT");
 
                     b.Property<bool?>("Visible")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("sexo")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("tutor")
-                        .HasColumnType("TEXT");
-
-                    b.HasKey("OrdenID");
+                    b.HasKey("PacienteID");
 
                     b.HasIndex("EmergenciaAOrdenID");
 

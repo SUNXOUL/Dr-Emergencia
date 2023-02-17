@@ -1,40 +1,77 @@
 ﻿@inherits LayoutComponentBase
-
-<PageTitle>DrEmergencias</PageTitle>
+<PageTitle>Dr Emergencias</PageTitle>
 
 <head>
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <style>
+        body{
+        
+        }
+    </style>
+
+    <link rel="shortcut icon" href="https://blogger.googleusercontent.com/img/a/AVvXsEgyC5BC69l2F5UDicjJ_VrOsI7y6N-lO33wuvTCnSBRwfbVqGUFMudClSrFuDDl0p6bzVqtmNUVJ5kOqgDBRUB_1jVMn1cojzv8DMNQ0fEo402OTig6mhWTRDdw9qMtXHCZX6PKrjs1RZumAJ2vi_ALWeX4WPcmBw7dXl21zhOs1TUqiSZ6t3n4luOG">
 </head>
 
-        <div class="top-row px-4">
+<RadzenLayout style="height: 100vh">
+    <RadzenHeader class="rz-background-color-secondary-light" style="display: flex; justify-content: space-between; border:none;">
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" class="rz-background-color-secondary-light" Gap="0">
+            <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)"   style= "border:none;  border-top-right-radius: 25px; border-bottom-right-radius: 25px;"/>
+            
+        </RadzenStack>
+
+    <RadzenProfileMenu style=" border:none;"class="rz-background-color-secondary-light">
+        <Template>
+            <RadzenLabel Text="Usuario" style="color:rgb(255, 255, 255)" />
+        </Template>
+        <ChildContent>
+            <RadzenProfileMenuItem Text="Perfil"  ></RadzenProfileMenuItem>
+            <RadzenProfileMenuItem Text="Cerrar Sesion"  ></RadzenProfileMenuItem>
+        </ChildContent>
+    </RadzenProfileMenu>
 
 
-        <div class="btn-group">
-        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="background-color:  #3AB5F4; border-color: #3AB5F4;">
-           <i class="fi fi-br-portrait"></i>   USUARIO
-        </button>
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+    </RadzenHeader>
+
+    <RadzenSidebar @bind-Expanded="@sidebar1Expanded"style="background-color:#28363c;" >
+        
+        
+        <RadzenPanelMenu style="background-color:#28363c;" Multiple="false" >
+
+                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Paciente" >
+                        <RadzenPanelMenuItem  Text="Consultar" Path="C_Paciente" />
+                        <RadzenPanelMenuItem Text="Registrar" Path="R_Paciente" />
+                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    </RadzenPanelMenuItem>
+
+
+                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Emergencias No Aseguradas" >
+                        <RadzenPanelMenuItem  Text="Consultar" Path="C_Emergencia" />
+                        <RadzenPanelMenuItem  Text="Registrar" Path="R_Emergencia" />
+                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    </RadzenPanelMenuItem>
+
+                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Emergencias Aseguradas" >
+                        <RadzenPanelMenuItem  Text="Consultar" Path="C_EmergenciaA" />
+                        <RadzenPanelMenuItem  Text="Registrar" Path="R_EmergenciaA" />
+                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    </RadzenPanelMenuItem>
+
+                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Farmacia" >
+                        <RadzenPanelMenuItem  Text="Inventario" Path="C_EmergenciaA" />
+                    </RadzenPanelMenuItem>
+
+
+        </RadzenPanelMenu>
+        <div class="rz-p-4">
         </div>
-        </div>
-
-
-        </div>
-
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-
-
-        <article class="content px-4">
+    </RadzenSidebar>
+    <RadzenBody style="background-color: white;">
+        <div class="rz-p-4">
             @Body
-        </article>
-    </main>
-</div>
+        </div>
+    </RadzenBody>
+</RadzenLayout>
+
+@code {
+    bool sidebar1Expanded = true;
+
+}

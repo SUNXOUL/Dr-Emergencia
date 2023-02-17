@@ -1,5 +1,5 @@
 ﻿@page "/C_Emergencia"
-<h3>Consultar Emergencia</h3>
+
 
 
 @inject EmergenciaBLL Emergencia
@@ -42,54 +42,38 @@
         width: 100%;
     }
 
+
     </style>
 </head>
-    <div style="width: 100%; display:flex; justify-content:right;">
-    <div class="form-floating">
-  <select class="form-select" id="sel1" name="sellist">
-        <option>Ultimos 7 dias</option>
-        <option>Ultimos 15 dias</option>
-        <option>Ultimos 30 dias</option>
-        <option>Personalizado</option>
-     </select>
-  <label for="sel1" class="form-label">Periodo</label>
-</div>
-</div>
-<div style="display: flex; justify-content:space-between; width:25%;" >
-    <div class="Entrada">
-        <label for="fecha" >Desde:</label>
-        <input type="date" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" id="fecha" name="fecha">
-    </div>
-    <div class="Entrada">
-        <label for="fecha" >Hasta:</label>
-        <input type="date" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" id="fecha" name="fecha">
-    </div>
-</div>
+<div class="body">
+
+ <h3>Consultar Emergencia</h3>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+    Data="Paciente.GetList()" TItem="Paciente" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true"
+    >
+    
+        <Columns>
+            <RadzenDataGridColumn TItem="Paciente" Property="PrimerNombre" Title="Primer nombre" />
+            <RadzenDataGridColumn TItem="Paciente" Property="SegundoNombre" Title="Segundo Nombre" />
+            <RadzenDataGridColumn TItem="Paciente" Property="PrimerApellido" Title="Primer Apellido" />
+            <RadzenDataGridColumn TItem="Paciente" Property="SegundoApellido" Title="Segundo Apellido" />
+            <RadzenDataGridColumn TItem="Paciente" Property="Sexo" Title="Sexo" />
+            <RadzenDataGridColumn TItem="Paciente" Property="Cedula" Title="Cedula" />
+            <RadzenDataGridColumn TItem="Paciente" Property="Ocupacion" Title="Ocupacion" />
+            <RadzenDataGridColumn TItem="Paciente" Property="Tutor" Title="Tutor" />
+            <RadzenDataGridColumn TItem="Paciente" Property="CedulaTutor" Title="Cedula Tutor" />
+        </Columns>
+
+    </RadzenDataGrid>
 
 
 
-<table class="table table-bordered table-striped" style="border-color: #edecec;">
-    <thead style="background-color: #0096c7">
-        <tr>
-            <th>Nombre</th>
-            <th>Segundo Nombre</th>
-            <th>Primer Apellido</th>
-            <th>Segundo Apellido</th>
-            <th>Sexo</th>
-            <th>Cedula</th>
-            <th>Ocupacion Laboral</th>
-            <th>Nombre Tutor</th> 
-            <th>Motivo de Consulta</th>
-            <th>Medico</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Emergencia.GetList())
-        {
-            
-        }
-    </tbody>
-</table>
+
+
+
+</div>
 
 @code {
 

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DrEmergencias.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,7 +36,8 @@ namespace DrEmergencias.Migrations
                     Coprologico = table.Column<int>(type: "INTEGER", nullable: true),
                     Imagenes = table.Column<int>(type: "INTEGER", nullable: true),
                     Especifique = table.Column<string>(type: "TEXT", nullable: true),
-                    TyM = table.Column<string>(type: "TEXT", nullable: true)
+                    TyM = table.Column<string>(type: "TEXT", nullable: true),
+                    Visible = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -79,7 +80,8 @@ namespace DrEmergencias.Migrations
                     Coprologico = table.Column<int>(type: "INTEGER", nullable: true),
                     Imagenes = table.Column<int>(type: "INTEGER", nullable: true),
                     Especifique = table.Column<string>(type: "TEXT", nullable: true),
-                    TyM = table.Column<string>(type: "TEXT", nullable: true)
+                    TyM = table.Column<string>(type: "TEXT", nullable: true),
+                    Visible = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,17 +92,16 @@ namespace DrEmergencias.Migrations
                 name: "Paciente",
                 columns: table => new
                 {
-                    OrdenID = table.Column<int>(type: "INTEGER", nullable: false)
+                    PacienteID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    PacienteID = table.Column<string>(type: "TEXT", nullable: true),
                     PrimerNombre = table.Column<string>(type: "TEXT", nullable: true),
                     SegundoNombre = table.Column<string>(type: "TEXT", nullable: true),
                     PrimerApellido = table.Column<string>(type: "TEXT", nullable: true),
                     SegundoApellido = table.Column<string>(type: "TEXT", nullable: true),
-                    sexo = table.Column<int>(type: "INTEGER", nullable: true),
+                    Sexo = table.Column<int>(type: "INTEGER", nullable: true),
                     Cedula = table.Column<string>(type: "TEXT", nullable: true),
                     Ocupacion = table.Column<string>(type: "TEXT", nullable: true),
-                    tutor = table.Column<string>(type: "TEXT", nullable: true),
+                    Tutor = table.Column<string>(type: "TEXT", nullable: true),
                     CedulaTutor = table.Column<string>(type: "TEXT", nullable: true),
                     Alergia = table.Column<string>(type: "TEXT", nullable: true),
                     Telefono = table.Column<string>(type: "TEXT", nullable: true),
@@ -109,12 +110,13 @@ namespace DrEmergencias.Migrations
                     Direccion = table.Column<string>(type: "TEXT", nullable: true),
                     Provincia = table.Column<int>(type: "INTEGER", nullable: true),
                     Municipio = table.Column<string>(type: "TEXT", nullable: true),
+                    Visible = table.Column<bool>(type: "INTEGER", nullable: true),
                     EmergenciaAOrdenID = table.Column<int>(type: "INTEGER", nullable: true),
                     EmergenciaOrdenID = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Paciente", x => x.OrdenID);
+                    table.PrimaryKey("PK_Paciente", x => x.PacienteID);
                     table.ForeignKey(
                         name: "FK_Paciente_EmergenciaA_EmergenciaAOrdenID",
                         column: x => x.EmergenciaAOrdenID,

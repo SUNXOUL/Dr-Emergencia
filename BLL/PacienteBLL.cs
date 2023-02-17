@@ -12,15 +12,15 @@ namespace DrEmergencias
 
     public bool Guardar(Paciente Paciente)
     {
-        if (!Existe(Paciente.OrdenID))
+        if (!Existe(Paciente.PacienteID))
             return Insertar(Paciente);
         else
             return Modificar(Paciente);
     }
 
-    public bool Existe(int OrdenID)
+    public bool Existe(int PacienteID)
     {
-        return _contexto.Paciente.Any(o => o.OrdenID == OrdenID);
+        return _contexto.Paciente.Any(o => o.PacienteID == PacienteID);
     }
 
     private bool Insertar(Paciente Paciente)
@@ -49,10 +49,10 @@ namespace DrEmergencias
             return _contexto.SaveChanges()>0;
         }   
 
-        public Paciente? Buscar(int OrdenID)
+        public Paciente? Buscar(int PacienteID)
         {
             return _contexto.Paciente
-                    .Where(o => o.OrdenID==OrdenID).AsNoTracking().SingleOrDefault();
+                    .Where(o => o.PacienteID==PacienteID).AsNoTracking().SingleOrDefault();
                     
         }
         public List<Paciente> GetList()
