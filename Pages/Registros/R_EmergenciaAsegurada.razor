@@ -57,13 +57,12 @@
             <div>
                 <div class="Entrada">
                     <label for="fecha">Fecha:</label>
-                    <input type="date" class="form-control" aria-label="Recipient's username"
-                        aria-describedby="basic-addon2" id="fecha" name="fecha">
+                    <input type="date" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" id="fecha"  @bind-value="emergencia.Fecha" name="fecha">
                 </div>
 
                 <div class="Entrada">
                     <label for="Hora">Hora:</label>
-                    <input type="Hora" id="Hora" name="Hora">
+                    <input type="Hora" id="Hora"@bind-value="emergencia.Hora" name="Hora">
                 </div>
             </div>
         </div>
@@ -73,53 +72,53 @@
     <div>
         <div class="Entrada">
             <label for="ars">ARS:</label>
-            <input type="ars" id="ars" name="ars">
+            <input type="ars" id="ars"@bind-value="emergencia.ARS" name="ars">
         </div>
 
         <div class="Entrada" style="">
             <label for="nss">NSS:</label>
-            <input type="nss" id="nss" name="nss">
+            <input type="nss" id="nss" @bind-value="emergencia.NSS" name="nss">
         </div>
         <br>
         <div class="Entrada">
             <label for="M_Consulta">Motivo de Consulta:</label>
-            <input type="M_Consulta" id="M_Consulta" name="M_Consulta">
+            <input type="M_Consulta" id="M_Consulta" @bind-value="emergencia.M_Consulta" name="M_Consulta">
         </div>
 
         <div class="Entrada">
             <label for="A_Relacionados">Antecedentes Relacionados:</label>
-            <input type="A_Relacionados" id="A_Relacionados" name="A_Relacionados">
+            <input type="A_Relacionados" id="A_Relacionados" @bind-value="emergencia.Antecedentes" name="A_Relacionados">
         </div>
         <br>
         <div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <input type="A_Previas" id="A_Previas" name="A_Previas">
+            <input type="A_Previas" id="A_Previas" @bind-value="emergencia.AtencionesPrevias" name="A_Previas">
         </div>
 
         <div class="Entrada">
             <label for="Donde">Donde?</label>
-            <input type="Donde" id="Donde" name="Donde">
+            <input type="Donde" id="Donde" @bind-value="emergencia.Donde" name="Donde">
         </div>
 
         <div class="Entrada">
             <label for="M_Base">Medico Base:</label>
-            <input type="M_Base" id="M_Base" name="M_Base">
+            <input type="M_Base" id="M_Base" @bind-value="emergencia.MedicoBase" name="M_Base">
         </div>
 
         <div class="Entrada">
             <label for="Peso">Peso:</label>
-            <input type="Peso" id="Peso" name="Peso">
+            <input type="Peso" id="Peso" @bind-value="emergencia.Peso" name="Peso">
             <label for="Peso">lbs</label>
         </div>
         <br>
         <div class="Entrada">
             <label>Signos Vitales</label>
             <label for="TA">TA:</label>
-            <input type="TA" id="TA" name="TA">
+            <input type="TA" id="TA" @bind-value="emergencia.TA" name="TA">
             <label for="FC">FC:</label>
-            <input type="FC" id="FC" name="FC">
+            <input type="FC" id="FC" @bind-value="emergencia.FC" name="FC">
             <label for="Temperatura">Temperatura:</label>
-            <input type="Temperatura" id="Temperatura" name="Temperatura">
+            <input type="Temperatura" id="Temperatura" @bind-value="emergencia.Temperatura" name="Temperatura">
             <label for="Temperatura">C</label>
         </div>
 
@@ -128,39 +127,39 @@
             <label style="color: rgb(103, 100, 100);">Hallazgos Positivos en el examen fisico</label>
             <div style="display: flex;">
                 <label for="Cabeza">Cabeza</label>
-                <input type="Cabeza" id="Cabeza" name="Cabeza">
+                <input type="Cabeza" id="Cabeza" @bind-value="emergencia.Cabeza" name="Cabeza">
             </div>
             <div style="display: flex;">
                 <label for="Cuello">Cuello</label>
-                <input type="Cuello" id="Cuello" name="Cuello">
+                <input type="Cuello" id="Cuello" @bind-value="emergencia.Cuello" name="Cuello">
             </div>
             <div style="display: flex;">
                 <label for="Torax">Torax</label>
-                <input type="Torax" id="Torax" name="Torax">
+                <input type="Torax" id="Torax" @bind-value="emergencia.Torax" name="Torax">
             </div>
             <div style="display: flex;">
                 <label for="Pulmones">Pulmones</label>
-                <input type="Pulmones" id="Pulmones" name="Pulmones">
+                <input type="Pulmones" id="Pulmones" @bind-value="emergencia.Pulmones" name="Pulmones">
             </div>
             <div style="display: flex;">
                 <label for="Corazon">Corazon</label>
-                <input type="Corazon" id="Corazon" name="Corazon">
+                <input type="Corazon" id="Corazon" @bind-value="emergencia.Corazon" name="Corazon">
             </div>
             <div style="display: flex;">
                 <label for="Abdomen">Abdomen</label>
-                <input type="Abdomen" id="Abdomen" name="Abdomen">
+                <input type="Abdomen" id="Abdomen" @bind-value="emergencia.Abdomen" name="Abdomen">
             </div>
             <div style="display: flex;">
                 <label for="E_Inferiores">Extreminades Inferiores</label>
-                <input type="E_Inferiores" id="E_Inferiores" name="E_Inferiores">
+                <input type="E_Inferiores" id="E_Inferiores" @bind-value="emergencia.E_Inferiores" name="E_Inferiores">
             </div>
             <div style="display: flex;">
                 <label for="E_Superiores">Extreminades Superiores</label>
-                <input type="E_Superiores" id="E_Superiores" name="E_Superiores">
+                <input type="E_Superiores" id="E_Superiores" @bind-value="emergencia.E_Superiores" name="E_Superiores">
             </div>
             <div style="display: flex;">
                 <label for="Diagnostico">Diagnostico</label>
-                <input type="Diagnostico" id="Diagnostico" name="Diagnostico">
+                <input type="Diagnostico" id="Diagnostico" @bind-value="emergencia.Diagnostico" name="Diagnostico">
             </div>
         </div>
         <hr>
@@ -168,27 +167,27 @@
             <label>Laboratorios</label>
             <br>
             <label for="Hemograma">Hemograma:</label>
-            <input type="Hemograma" id="Hemograma" name="Hemograma">
+            <input type="Hemograma" id="Hemograma" @bind-value="emergencia.Hemogramas" name="Hemograma">
             <label for="Ex_Orina">Ex.Orina:</label>
-            <input type="Ex_Orina" id="Ex_Orina" name="Ex_Orina">
+            <input type="Ex_Orina" id="Ex_Orina" @bind-value="emergencia.Ex_Orina" name="Ex_Orina">
             <label for="Glisemia">Glisemia:</label>
-            <input type="Glisemia" id="Glisemia" name="Glisemia">
+            <input type="Glisemia" id="Glisemia"@bind-value="emergencia.Glisemia" name="Glisemia">
             <label for="Coprologico">Coprologico:</label>
-            <input type="Coprologico" id="Coprologico" name="Coprologico">
+            <input type="Coprologico" id="Coprologico" @bind-value="emergencia.Coprologico" name="Coprologico">
         </div>
         <br>
         <div class="Entrada" style="display: flex; align-items: center;">
             <label for="Imagenes">Imagenes:</label>
-            <input type="Imagenes" id="Imagenes" name="Imagenes">
+            <input type="Imagenes" id="Imagenes"@bind-value="emergencia.Imagenes" name="Imagenes">
 
             <label for="Especificacion">Especfique</label>
-            <textarea type="Especificacion" id="Especificacion" name="Especificacion"></textarea>
+            <textarea type="Especificacion" id="Especificacion"@bind="emergencia.Especifique" name="Especificacion"></textarea>
         </div>
     </div>
     <br>
     <div class="Entrada " style="display:flex;">
         <label for="TyM">Tratamientos y Medicamentos:</label>
-        <textarea type="TyM" id="TyM" style="width: 100%;" name="TyM"></textarea>
+        <textarea type="TyM" id="TyM" style="width: 100%;" @bind="emergencia.TyM" name="TyM"></textarea>
     </div>
     <center>
         <button type="button" class="btn btn-primary"

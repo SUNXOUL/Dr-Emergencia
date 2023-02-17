@@ -14,9 +14,9 @@ builder.Services.AddScoped<EmergenciaABLL>();
 
 builder.Services.AddScoped<PacienteBLL>();
 
-builder.Services.AddScoped<DetalleEmergencia>();
+builder.Services.AddScoped<DetalleEmergenciaBLL>();
 
-builder.Services.AddScoped<DetalleEmergenciaA>();
+builder.Services.AddScoped<DetalleEmergenciaABLL>();
 
 // Add services to the container.
 builder.Services.AddRazorPages();

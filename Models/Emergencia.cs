@@ -20,7 +20,7 @@ namespace DrEmergencias
         public int? TA { get; set; }
         public int? FC { get; set; }
         public int? FR { get; set; }
-    
+        public int? Temperatura {get;set;}
         public string? Diagnostico { get; set; }
         public int? Hemogramas { get; set; }
         public int? Ex_Orina { get; set; }
