@@ -80,41 +80,41 @@
 
         <div class="Entrada">
         <label for="F_Nacimiento" >Fecha de Nacimiento:</label>
-        <input type="F_Nacimiento"  id="F_Nacimiento"  name="F_Nacimiento">
+        <input type="F_Nacimiento" @bind-value="paciente.FechadeNacimiento" id="F_Nacimiento"  name="F_Nacimiento">
         </div>
         <br>
         <div class="Entrada">
         <label for="Cedula" >Cedula:</label>
-        <input type="Cedula"  id="Cedula"  name="Cedula">
+        <input type="Cedula"  id="Cedula" @bind-value="paciente.Cedula"  name="Cedula">
         </div>
 
         <div class="Entrada">
         <label for="O_Laboral" >Ocupacion Laboral:</label>
-        <input type="O_Laboral"  id="O_Laboral"  name="O_Laboral">
+        <input type="O_Laboral"  id="O_Laboral" @bind-value="paciente.Ocupacion" name="O_Laboral">
         </div>
 
         <hr>
         <span style="color: rgb(103, 100, 100);">En caso de ser menor</span><br>
         <div class="Entrada">
         <label for="N_Tutor" >Nombre Tutor:</label>
-        <input type="N_Tutor"  id="N_Tutor"  name="N_Tutor">
+        <input type="N_Tutor"  id="N_Tutor" @bind-value="paciente.Tutor" name="N_Tutor">
         </div>
 
         <div class="Entrada">
         <label for="C_Tutor" >Cedula Tutor:</label>
-        <input type="C_Tutor"  id="C_Tutor"  name="C_Tutor">
+        <input type="C_Tutor"  id="C_Tutor" @bind-value="paciente.CedulaTutor" name="C_Tutor">
         </div>
 
         <hr>
         
         <div class="Entrada">
         <label for="Alergias" >Alergias:</label>
-        <input type="Alergias"  id="Alergias"  name="Alergias">
+        <input type="Alergias"  id="Alergias" @bind-value="paciente.Alergia" name="Alergias">
         </div>
 
         <div class="Entrada">
         <label for="Telefono" >Telefono:</label>
-        <input type="Telefono"  id="Telefono"  name="Telefono">
+        <input type="Telefono"  id="Telefono"  @bind-value="paciente.Telefono" name="Telefono">
         </div>
 
         <div class="Entrada">

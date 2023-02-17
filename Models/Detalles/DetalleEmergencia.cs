@@ -19,6 +19,7 @@ namespace DrEmergencias
         public Sexo Sexo { get; set; }
 
         public string Cedula { get; set; }
+        public string CedulaTutor { get; set; }
         public DateTime? Fecha { get; set; }
         public string Medico { get;set; }
         

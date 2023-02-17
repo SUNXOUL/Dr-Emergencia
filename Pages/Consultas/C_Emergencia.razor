@@ -1,8 +1,8 @@
-﻿@page "/C_DetallesEmergencias"
+﻿@page "/C_Emergencia"
 
 
 
-@inject DetalleEmergenciaBLL DetalleEmergencia
+@inject DetalleEmergenciaBLL DetallesEmergencias
 
 
 <head>
@@ -52,7 +52,7 @@
 
     <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false"
         FilterMode="FilterMode.Advanced" AllowGrouping="true" AllowSorting="true" AllowPaging="true"
-        PagerHorizontalAlign="HorizontalAlign.Left" Data="DetalleEmergencia.GetList()" TItem="DetalleEmergencia" ColumnWidth="300px"
+        PagerHorizontalAlign="HorizontalAlign.Left" Data="DetallesEmergencias.GetList()" TItem="DetalleEmergencia" ColumnWidth="200px"
         LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
 
         <Columns>
@@ -67,9 +67,9 @@
             <RadzenDataGridColumn TItem="DetalleEmergencia" Property="SegundoApellido" Title="Segundo Apellido" />
             <RadzenDataGridColumn TItem="DetalleEmergencia" Property="Sexo" Title="Sexo" />
             <RadzenDataGridColumn TItem="DetalleEmergencia" Property="Cedula" Title="Cedula" />
-            <RadzenDataGridColumn TItem="DetalleEmergencia" Property="Ocupacion" Title="Ocupacion" />
-            <RadzenDataGridColumn TItem="DetalleEmergencia" Property="Tutor" Title="Tutor" />
             <RadzenDataGridColumn TItem="DetalleEmergencia" Property="CedulaTutor" Title="Cedula Tutor" />
+            <RadzenDataGridColumn TItem="DetalleEmergencia" Property="Fecha" Title="Fecha" />
+            <RadzenDataGridColumn TItem="DetalleEmergencia" Property="Medico" Title="Medico" />
 
         </Columns>
 
