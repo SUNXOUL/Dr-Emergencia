@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+
 namespace DrEmergencias
 {
     public class PacienteBLL
@@ -18,9 +19,9 @@ namespace DrEmergencias
             return Modificar(Paciente);
     }
 
-    public bool Existe(int PacienteID)
+    public bool Existe(int PacienteId)
     {
-        return _contexto.Paciente.Any(o => o.PacienteID == PacienteID);
+        return _contexto.Paciente.Any(o => o.PacienteID== PacienteId);
     }
 
     private bool Insertar(Paciente Paciente)
@@ -30,29 +31,31 @@ namespace DrEmergencias
         return cantidad > 0;
     }
 
-    private bool Modificar(Paciente Paciente)
+    public bool Modificar(Paciente Paciente)
     {
         _contexto.Entry(Paciente).State = EntityState.Modified;
         int cantidad = _contexto.SaveChanges();
+        _contexto.Entry(Paciente).State = EntityState.Detached;
         return cantidad > 0;
     }
     
-    public List<Paciente> GetPaciente()
+    public List<Paciente> GetPacientesDetalles()
     {
         return _contexto.Paciente.ToList();
     }
 
         public bool Eliminar(Paciente Paciente)
         {
-            Console.WriteLine("eliminado");
             _contexto.Entry(Paciente).State=EntityState.Deleted;
+            _contexto.Database.ExecuteSqlRaw($"DELETE FROM Paciente WHERE PacienteID={Paciente.PacienteID};");
+            _contexto.Entry(Paciente).State = EntityState.Detached;
             return _contexto.SaveChanges()>0;
         }   
 
         public Paciente? Buscar(int PacienteID)
         {
             return _contexto.Paciente
-                    .Where(o => o.PacienteID==PacienteID).AsNoTracking().SingleOrDefault();
+                    .Where(o => o.PacienteID==PacienteID ).AsNoTracking().SingleOrDefault();
                     
         }
         public List<Paciente> GetList()

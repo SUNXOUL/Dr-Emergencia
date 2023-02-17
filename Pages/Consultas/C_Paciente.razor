@@ -50,6 +50,11 @@
     Data="Paciente.GetList()" TItem="Paciente" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
 
         <Columns>
+                    <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Paciente" Frozen="true" Title="Acciones">
+                <Template Context="Item">
+                    <RadzenLink Path=@($"V_Emergencia/{Item.PacienteID}") Text="Ver" />
+                </Template>
+                    </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Paciente" Property="PrimerNombre" Title="Primer nombre" />
             <RadzenDataGridColumn TItem="Paciente" Property="SegundoNombre" Title="Segundo Nombre" />
             <RadzenDataGridColumn TItem="Paciente" Property="PrimerApellido" Title="Primer Apellido" />

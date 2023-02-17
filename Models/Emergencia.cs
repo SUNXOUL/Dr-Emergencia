@@ -11,7 +11,6 @@ namespace DrEmergencias
         public List<Paciente?> Paciente { get; set; } = new List<Paciente?>();
 
         public DateTime? Fecha { get; set; }
-        public int? Hora { get; set; }
         public string? M_Consulta { get; set; }
         public string? Antecedentes { get; set; }
         public bool? AtencionesPrevias { get; set; }
@@ -31,7 +30,6 @@ namespace DrEmergencias
         public string? Especifique { get; set; }
         public string? TyM { get; set; }
 
-        public bool? Visible {get; set;}
-
+        
     }
 }

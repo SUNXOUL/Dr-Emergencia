@@ -28,6 +28,15 @@
         border-radius: 15px;
         width: 100%;
     }
+            .Entrada select {
+            width: 200px;
+            height: 35px;
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
         </style>
     </head>
 
@@ -58,8 +67,15 @@
         <br>
 
         <div class="Entrada">
-        <label for="Sexo" >Sexo:</label>
-        <input @bind-value="paciente.Sexo" type="Sexo"  id="Sexo"  name="Sexo">
+            <label >Sexo:</label>
+            <select id="Persona" name="Persona" @bind="paciente.Sexo">
+            @foreach(var item in Sexos)
+            {
+
+                <option value="@item"> @item</option>
+            }
+            
+        </select>
         </div>
 
         <div class="Entrada">
@@ -130,8 +146,9 @@
 
 
     public Paciente paciente {get; set;} = new Paciente();
-
-
+    List<Sexo> Sexos = Enum.GetValues(typeof(Sexo))
+                            .Cast<Sexo>()
+                            .ToList();
     protected override void OnInitialized(){
 
         paciente.PacienteID=0;

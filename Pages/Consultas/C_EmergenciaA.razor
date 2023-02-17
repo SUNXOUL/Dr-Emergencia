@@ -7,51 +7,59 @@
 
 <head>
     <style>
-        .hidden{
+        .hidden {
             display: none;
         }
 
-        .form-select{
+        .form-select {
             border: none;
             width: 150px;
         }
+
         .form-floating {
             width: 15%;
         }
-            .Entrada{
-        display: inline-block;
-        padding: 5px;
-        align-items: center;
-    }
-    .Entrada input{
-        border-radius: 50px;
-        background-color:#D9D9D9;
-        border-color: #D9D9D9;
-        border: 15px;
-        margin: 5px;
-    }
-    .Entrada label
-    {
-        margin: 5px;
-    }
-    .Entrada textarea{
-        background-color:#D9D9D9;
-        border-color: #D9D9D9;
-        border-radius: 15px;
-        width: 100%;
-    }
 
+        .Entrada {
+            display: inline-block;
+            padding: 5px;
+            align-items: center;
+        }
+
+        .Entrada input {
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+        .Entrada label {
+            margin: 5px;
+        }
+
+        .Entrada textarea {
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border-radius: 15px;
+            width: 100%;
+        }
     </style>
 </head>
 
 
 
-<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
-    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
-    Data="Paciente.GetList()" TItem="Paciente" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true"
-    >
-    
-        <Columns>
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false"
+    FilterMode="FilterMode.Advanced" AllowGrouping="true" AllowSorting="true" AllowPaging="true"
+    PagerHorizontalAlign="HorizontalAlign.Left" Data="Paciente.GetList()" TItem="Paciente" ColumnWidth="300px"
+    LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+    <Columns>
+        <RadzenDataGridColumn TItem="Paciente" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
+            <Template Context="Item">
+                <RadzenLink Path=@($"V_Emergencia/{Item.PacienteID}") Text="Ver" />
+            </Template>
+        </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Paciente" Property="PrimerNombre" Title="Primer nombre" />
             <RadzenDataGridColumn TItem="Paciente" Property="SegundoNombre" Title="Segundo Nombre" />
             <RadzenDataGridColumn TItem="Paciente" Property="PrimerApellido" Title="Primer Apellido" />
@@ -61,9 +69,9 @@
             <RadzenDataGridColumn TItem="Paciente" Property="Ocupacion" Title="Ocupacion" />
             <RadzenDataGridColumn TItem="Paciente" Property="Tutor" Title="Tutor" />
             <RadzenDataGridColumn TItem="Paciente" Property="CedulaTutor" Title="Cedula Tutor" />
-        </Columns>
+    </Columns>
 
-    </RadzenDataGrid>
+</RadzenDataGrid>
 
 @code {
 

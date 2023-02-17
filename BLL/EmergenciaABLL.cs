@@ -18,9 +18,9 @@ namespace DrEmergencias
             return Modificar(EmergenciaA);
     }
 
-    public bool Existe(int OrdenID)
+    public bool Existe(int EmergenciaAId)
     {
-        return _contexto.EmergenciaA.Any(o => o.OrdenID == OrdenID);
+        return _contexto.EmergenciaA.Any(o => o.OrdenID== EmergenciaAId);
     }
 
     private bool Insertar(EmergenciaA EmergenciaA)
@@ -30,29 +30,31 @@ namespace DrEmergencias
         return cantidad > 0;
     }
 
-    private bool Modificar(EmergenciaA EmergenciaA)
+    public bool Modificar(EmergenciaA EmergenciaA)
     {
         _contexto.Entry(EmergenciaA).State = EntityState.Modified;
         int cantidad = _contexto.SaveChanges();
+        _contexto.Entry(EmergenciaA).State = EntityState.Detached;
         return cantidad > 0;
     }
     
-    public List<EmergenciaA> GetEmergenciaA()
+    public List<EmergenciaA> GetEmergenciaAsDetalles()
     {
         return _contexto.EmergenciaA.ToList();
     }
 
         public bool Eliminar(EmergenciaA EmergenciaA)
         {
-            Console.WriteLine("eliminado");
             _contexto.Entry(EmergenciaA).State=EntityState.Deleted;
+            _contexto.Database.ExecuteSqlRaw($"DELETE FROM EmergenciaA WHERE OrdenID={EmergenciaA.OrdenID};");
+            _contexto.Entry(EmergenciaA).State = EntityState.Detached;
             return _contexto.SaveChanges()>0;
         }   
 
-        public EmergenciaA? Buscar(int OrdenID)
+        public EmergenciaA? Buscar(int EmergenciaAID)
         {
             return _contexto.EmergenciaA
-                    .Where(o => o.OrdenID==OrdenID).AsNoTracking().SingleOrDefault();
+                    .Where(o => o.OrdenID==EmergenciaAID ).AsNoTracking().SingleOrDefault();
                     
         }
         public List<EmergenciaA> GetList()
