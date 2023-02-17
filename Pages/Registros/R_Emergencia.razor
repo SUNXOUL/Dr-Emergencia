@@ -2,7 +2,7 @@
 
 
 @inject EmergenciaBLL emergenciaBll
-@inject PacienteBLL Paciente
+@inject PacienteBLL Pacientes
 
 
 <head>
@@ -63,7 +63,7 @@
                     <div>
                         <RadzenDropDown AllowClear="true" TValue="string"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
-                            class="w-100" Placeholder="Paciente" bind="Demergencia.PacienteID" Data="Paciente.GetList()"
+                            class="w-100" Placeholder="Paciente" bind="Demergencia.PacienteID" Data="Pacientes.GetList()"
                             TextProperty="Cedula" ValueProperty="PacienteID" />
                     </div>
 
@@ -173,6 +173,7 @@
 
     public Emergencia emergencia { get; set; } = new Emergencia();
     public DetalleEmergencia Demergencia { get; set; } = new DetalleEmergencia();
+    public Paciente? paciente = new Paciente();
 
     protected override void OnInitialized()
     {
@@ -205,8 +206,22 @@
 
     public void Guardar()
     {
+        paciente = Pacientes.Buscar(Demergencia.PacienteID);
+
+        Demergencia.OrdenID=emergencia.OrdenID;
+        Demergencia.PrimerNombre = paciente.PrimerNombre;
+        Demergencia.SegundoNombre=paciente.SegundoNombre;
+        Demergencia.PrimerApellido =paciente.PrimerApellido;
+        Demergencia.SegundoApellido =paciente.SegundoApellido;
+        Demergencia.Sexo =paciente.Sexo;
+        Demergencia.Cedula=paciente.Cedula;
+        Demergencia.CedulaTutor =paciente.CedulaTutor;
+        Demergencia.Fecha =emergencia.Fecha;
+
+
 
         emergenciaBll.Guardar(this.emergencia);
+
         Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
         this.Nuevo();
 

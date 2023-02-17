@@ -12,7 +12,7 @@
         padding: 5px;
         align-items: center;
     }
-    .Entrada label{
+    .Entrada input{
         border-radius: 50px;
         background-color:#D9D9D9;
         border-color: #D9D9D9;
@@ -29,6 +29,16 @@
         border-radius: 15px;
         width: 100%;
     }
+            .Entrada select {
+            width: 200px;
+            height: 35px;
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+       
     body
     {
         background-color: white;
@@ -41,89 +51,98 @@
 
         <EditForm model="Paciente">
 
-        <div class="Entrada">
+       <div class="Entrada">
         <label for="Nombre" >Nombre:</label>
-        <label @bind="paciente.PrimerNombre" type="Nombre"  id="Nombre"  name="Nombre"></label>
+        <input @bind-value="paciente.PrimerNombre" disabled type="Nombre"  id="Nombre"  name="Nombre">
         </div>
 
         <div class="Entrada">
         <label for="S_Nombre" >Segundo Nombre:</label>
-        <label @bind="paciente.SegundoNombre" type="S_Nombre"  id="S_Nombre"  name="S_Nombre"></label>
+        <input @bind-value="paciente.SegundoNombre"disabled type="S_Nombre"  id="S_Nombre"  name="S_Nombre">
         </div>
         <br>
         <div class="Entrada">
         <label for="P_Apellido" >Primer Apellido:</label>
-        <label @bind="paciente.PrimerApellido" type="P_Apellido"  id="P_Apellido"  name="P_Apellido"></label>
+        <input @bind-value="paciente.PrimerApellido"disabled type="P_Apellido"  id="P_Apellido"  name="P_Apellido">
         </div>
 
         <div class="Entrada">
         <label for="S_Apellido" >Segundo Apellido:</label>
-        <label @bind="paciente.SegundoApellido" type="S_Apellido"  id="S_Apellido"  name="S_Apellido"></label>
+        <input @bind-value="paciente.SegundoApellido" disabled type="S_Apellido"  id="S_Apellido"  name="S_Apellido">
         </div>
         <br>
 
         <div class="Entrada">
-        <label for="Sexo" >Sexo:</label>
-        <label @bind="paciente.sexo" type="Sexo"  id="Sexo"  name="Sexo"></label>
+            <label >Sexo:</label>
+            <select id="Persona" name="Persona" disabled @bind="paciente.Sexo">
+            @foreach(var item in Sexos)
+            {
+
+                <option value="@item"> @item</option>
+            }
+            
+        </select>
         </div>
 
         <div class="Entrada">
         <label for="F_Nacimiento" >Fecha de Nacimiento:</label>
-        <label @bind="paciente.FechaNacimiento"  type="F_Nacimiento"  id="F_Nacimiento"  name="F_Nacimiento"></label>
+        <input type="F_Nacimiento" @bind-value="paciente.FechadeNacimiento" disabled id="F_Nacimiento"  name="F_Nacimiento">
         </div>
         <br>
         <div class="Entrada">
         <label for="Cedula" >Cedula:</label>
-        <label @bind="paciente.Cedula"  type="Cedula"  id="Cedula"  name="Cedula"></label>
+        <input type="Cedula"  id="Cedula" @bind-value="paciente.Cedula" disabled  name="Cedula">
         </div>
 
         <div class="Entrada">
         <label for="O_Laboral" >Ocupacion Laboral:</label>
-        <label @bind="paciente.Ocupacion"  type="O_Laboral"  id="O_Laboral"  name="O_Laboral"></label>
+        <input type="O_Laboral"  id="O_Laboral" @bind-value="paciente.Ocupacion" disabled name="O_Laboral">
         </div>
 
         <hr>
         <span style="color: rgb(103, 100, 100);">En caso de ser menor</span><br>
         <div class="Entrada">
         <label for="N_Tutor" >Nombre Tutor:</label>
-        <label  @bind="paciente.NombreTutor" type="N_Tutor"  id="N_Tutor"  name="N_Tutor"></label>
+        <input type="N_Tutor"  id="N_Tutor" @bind-value="paciente.Tutor" disabled  name="N_Tutor">
         </div>
 
         <div class="Entrada">
         <label for="C_Tutor" >Cedula Tutor:</label>
-        <label @bind="paciente.CedulaTutor"  type="C_Tutor"  id="C_Tutor"  name="C_Tutor"></label>
+        <input type="C_Tutor"  id="C_Tutor" @bind-value="paciente.CedulaTutor" disabled name="C_Tutor">
         </div>
 
         <hr>
         
         <div class="Entrada">
         <label for="Alergias" >Alergias:</label>
-        <label @bind="paciente.Alergias" type="Alergias"  id="Alergias"  name="Alergias"></label>
+        <input type="Alergias"  id="Alergias" @bind-value="paciente.Alergia" disabled name="Alergias">
         </div>
 
         <div class="Entrada">
         <label for="Telefono" >Telefono:</label>
-        <label  @bind="paciente.Telefono" type="Telefono"  id="Telefono"  name="Telefono"></label>
+        <input type="Telefono"  id="Telefono"  @bind-value="paciente.Telefono" disabled name="Telefono">
         </div>
 
         <div class="Entrada">
         <label for="Direccion" >Direccion:</label>
-        <label @bind="paciente.Direccion" type="Direccion"  id="Direccion"  name="Direccion"></label>
+        <input @bind-value="paciente.Direccion" type="Direccion"  id="Direccion" disabled  name="Direccion">
         </div>
 
         <div class="Entrada">
         <label for="Provincia" >Provincia:</label>
-        <label @bind="paciente.Provincia" type="Provincia"  id="Provincia"  name="Provincia"></label>
+        <input @bind-value="paciente.Provincia" type="Provincia"  id="Provincia" disabled  name="Provincia">
         </div>
 
         <div class="Entrada">
         <label for="Municipio" >Municipio:</label>
-        <label @bind="paciente.Municipio" type="Municipio"  id="Municipio"  name="Municipio"></label>
+        <input @bind-value="paciente.Municipio" type="Municipio"  id="Municipio"  disabled name="Municipio">
         </div>
 
+
     <center>
-        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"@onclick ="Guardar">Editar</button>
-        <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"@onclick ="Guardar">Eliminar</button>
+       <a href="/E_Paciente/@paciente.PacienteID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
+        <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;">Eliminar</button>
+
     </center>
 
     </EditForm>
@@ -131,27 +150,29 @@
 </body>
 
 @code {
-
-
-
-
-    public Paciente paciente {get; set;} = new Paciente();
+    [Parameter]
     public int PacienteID{get;set;}
+    public Paciente paciente {get; set;} = new Paciente();
+        List<Sexo> Sexos = Enum.GetValues(typeof(Sexo))
+                            .Cast<Sexo>()
+                            .ToList();
+    public string Estado { get; set; } = null;
 
     protected override void OnInitialized(){
 
-        paciente.PacienteID=0;
+        paciente.PacienteID=PacienteID;
         Buscar();
     }
 
-     private void Buscar()
+    private void Buscar()
     {
         var pacienteEncontrado = Pacientes.Buscar(PacienteID);
         if(pacienteEncontrado != null)
         {
             Console.WriteLine($"Se encontro una ocupacion con el ID{this.paciente.PacienteID}");
             this.paciente = pacienteEncontrado;
-            
+            System.Console.WriteLine(paciente.PrimerNombre);
+            System.Console.WriteLine("Paso");
         }
         else
         {
@@ -159,6 +180,10 @@
             Console.WriteLine("Id no existente");
         }
         
+    }
+    public void chState()
+    {
+        Estado = "Disable";
     }
 
 

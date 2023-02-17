@@ -146,10 +146,10 @@
 
 </body>
 @code {
-
-
-    public Emergencia emergencia {get; set;} = new Emergencia();
+    [Parameter]
     public int OrdenID{get;set;}
+    public Emergencia emergencia {get; set;} = new Emergencia();
+
     protected override void OnInitialized(){
         if (OrdenID > 0)
         {

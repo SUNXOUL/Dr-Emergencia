@@ -198,9 +198,10 @@
 </body>
 
 @code {
-    
+    [Parameter]
+        public int OrdenID {get;set;}
+
     public EmergenciaA emergencia {get; set;} = new EmergenciaA();
-    public int OrdenID {get;set;}
 
     protected override void OnInitialized(){
         if (OrdenID > 0)
