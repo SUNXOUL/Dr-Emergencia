@@ -1,6 +1,7 @@
 ﻿@page "/R_EmergenciaA"
-
+<h1>Nueva Emergencia Asegurada</h1>
 @inject EmergenciaABLL EmergenciaA
+@inject PacienteBLL Paciente
 
 <head>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -52,20 +53,28 @@
 
     <div class="Form">
 
-        <div style="justify-content: space-between; display: inline-flex;; width:100%;">
-            <h1>Nueva Emergencia</h1>
             <div>
-                <div class="Entrada">
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" id="fecha"  @bind-value="emergencia.Fecha" name="fecha">
-                </div>
+                <br>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <RadzenDropDown AllowClear="true" TValue="string"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+                            class="w-100" Placeholder="Paciente" bind="Demergencia.PacienteID" Data="Paciente.GetList()" TextProperty="Cedula"
+                            ValueProperty="PacienteID" />
+                    </div>
 
-                <div class="Entrada">
-                    <label for="Hora">Hora:</label>
-                    <input type="Hora" id="Hora"@bind-value="emergencia.Hora" name="Hora">
+                    <div>
+                        <div class="Entrada">
+                            <label for="fecha">Fecha:</label>
+                            <input type="date" class="form-control" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" @bind="emergencia.Fecha" id="fecha" name="fecha">
+                        </div>
+                        <div class="Entrada">
+                            <label for="Hora">Hora:</label>
+                            <input type="Hora" id="Hora" @bind="emergencia.Hora" name="Hora">
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
 
     </div>
 
@@ -193,7 +202,7 @@
         <button type="button" class="btn btn-primary"
             style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</button>
     </center>
-
+    </div>
 
 
 
@@ -201,7 +210,7 @@
 @code {
     
     public EmergenciaA emergencia {get; set;} = new EmergenciaA();
-
+    public DetalleEmergenciaA Demergencia { get; set; } = new DetalleEmergenciaA();
 
     protected override void OnInitialized(){
 

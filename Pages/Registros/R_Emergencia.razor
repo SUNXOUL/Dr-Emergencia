@@ -2,6 +2,8 @@
 
 
 @inject EmergenciaBLL emergenciaBll
+@inject PacienteBLL Paciente
+
 
 <head>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -37,6 +39,7 @@
 
         #Hallazgos input {
             width: 100%;
+
         }
     </style>
 
@@ -52,36 +55,50 @@
 
     <div class="Form" style="z-index: 1;">
 
-        <div style="justify-content: space-between; display: inline-flex;; width:100%;">
+        <div style=" width:100%;">
             <h1>Nueva Emergencia</h1>
             <div>
-                <div class="Entrada">
-                    <label for="fecha">Fecha:</label>
-                    <input type="date" class="form-control" aria-label="Recipient's username"
-                        aria-describedby="basic-addon2" id="fecha" name="fecha">
+                <br>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <RadzenDropDown AllowClear="true" TValue="string"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+                            class="w-100" Placeholder="Paciente" bind="Demergencia.PacienteID" Data="Paciente.GetList()"
+                            TextProperty="Cedula" ValueProperty="PacienteID" />
+                    </div>
+
+                    <div>
+                        <div class="Entrada">
+                            <label for="fecha">Fecha:</label>
+                            <input type="date" class="form-control" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" @bind="emergencia.Fecha" id="fecha" name="fecha">
+                        </div>
+                        <div class="Entrada">
+                            <label for="Hora">Hora:</label>
+                            <input type="Hora" id="Hora" name="Hora">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="Entrada">
-                    <label for="Hora">Hora:</label>
-                    <input type="Hora" id="Hora" name="Hora">
-                </div>
+
             </div>
         </div>
 
         <br>
         <div class="Entrada">
             <label for="M_Consulta">Motivo de Consulta:</label>
-            <input @bind-value="emergencia.M_Consulta" type="M_Consulta" id="M_Consulta" name="M_Consulta">
+            <input @bind-value="emergencia.M_Consulta" type="M_Consulta" id="M  _Consulta" name="M_Consulta">
         </div>
 
         <div class="Entrada">
             <label for="A_Relacionados">Antecedentes Relacionados:</label>
-            <input type="A_Relacionados" @bind-value="emergencia.Antecedentes" id="A_Relacionados" name="A_Relacionados">
+            <input type="A_Relacionados" @bind-value="emergencia.Antecedentes" id="A_Relacionados"
+                name="A_Relacionados">
         </div>
         <br>
         <div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <input type="A_Previas"@bind-value="emergencia.AtencionesPrevias" id="A_Previas" name="A_Previas">
+            <input type="A_Previas" @bind-value="emergencia.AtencionesPrevias" id="A_Previas" name="A_Previas">
         </div>
 
         <div class="Entrada">
@@ -116,7 +133,7 @@
             <label for="Hemograma">Hemograma:</label>
             <input type="Hemograma" @bind-value="emergencia.Hemogramas" id="Hemograma" name="Hemograma">
             <label for="Ex_Orina">Ex.Orina:</label>
-            <input type="Ex_Orina" id="Ex_Orina"@bind-value="emergencia.Ex_Orina" name="Ex_Orina">
+            <input type="Ex_Orina" id="Ex_Orina" @bind-value="emergencia.Ex_Orina" name="Ex_Orina">
             <label for="Glisemia">Glisemia:</label>
             <input type="Glisemia" id="Glisemia" @bind-value="emergencia.Glisemia" name="Glisemia">
             <label for="Coprologico">Coprologico:</label>
@@ -128,12 +145,14 @@
             <input type="Imagenes" id="Imagenes" @bind-value="emergencia.Imagenes" name="Imagenes">
 
             <label for="Especificacion">Especfique</label>
-            <textarea type="Especificacion" id="Especificacion" @bind="emergencia.Especifique" name="Especificacion"></textarea>
+            <textarea type="Especificacion" id="Especificacion" @bind="emergencia.Especifique"
+                name="Especificacion"></textarea>
         </div>
     </div>
     <div class="Entrada" style="display: flex;">
         <label for="Diagnostico">Diagnostico</label>
-        <input type="Diagnostico" id="Diagnostico" style="width: 100%;" @bind-value="emergencia.Diagnostico" name="Diagnostico">
+        <input type="Diagnostico" id="Diagnostico" style="width: 100%;" @bind-value="emergencia.Diagnostico"
+            name="Diagnostico">
     </div>
     <div class="Entrada " style="display:flex;">
         <label for="TyM">Tratamientos y Medicamentos:</label>
@@ -153,6 +172,7 @@
 
 
     public Emergencia emergencia { get; set; } = new Emergencia();
+    public DetalleEmergencia Demergencia { get; set; } = new DetalleEmergencia();
 
     protected override void OnInitialized()
     {
