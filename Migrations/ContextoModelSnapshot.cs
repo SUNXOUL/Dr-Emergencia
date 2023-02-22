@@ -15,7 +15,7 @@ namespace DrEmergencias.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.3");
 
             modelBuilder.Entity("DrEmergencias.DetalleEmergencia", b =>
                 {
@@ -24,18 +24,15 @@ namespace DrEmergencias.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Cedula")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("CedulaTutor")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("Fecha")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Medico")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OrdenID")
@@ -45,22 +42,18 @@ namespace DrEmergencias.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PrimerApellido")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimerNombre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SegundoApellido")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SegundoNombre")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Sexo")
+                    b.Property<int?>("Sexo")
                         .HasColumnType("INTEGER");
 
                     b.Property<bool?>("Visible")
@@ -323,7 +316,7 @@ namespace DrEmergencias.Migrations
                     b.Property<string>("Direccion")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Edad")
+                    b.Property<int>("Edad")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("EmergenciaAOrdenID")
@@ -332,7 +325,7 @@ namespace DrEmergencias.Migrations
                     b.Property<int?>("EmergenciaOrdenID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime?>("FechadeNacimiento")
+                    b.Property<DateTime>("FechadeNacimiento")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Municipio")
@@ -342,21 +335,25 @@ namespace DrEmergencias.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimerApellido")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("PrimerNombre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("Provincia")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SegundoApellido")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SegundoNombre")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("Sexo")
+                    b.Property<int>("Sexo")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Telefono")
