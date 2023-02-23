@@ -1,6 +1,7 @@
 ﻿@page "/V_Paciente"
 @page "/V_Paciente/{PacienteID:int}"
 
+@inject NotificationService notificationService
 @inject PacienteBLL Pacientes
 
 
@@ -38,7 +39,7 @@
             border: 15px;
             margin: 5px;
         }
-       
+    
     body
     {
         background-color: white;
@@ -51,7 +52,7 @@
 
         <EditForm model="Paciente">
 
-       <div class="Entrada">
+        <div class="Entrada">
         <label for="Nombre" >Nombre:</label>
         <input @bind-value="paciente.PrimerNombre" disabled type="Nombre"  id="Nombre"  name="Nombre">
         </div>
@@ -140,8 +141,8 @@
 
 
     <center>
-       <a href="/E_Paciente/@paciente.PacienteID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
-        <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;">Eliminar</button>
+        <a href="/E_Paciente/@paciente.PacienteID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
+        <a href="/"><button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button></a>
 
     </center>
 
@@ -156,86 +157,36 @@
         List<Sexo> Sexos = Enum.GetValues(typeof(Sexo))
                             .Cast<Sexo>()
                             .ToList();
-    public string Estado { get; set; } = null;
+ 
 
     protected override void OnInitialized(){
+        if(PacienteID>0){
 
-        paciente.PacienteID=PacienteID;
-        Buscar();
+            
+            Buscar();
+        }
     }
 
     private void Buscar()
     {
-        var pacienteEncontrado = Pacientes.Buscar(PacienteID);
+        Paciente? pacienteEncontrado = Pacientes.Buscar(this.PacienteID);
         if(pacienteEncontrado != null)
         {
-            Console.WriteLine($"Se encontro una ocupacion con el ID{this.paciente.PacienteID}");
+            Console.WriteLine($"Se encontro una ocupacion con el ID {this.paciente.PacienteID}");
             this.paciente = pacienteEncontrado;
             System.Console.WriteLine(paciente.PrimerNombre);
-            System.Console.WriteLine("Paso");
-        }
-        else
-        {
-            Nuevo();
-            Console.WriteLine("Id no existente");
         }
         
     }
     public void chState()
     {
-        Estado = "Disable";
-    }
-
-
-    public void Nuevo(){
-        this.paciente = new Paciente();
-    }
-
-    public void Guardar(){
-
-        Pacientes.Guardar(this.paciente);
-        Console.WriteLine($"Se guardo en el {this.paciente.PacienteID}");
-        this.Nuevo();
-        
-        
-        //Console.WriteLine("Campos no validos o no completados");
-    }
-    
-
-
-
-    public void eliminar(){
-
-       
-        
-    bool RES = Pacientes.Eliminar(this.paciente);
-
-    if(RES == false){
-        Console.WriteLine("Eliminado Correctamente");
-        Nuevo();
-    }
-    else{
-       Console.WriteLine("No se borro nada");
-    }
-            
-            
-
-        
-       
-        
-    //Nuevo();
-    //Console.WriteLine("Id no valido");
-            
-        
-        
-        
-      
-       
-       
-        
-        
         
     }
-
-
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+    public void Eliminar(){
+        ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Registro Actualizado", Detail = "Eliminado con Exito", Duration = 4000 });
+    }
 }

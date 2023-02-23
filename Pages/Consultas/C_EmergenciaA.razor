@@ -3,7 +3,7 @@
 
 @inject EmergenciaABLL EmergenciaA
 @inject PacienteBLL Paciente
-@inject DetalleEmergenciaABLL DetallesEmergencias
+
 
 <head>
     <style>
@@ -51,26 +51,20 @@
 
     <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false"
         FilterMode="FilterMode.Advanced" AllowGrouping="true" AllowSorting="true" AllowPaging="true"
-        PagerHorizontalAlign="HorizontalAlign.Left" Data="@DetallesEmergencias.GetList()" TItem="DetalleEmergenciaA" ColumnWidth="200px"
+        PagerHorizontalAlign="HorizontalAlign.Left" Data="@EmergenciaA.GetList()" TItem="EmergenciaA" ColumnWidth="200px"
         LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
 
         <Columns>
-            <RadzenDataGridColumn TItem="DetalleEmergencia" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
+            <RadzenDataGridColumn TItem="EmergenciaA" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
                 <Template Context="Item">
-                    <RadzenLink Path=@($"V_DetallesEmergenciasA/{Item.OrdenID}") Text="Ver" />
+                    <RadzenLink Path=@($"V_EmergenciasA/{Item.OrdenID}") Text="Ver" />
                 </Template>
             </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="PrimerNombre" Title="Primer nombre" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="SegundoNombre" Title="Segundo Nombre" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="PrimerApellido" Title="Primer Apellido" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="SegundoApellido" Title="Segundo Apellido" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="Sexo" Title="Sexo" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="Cedula" Title="Cedula" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="Tutor" Title="Tutor" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="CedulaTutor" Title="Cedula Tutor" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="Fecha" Title="Fecha" />
-            <RadzenDataGridColumn TItem="DetalleEmergenciaA" Property="Medico" Title="Medico" />
-
+            <RadzenDataGridColumn TItem="EmergenciaA" Property="OrdenID" Title="#ID" />
+            <RadzenDataGridColumn TItem="EmergenciaA" Property="M_Consulta" Title="Motivo consulta" />
+            <RadzenDataGridColumn TItem="EmergenciaA" Property="Fecha" Title="Fecha" />
+            <RadzenDataGridColumn TItem="EmergenciaA" Property="MedicoBase" Title="Medico Base" />
+            <RadzenDataGridColumn TItem="EmergenciaA" Property="Diagnostico" Title="Diagnostico" />
         </Columns>
 
     </RadzenDataGrid>

@@ -2,7 +2,7 @@
 @page "/E_Paciente/{PacienteID:int}"
 
 @inject PacienteBLL pacienteBll
-
+@inject NotificationService notificationService
 
 
 <head>
@@ -162,7 +162,10 @@
     .ToList();
     public Paciente paciente { get; set; } = new Paciente();
 
-
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
     protected override void OnInitialized()
     {
 
@@ -195,12 +198,13 @@
     public void Guardar()
     {
 
-        pacienteBll.Guardar(this.paciente);
-        Console.WriteLine($"Se guardo en el {this.paciente.PacienteID}");
-        this.Nuevo();
+        if(pacienteBll.Guardar(this.paciente))
+        {
+            Console.WriteLine($"{this.paciente.PrimerNombre} Se guardo en el {this.paciente.PacienteID}");
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Registro Actualizado", Detail = "Modificado con Exito", Duration = 4000 });
+        }
 
-
-        //Console.WriteLine("Campos no validos o no completados");
     }
 
 

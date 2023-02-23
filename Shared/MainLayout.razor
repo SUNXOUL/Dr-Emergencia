@@ -1,17 +1,18 @@
 ﻿@inherits LayoutComponentBase
+@using DrEmergencias
+@using Radzen.Blazor
+
 <PageTitle>Dr Emergencias</PageTitle>
 
 <head>
-    <style>
-        body{
-        
-        }
-    </style>
-
     <link rel="shortcut icon" href="https://blogger.googleusercontent.com/img/a/AVvXsEgyC5BC69l2F5UDicjJ_VrOsI7y6N-lO33wuvTCnSBRwfbVqGUFMudClSrFuDDl0p6bzVqtmNUVJ5kOqgDBRUB_1jVMn1cojzv8DMNQ0fEo402OTig6mhWTRDdw9qMtXHCZX6PKrjs1RZumAJ2vi_ALWeX4WPcmBw7dXl21zhOs1TUqiSZ6t3n4luOG">
 </head>
 
+
+<RadzenNotification></RadzenNotification>
+
 <RadzenLayout style="height: 100vh">
+    
     <RadzenHeader class="rz-background-color-secondary-light" style="display: flex; justify-content: space-between; border:none;">
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" class="rz-background-color-secondary-light" Gap="0">
             <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)"   style= "border:none;  border-top-right-radius: 25px; border-bottom-right-radius: 25px;"/>

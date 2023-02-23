@@ -10,10 +10,9 @@ namespace DrEmergencias
         //    [ForeignKey("OrdenID")]
         public List<Paciente>? Paciente { get; set; } = new List<Paciente>();
 
-        public ARS? ARS { get; set; }
+        public string? ARS { get; set; }
         public int? NSS { get; set; }
         public DateTime? Fecha { get; set; }
-        public int? Hora { get; set; }
         public String? M_Consulta { get; set; }
         public String? Antecedentes { get; set; }
         public bool? AtencionesPrevias { get; set; }

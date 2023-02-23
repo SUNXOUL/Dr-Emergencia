@@ -1,8 +1,8 @@
 ﻿@page "/R_Emergencia"
-
-
+<h1>Nueva Emergencia</h1>
+@inject NotificationService notificationService
 @inject EmergenciaBLL emergenciaBll
-@inject PacienteBLL Pacientes
+@inject PacienteBLL Paciente
 
 
 <head>
@@ -55,108 +55,122 @@
 
     <div class="Form" style="z-index: 1;">
 
-        <div style=" width:100%;">
-            <h1>Nueva Emergencia</h1>
-            <div>
+           <div>
                 <br>
                 <div style="display: flex; justify-content: space-between;">
                     <div>
+                        
                         <RadzenDropDown AllowClear="true" TValue="string"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
-                            class="w-100" Placeholder="Paciente"  Data="Pacientes.GetList()"
-                            TextProperty="Cedula" ValueProperty="PacienteID" />
+                            class="w-100" Placeholder="Paciente"  Data="Paciente.GetList()" TextProperty="Cedula"
+                            ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
+                            />
+                            
                     </div>
 
-                    <div>
-                        <div class="Entrada">
-                            <label for="fecha">Fecha:</label>
-                            <input type="date" class="form-control" aria-label="Recipient's username"
-                                aria-describedby="basic-addon2" @bind="emergencia.Fecha" id="fecha" name="fecha">
-                        </div>
-                        <div class="Entrada">
-                            <label for="Hora">Hora:</label>
-                            <input type="Hora" id="Hora" name="Hora">
+                    <div style="display: flex;">
+                        <div class="Entrada" style="display: flex;">
+                            <RadzenLabel >Fecha</RadzenLabel>
+                            <RadzenDatePicker @bind-Value=@emergencia.Fecha ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" />
                         </div>
                     </div>
                 </div>
 
+    </div>
 
-            </div>
-        </div>
+    <div>
 
         <br>
         <div class="Entrada">
             <label for="M_Consulta">Motivo de Consulta:</label>
-            <input @bind-value="emergencia.M_Consulta" type="M_Consulta" id="M  _Consulta" name="M_Consulta">
+            <RadzenTextBox type="M_Consulta" id="M_Consulta" @bind-Value="emergencia.M_Consulta" name="M_Consulta"/>
         </div>
 
         <div class="Entrada">
             <label for="A_Relacionados">Antecedentes Relacionados:</label>
-            <input type="A_Relacionados" @bind-value="emergencia.Antecedentes" id="A_Relacionados"
-                name="A_Relacionados">
+            <RadzenTextBox type="A_Relacionados" id="A_Relacionados" @bind-Value="emergencia.Antecedentes" name="A_Relacionados"/>
         </div>
         <br>
         <div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <input type="A_Previas" @bind-value="emergencia.AtencionesPrevias" id="A_Previas" name="A_Previas">
+            <RadzenTextBox type="A_Previas" id="A_Previas" name="A_Previas"/>
         </div>
 
         <div class="Entrada">
             <label for="Donde">Donde?</label>
-            <input type="Donde" @bind-value="emergencia.Donde" id="Donde" name="Donde">
+            <RadzenTextBox type="Donde" id="Donde" @bind-Value="emergencia.Donde" name="Donde"/>
         </div>
 
         <div class="Entrada">
             <label for="M_Base">Medico Base:</label>
-            <input type="M_Base" @bind-value="emergencia.MedicoBase" id="M_Base" name="M_Base">
+            <RadzenTextBox type="M_Base" id="M_Base" @bind-Value="emergencia.MedicoBase" name="M_Base"/>
         </div>
 
         <div class="Entrada">
             <label for="Peso">Peso:</label>
-            <input type="Peso" id="Peso" @bind-value="emergencia.Peso" name="Peso">
+            <RadzenNumeric  id="Peso" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+             @bind-Value="emergencia.Peso" name="Peso"/>
             <label for="Peso">lbs</label>
         </div>
         <br>
         <div class="Entrada">
             <label>Signos Vitales</label>
             <label for="TA">TA:</label>
-            <input type="TA" id="TA" @bind-value="emergencia.TA" name="TA">
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.TA" name="TA"/>
             <label for="FC">FC:</label>
-            <input type="FC" id="FC" @bind-value="emergencia.FC" name="FC">
+            <RadzenNumeric  id="FR" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.FR" name="FR"/>
+            <label for="FR">FR</label>
+            <RadzenNumeric  id="FC" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.FC" name="FC"/>
             <label for="Temperatura">Temperatura:</label>
-            <input type="Temperatura" id="Temperatura" @bind-value="emergencia.Temperatura" name="Temperatura">
+            <RadzenNumeric  id="Temperatura" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.Temperatura" name="Temperatura"/>
             <label for="Temperatura">C</label>
         </div>
 
+
+        <hr>
+        <div class="Entrada" id="Hallazgos" style="width: 100%;;">
+            <label style="color: rgb(103, 100, 100);">Hallazgos Positivos en el examen fisico</label>
+            <div style="display: flex;">
+                <label for="Diagnostico">Diagnostico</label>
+                <RadzenTextArea style="width: 100%;"   id="Diagnostico" @bind-Value="emergencia.Diagnostico" name="Diagnostico"/>
+            </div>
+        </div>
+        <hr>
         <div class="Entrada" style="display: inline-block;">
             <label>Laboratorios</label>
+            <br>
             <label for="Hemograma">Hemograma:</label>
-            <input type="Hemograma" @bind-value="emergencia.Hemogramas" id="Hemograma" name="Hemograma">
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            id="Hemograma" @bind-Value="emergencia.Hemogramas" name="Hemograma"/>
             <label for="Ex_Orina">Ex.Orina:</label>
-            <input type="Ex_Orina" id="Ex_Orina" @bind-value="emergencia.Ex_Orina" name="Ex_Orina">
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            id="Ex_Orina" @bind-Value="emergencia.Ex_Orina" name="Ex_Orina"/>
             <label for="Glisemia">Glisemia:</label>
-            <input type="Glisemia" id="Glisemia" @bind-value="emergencia.Glisemia" name="Glisemia">
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            id="Glisemia"@bind-Value="emergencia.Glisemia" name="Glisemia"/>
             <label for="Coprologico">Coprologico:</label>
-            <input type="Coprologico" id="Coprologico" @bind-value="emergencia.Coprologico" name="Coprologico">
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            id="Coprologico" @bind-Value="emergencia.Coprologico" name="Coprologico"/>
         </div>
         <br>
         <div class="Entrada" style="display: flex; align-items: center;">
             <label for="Imagenes">Imagenes:</label>
-            <input type="Imagenes" id="Imagenes" @bind-value="emergencia.Imagenes" name="Imagenes">
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            id="Imagenes"@bind-Value="emergencia.Imagenes" name="Imagenes"/>
 
             <label for="Especificacion">Especfique</label>
-            <textarea type="Especificacion" id="Especificacion" @bind="emergencia.Especifique"
-                name="Especificacion"></textarea>
+            <RadzenTextArea  style="width: 100%;" type="number" id="Especificacion"@bind-Value="emergencia.Especifique" name="Especificacion"></RadzenTextArea>
         </div>
     </div>
-    <div class="Entrada" style="display: flex;">
-        <label for="Diagnostico">Diagnostico</label>
-        <input type="Diagnostico" id="Diagnostico" style="width: 100%;" @bind-value="emergencia.Diagnostico"
-            name="Diagnostico">
-    </div>
+    <br>
     <div class="Entrada " style="display:flex;">
         <label for="TyM">Tratamientos y Medicamentos:</label>
-        <textarea type="TyM" id="TyM" style="width: 100%;" @bind="emergencia.TyM" name="TyM"></textarea>
+        <RadzenTextArea  id="TyM" style="width: 100%;" @bind-Value="emergencia.TyM" name="TyM"></RadzenTextArea>
+    </div>
     </div>
     <center>
         <button type="button" class="btn btn-primary"
@@ -167,12 +181,10 @@
 
 
 
+
 </body>
 @code {
-
-
     public Emergencia emergencia { get; set; } = new Emergencia();
-    @* public DetalleEmergencia Demergencia { get; set; } = new DetalleEmergencia(); *@
     public Paciente? paciente = new Paciente();
 
     protected override void OnInitialized()
@@ -198,6 +210,10 @@
         }
     }
 
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
 
     public void Nuevo()
     {
@@ -206,14 +222,13 @@
 
     public void Guardar()
     {
-       
-        emergenciaBll.Guardar(this.emergencia);
+        if(emergenciaBll.Guardar(this.emergencia))
+        {
+            Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        }
 
-        Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
-        this.Nuevo();
-
-
-        //Console.WriteLine("Campos no validos o no completados");
     }
 
 
@@ -221,9 +236,6 @@
 
     public void eliminar()
     {
-
-
-
         bool RES = emergenciaBll.Eliminar(this.emergencia);
 
         if (RES == false)
@@ -235,10 +247,6 @@
         {
             Console.WriteLine("No se borro nada");
         }
-
-
-
-
     }
 
 

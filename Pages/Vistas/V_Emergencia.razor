@@ -1,9 +1,10 @@
 ﻿@page "/V_Emergencia"
 @page "/V_Emergencia/{OrdenID:int}"
+ <h1>Nueva Emergencia</h1>
 
-
-
+@inject NotificationService notificationService
 @inject EmergenciaBLL emergenciaBll
+@inject PacienteBLL Pacientes
 
 <head>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-bold-rounded/css/uicons-bold-rounded.css'>
@@ -51,94 +52,108 @@
         
     <div class="Form"  style="z-index: 1;">
     
-        <div style="justify-content: space-between; display: inline-flex;; width:100%;">
-        <h1>Nueva Emergencia</h1>
-            <div >
-    <div class="Entrada">
-        <label for="fecha" >Fecha:</label>
-        <label type="date" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2" id="fecha" name="fecha"></label>
-    </div>
+   
+        <div style=" width:100%;">
+            
+            <div>
+                <br>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <RadzenDropDown Disabled=true AllowClear="true" TValue="string"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+                            class="w-100" Placeholder="Paciente"  Data="Pacientes.GetList()"
+                            TextProperty="Cedula" ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
+                            />
+                    </div>
 
-    <div class="Entrada">
-        <label for="Hora">Hora:</label>
-        <label type="Hora"  id="Hora"  name="Hora"></label>
-    </div>
-    </div>
-    </div>
+                    <div style="display: flex;">
+                        <div class="Entrada" style="display: flex;">
+                            <RadzenLabel >Fecha</RadzenLabel>
+                            <RadzenDatePicker Disabled=true @bind-Value=@emergencia.Fecha ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" />
+                        </div>
+                    </div>
+                </div>
 
-    <br>
-    <div class="Entrada">
-        <label for="M_Consulta" >Motivo de Consulta:</label>
-        <label @bind="emergencia.M_Consulta"type="M_Consulta"  id="M_Consulta"   name="M_Consulta"></label>
-    </div>
 
-    <div class="Entrada">
-        <label for="A_Relacionados" >Antecedentes Relacionados:</label>
-        <label type="A_Relacionados"  id="A_Relacionados"   name="A_Relacionados"></label>
-    </div>
-    <br>
-    <div class="Entrada">
-        <label for="A_Previas" >Atenciones Previas:</label>
-        <label type="A_Previas"  id="A_Previas"   name="A_Previas"></label>
-    </div>
+            </div>
+        </div>
 
-    <div class="Entrada">
-        <label for="Donde" >Donde?</label>
-        <label type="Donde"  id="Donde"   name="Donde"></label>
-    </div>
+        <br>
+        <div class="Entrada">
+            <label for="M_Consulta">Motivo de Consulta:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.M_Consulta" name="M_Consulta"/>
+        </div>
 
-    <div class="Entrada">
-        <label for="M_Base" >Medico Base:</label>
-        <label type="M_Base"  id="M_Base"   name="M_Base"></label>
-    </div>
+        <div class="Entrada">
+            <label for="A_Relacionados">Antecedentes Relacionados:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Antecedentes" 
+                name="A_Relacionados"/>
+        </div>
+        <br>
+        <div class="Entrada">
+            <label for="A_Previas">Atenciones Previas:</label>
+            <RadzenTextBox  Disabled=true Bind="emergencia.AtencionesPrevias"  name="A_Previas"/>
+        </div>
 
-    <div class="Entrada">
-        <label for="Peso" >Peso:</label>
-        <label type="Peso"  id="Peso"   name="Peso"></label>
-        <label for="Peso" >lbs</label>
-    </div>
-    <br>
-    <div class="Entrada">
-        <label >Signos Vitales</label>
-        <label for="TA" >TA:</label>
-        <label type="TA"  id="TA"   name="TA"></label>
-        <label for="FC" >FC:</label>
-        <label type="FC"  id="FC"   name="FC"></label>
-        <label for="Temperatura" >Temperatura:</label>
-        <label type="Temperatura"  id="Temperatura"   name="Temperatura"></label>
-        <label for="Temperatura" >C</label>
-    </div>
+        <div class="Entrada">
+            <label for="Donde">Donde?</label>
+            <RadzenTextBox Disabled=true name="Donde"/>
+        </div>
 
-    <div class="Entrada" style="display: inline-block;">
-        <label >Laboratorios</label>
-        <label for="Hemograma" >Hemograma:</label>
-        <label type="Hemograma"  id="Hemograma"   name="Hemograma"></label>
-        <label for="Ex_Orina" >Ex.Orina:</label>
-        <label type="Ex_Orina"  id="Ex_Orina"   name="Ex_Orina"></label>
-        <label for="Glisemia" >Glisemia:</label>
-        <label type="Glisemia"  id="Glisemia"   name="Glisemia"></label>
-        <label for="Coprologico" >Coprologico:</label>
-        <label type="Coprologico"  id="Coprologico"   name="Coprologico"></label>
-    </div>
-    <br>
-    <div class="Entrada" style="display: flex; align-items: center;" >
-        <label for="Imagenes" >Imagenes:</label>
-        <label type="Imagenes"  id="Imagenes"   name="Imagenes"></label>
+        <div class="Entrada">
+            <label for="M_Base">Medico Base:</label>
+            <RadzenTextBox Disabled=true name="M_Base"/>
+        </div>
 
-        <label for="Especificacion" >Especfique</label>
-        <textarea type="Especificacion"  id="Especificacion"   name="Especificacion"></textarea>
+        <div class="Entrada">
+            <label for="Peso">Peso:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Peso" name="Peso"/>
+            <label for="Peso">lbs</label>
+        </div>
+        <br>
+        <div class="Entrada">
+            <label>Signos Vitales</label>
+            <label for="TA">TA:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.TA" name="TA"/>
+            <label for="FC">FC:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.FC" name="FC"/>
+            <label for="Temperatura">Temperatura:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Temperatura" name="Temperatura"/>
+            <label for="Temperatura">C</label>
+        </div>
+
+        <div class="Entrada" style="display: inline-block;">
+            <label>Laboratorios</label>
+            <label for="Hemograma">Hemograma:</label>
+            <RadzenTextBox Disabled=true  Bind="emergencia.Hemogramas"  name="Hemograma"/>
+            <label for="Ex_Orina">Ex.Orina:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Ex_Orina" name="Ex_Orina"/>
+            <label for="Glisemia">Glisemia:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Glisemia" name="Glisemia"/>
+            <label for="Coprologico">Coprologico:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Coprologico" name="Coprologico"/>
+        </div>
+        <br>
+        <div class="Entrada" style="display: flex; align-items: center;">
+            <label for="Imagenes">Imagenes:</label>
+            <RadzenTextBox Disabled=true Bind="emergencia.Imagenes" name="Imagenes"/>
+
+            <label for="Especificacion">Especfique</label>
+            <RadzenTextArea Disabled=true type="Especificacion" id="Especificacion" Bind="emergencia.Especifique"
+                name="Especificacion"></RadzenTextArea>
+        </div>
     </div>
-    </div>
-    <div  class="Entrada" style="display: flex;">
+    <div class="Entrada" style="display: flex;">
         <label for="Diagnostico">Diagnostico</label>
-        <label type="Diagnostico" id="Diagnostico" style="width: 100%;" name="Diagnostico"></label>
+        <RadzenTextArea Disabled=true Bind="emergencia.Diagnostico" name="Diagnostico"/>
     </div>
-        <div class="Entrada " style="display:flex;" >
-        <label for="TyM" >Tratamientos y Medicamentos:</label>
-        <textarea type="TyM"  id="TyM"  style="width: 100%;" name="TyM"></textarea>
+    <div class="Entrada " style="display:flex;">
+        <label for="TyM">Tratamientos y Medicamentos:</label>
+        <RadzenTextArea  Disabled=true Bind="emergencia.TyM" name="TyM"></RadzenTextArea>
     </div>
     <center>
-        <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" @onclick ="Guardar">Registrar</button>
+        <a href="/E_Emergencia/@emergencia.OrdenID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
+        <a href="/"><button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button></a>
     </center>
 
 
@@ -157,7 +172,10 @@
             this.Buscar();
         }
     }
-
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
 
     private void Buscar()
     {
@@ -193,22 +211,8 @@
 
 
 
-    public void eliminar(){
+    public void Eliminar(){
+        ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Registro Actualizado", Detail = "Eliminado con Exito", Duration = 4000 });
 
-    bool RES = emergenciaBll.Eliminar(this.emergencia);
-
-    if(RES == false){
-        Console.WriteLine("Eliminado Correctamente");
-        Nuevo();
     }
-    else{
-        Console.WriteLine("No se borro nada");
-    }
-            
-            
-
-        
-    }
-    
-
 }

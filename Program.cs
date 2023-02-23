@@ -1,7 +1,12 @@
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using DrEmergencias;
+using Radzen;
+using Radzen.Blazor;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +22,10 @@ builder.Services.AddScoped<PacienteBLL>();
 builder.Services.AddScoped<DetalleEmergenciaBLL>();
 
 builder.Services.AddScoped<DetalleEmergenciaABLL>();
+
+builder.Services.AddScoped<NotificationService>();
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
