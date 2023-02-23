@@ -4,12 +4,9 @@ namespace DrEmergencias
 {
     public class EmergenciaA
     {
-                [Key]
+        [Key]
         public  int OrdenID{get;set;}
         public string? EmergenciaID{get;set;}
-        //    [ForeignKey("OrdenID")]
-        public List<Paciente>? Paciente { get; set; } = new List<Paciente>();
-
         public string? ARS { get; set; }
         public int? NSS { get; set; }
         public DateTime? Fecha { get; set; }
