@@ -52,92 +52,98 @@
 <h1>Editar Paciente</h1>
 
 <EditForm model="Paciente">
-
     <div class="Entrada">
         <label for="Nombre">Nombre:</label>
-        <input @bind-value="paciente.PrimerNombre" type="Nombre" id="Nombre" name="Nombre">
+        <RadzenTextBox  name="Nombre" @bind-Value="paciente.PrimerNombre"/>
     </div>
 
     <div class="Entrada">
         <label for="S_Nombre">Segundo Nombre:</label>
-        <input @bind-value="paciente.SegundoNombre" type="S_Nombre" id="S_Nombre" name="S_Nombre">
+        <RadzenTextBox @bind-Value="paciente.SegundoNombre" name="S_Nombre"/>
     </div>
     <br>
     <div class="Entrada">
         <label for="P_Apellido">Primer Apellido:</label>
-        <input @bind-value="paciente.PrimerApellido" type="P_Apellido" id="P_Apellido" name="P_Apellido">
+        <RadzenTextBox @bind-Value="paciente.PrimerApellido"  name="P_Apellido"/>
     </div>
 
     <div class="Entrada">
         <label for="S_Apellido">Segundo Apellido:</label>
-        <input @bind-value="paciente.SegundoApellido" type="S_Apellido" id="S_Apellido" name="S_Apellido">
+        <RadzenTextBox @bind-Value="paciente.SegundoApellido"  name="S_Apellido"/>
     </div>
     <br>
+
+
+
+                        <div style="display: flex; align-items:center;">
 
     <div class="Entrada">
         <label>Sexo:</label>
         <select id="Persona" name="Persona" @bind="paciente.Sexo">
             @foreach (var item in Sexos)
             {
-
                 <option value="@item"> @item</option>
             }
 
         </select>
     </div>
+                        <div class="Entrada" style="display: flex;">
+                            <RadzenLabel >Fecha Nacimiento</RadzenLabel>
+                            <RadzenTextBox style="display: inline-block;" type="date" class="form-control" aria-label="Recipient's username"
+                                aria-describedby="basic-addon2" @bind-Value="paciente.FechadeNacimiento" id="fecha" name="fecha"/>
+                        </div>
+                        </div>
 
-    <div class="Entrada">
-        <label for="F_Nacimiento">Fecha de Nacimiento:</label>
-        <input type="F_Nacimiento" @bind-value="paciente.FechadeNacimiento" id="F_Nacimiento" name="F_Nacimiento">
-    </div>
+
+
     <br>
     <div class="Entrada">
         <label for="Cedula">Cedula:</label>
-        <input type="Cedula" id="Cedula" @bind-value="paciente.Cedula" name="Cedula">
+        <RadzenTextBox type="Cedula" id="Cedula" @bind-Value="paciente.Cedula" name="Cedula"/>
     </div>
 
     <div class="Entrada">
         <label for="O_Laboral">Ocupacion Laboral:</label>
-        <input type="O_Laboral" id="O_Laboral" @bind-value="paciente.Ocupacion" name="O_Laboral">
+        <RadzenTextBox type="O_Laboral" id="O_Laboral" @bind-Value="paciente.Ocupacion" name="O_Laboral"/>
     </div>
 
     <hr>
     <span style="color: rgb(103, 100, 100);">En caso de ser menor</span><br>
     <div class="Entrada">
         <label for="N_Tutor">Nombre Tutor:</label>
-        <input type="N_Tutor" id="N_Tutor" @bind-value="paciente.Tutor" name="N_Tutor">
+        <RadzenTextBox type="N_Tutor" id="N_Tutor" @bind-Value="paciente.Tutor" name="N_Tutor"/>
     </div>
 
     <div class="Entrada">
         <label for="C_Tutor">Cedula Tutor:</label>
-        <input type="C_Tutor" id="C_Tutor" @bind-value="paciente.CedulaTutor" name="C_Tutor">
+        <RadzenTextBox type="C_Tutor" id="C_Tutor" @bind-Value="paciente.CedulaTutor" name="C_Tutor"/>
     </div>
 
     <hr>
 
     <div class="Entrada">
         <label for="Alergias">Alergias:</label>
-        <input type="Alergias" id="Alergias" @bind-value="paciente.Alergia" name="Alergias">
+        <RadzenTextBox type="Alergias" id="Alergias" @bind-Value="paciente.Alergia" name="Alergias"/>
     </div>
 
     <div class="Entrada">
         <label for="Telefono">Telefono:</label>
-        <input type="Telefono" id="Telefono" @bind-value="paciente.Telefono" name="Telefono">
+        <RadzenTextBox type="Telefono" id="Telefono" @bind-Value="paciente.Telefono" name="Telefono"/>
     </div>
 
     <div class="Entrada">
         <label for="Direccion">Direccion:</label>
-        <input @bind-value="paciente.Direccion" type="Direccion" id="Direccion" name="Direccion">
+        <RadzenTextBox @bind-Value="paciente.Direccion" type="Direccion" id="Direccion" name="Direccion"/>
     </div>
 
     <div class="Entrada">
         <label for="Provincia">Provincia:</label>
-        <input @bind-value="paciente.Provincia" type="Provincia" id="Provincia" name="Provincia">
+        <RadzenTextBox @bind-Value="paciente.Provincia" type="Provincia" id="Provincia" name="Provincia"/>
     </div>
 
     <div class="Entrada">
         <label for="Municipio">Municipio:</label>
-        <input @bind-value="paciente.Municipio" type="Municipio" id="Municipio" name="Municipio">
+        <RadzenTextBox @bind-Value="paciente.Municipio" type="Municipio" id="Municipio" name="Municipio"/>
     </div>
 
     <center>
