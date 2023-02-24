@@ -3,6 +3,7 @@
 
 
 @inject EmergenciaBLL Emergencias
+@inject PacienteBLL Paciente
 
 <head>
     <style>
@@ -55,7 +56,17 @@
         <Columns>
             <RadzenDataGridColumn TItem="Emergencia" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
                 <Template Context="Item">
-                    <RadzenLink Path=@($"V_Emergencias/{Item.OrdenID}") Text="Ver" />
+                    <RadzenLink Path=@($"V_Emergencia/{Item.OrdenID}") Text="Ver" />
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Emergencia" Filterable="true" Sortable="true"  Frozen="false" Title="PacienteId">
+                <Template Context="Item">
+                    <RadzenText>@Item.PacienteID</RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Emergencia" Filterable="true" Sortable="true"  Frozen="false" Title="PrimerNombre">
+                <Template Context="Item">
+                    <RadzenText>@((Paciente.Buscar(Item.PacienteID)).PrimerNombre)</RadzenText>
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Emergencia" Property="OrdenID" Title="#ID" />

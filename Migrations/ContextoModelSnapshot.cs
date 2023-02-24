@@ -26,8 +26,8 @@ namespace DrEmergencias.Migrations
                     b.Property<string>("Antecedentes")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("AtencionesPrevias")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AtencionesPrevias")
+                        .HasColumnType("TEXT");
 
                     b.Property<int?>("Coprologico")
                         .HasColumnType("INTEGER");
@@ -71,6 +71,9 @@ namespace DrEmergencias.Migrations
                     b.Property<string>("MedicoBase")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("PacienteID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("Peso")
                         .HasColumnType("INTEGER");
 
@@ -82,6 +85,9 @@ namespace DrEmergencias.Migrations
 
                     b.Property<string>("TyM")
                         .HasColumnType("TEXT");
+
+                    b.Property<bool?>("Visible")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("OrdenID");
 
@@ -103,8 +109,8 @@ namespace DrEmergencias.Migrations
                     b.Property<string>("Antecedentes")
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("AtencionesPrevias")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("AtencionesPrevias")
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Cabeza")
                         .HasColumnType("TEXT");
@@ -166,6 +172,9 @@ namespace DrEmergencias.Migrations
                     b.Property<int?>("NSS")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("PacienteID")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int?>("Peso")
                         .HasColumnType("INTEGER");
 
@@ -190,44 +199,6 @@ namespace DrEmergencias.Migrations
                     b.HasKey("OrdenID");
 
                     b.ToTable("EmergenciaA");
-                });
-
-            modelBuilder.Entity("DrEmergencias.EmergenciaADetalle", b =>
-                {
-                    b.Property<int>("ADetalleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EmergenciaAId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PacienteID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("ADetalleId");
-
-                    b.HasIndex("PacienteID");
-
-                    b.ToTable("EmergenciaADetalle");
-                });
-
-            modelBuilder.Entity("DrEmergencias.EmergenciaDetalle", b =>
-                {
-                    b.Property<int>("DetalleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("EmergenciaId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("PacienteID")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("DetalleId");
-
-                    b.HasIndex("PacienteID");
-
-                    b.ToTable("EmergenciaDetalle");
                 });
 
             modelBuilder.Entity("DrEmergencias.Paciente", b =>
@@ -290,31 +261,6 @@ namespace DrEmergencias.Migrations
                     b.HasKey("PacienteID");
 
                     b.ToTable("Paciente");
-                });
-
-            modelBuilder.Entity("DrEmergencias.EmergenciaADetalle", b =>
-                {
-                    b.HasOne("DrEmergencias.Paciente", null)
-                        .WithMany("DetalleAseguradas")
-                        .HasForeignKey("PacienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DrEmergencias.EmergenciaDetalle", b =>
-                {
-                    b.HasOne("DrEmergencias.Paciente", null)
-                        .WithMany("DetalleNoAseguradas")
-                        .HasForeignKey("PacienteID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DrEmergencias.Paciente", b =>
-                {
-                    b.Navigation("DetalleAseguradas");
-
-                    b.Navigation("DetalleNoAseguradas");
                 });
 #pragma warning restore 612, 618
         }

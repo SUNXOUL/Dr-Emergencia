@@ -60,10 +60,10 @@
                 <div style="display: flex; justify-content: space-between;">
                     <div>
                         
-                        <RadzenDropDown AllowClear="true" TValue="string"
+                        <RadzenDropDown  AllowClear="true" TValue="int"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
                             class="w-100" Placeholder="Paciente"  Data="Paciente.GetList()" TextProperty="Cedula"
-                            ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
+                            @bind-value=@emergencia.PacienteID ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
                             />
                             
                     </div>
@@ -195,6 +195,7 @@
 @code {
     public Emergencia emergencia { get; set; } = new Emergencia();
     public Paciente? paciente = new Paciente();
+    public int id {get; set;}
 
     protected override void OnInitialized()
     {
@@ -237,6 +238,7 @@
             this.Nuevo();
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
         }
+        //(Paciente.Buscar(PacienteID)).DetalleNoAseguradas.Add(new EmergenciaDetalle(PacienteID, this.emergencia.OrdenID));
 
     }
 
