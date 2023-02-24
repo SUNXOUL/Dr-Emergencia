@@ -53,7 +53,7 @@
 
 <h1>Salidas</h1>
 
-    <RadzenDropDown AllowClear="true" TValue="string"
+    <RadzenDropDown AllowClear="true" TValue="int"  @bind-Value="salida.ArticuloID"
     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
     class="w-100" Placeholder="Articulo"  Data="ArticuloBLL.GetList()" TextProperty= "Descripcion"
     ValueProperty="ArticuloID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
@@ -62,15 +62,15 @@
 
         <div class="Entrada">
         <label for="Costo">Cantidad:</label>
-        <RadzenNumeric  ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"  name="Cantidad" @bind-Value="OrdenInventario.Cantidad"/>
+        <RadzenNumeric  ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"  name="Cantidad" @bind-Value="salida.Cantidad"/>
     </div>
         <div class="Entrada">
         <label for="Razon">Razon:</label>
-        <RadzenTextBox  name="Razon" @bind-Value="OrdenInventario.Razon"/>
+        <RadzenTextBox  name="Razon" @bind-Value="salida.Razon"/>
     </div>
         <div class="Entrada">
         <label for="Precio">Fecha:</label>
-        <RadzenDatePicker  name="Fecha " @bind-Value="OrdenInventario.Fecha"/>
+        <RadzenDatePicker  name="Fecha " @bind-Value="salida.Fecha"/>
     </div>
 
     <center>
@@ -81,7 +81,7 @@
 
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
-    Data="SalidaBLL.GetList()" TItem="OrdenInventario" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+    Data="SalidaBLL.GetList()" TItem="Salida" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
 
         <Columns>
                 <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Articulo" Frozen="true" Title="Acciones">
@@ -89,10 +89,10 @@
                 <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") Text="Ver" />
             </Template>
                 </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="OrdenInventario" Property="ArticuloID" Title="Articulo" />
-            <RadzenDataGridColumn TItem="OrdenInventario" Property="Cantidad" Title="Cantidad" />
-            <RadzenDataGridColumn TItem="OrdenInventario" Property="Razon" Title="Razon" />
-            <RadzenDataGridColumn TItem="OrdenInventario" Property="Fecha" Title="Fecha" />
+            <RadzenDataGridColumn TItem="Salida" Property="ArticuloID" Title="Articulo" />
+            <RadzenDataGridColumn TItem="Salida" Property="Cantidad" Title="Cantidad" />
+            <RadzenDataGridColumn TItem="Salida" Property="Razon" Title="Razon" />
+            <RadzenDataGridColumn TItem="Salida" Property="Fecha" Title="Fecha" />
 
 
         </Columns>
@@ -101,7 +101,7 @@
 
 </body>
 @code {
-    public OrdenInventario OrdenInventario { get; set; } = new OrdenInventario();
+    public Salida salida { get; set; } = new Salida();
     
     protected override void OnInitialized()
     {
@@ -116,13 +116,13 @@
 
     public void Nuevo()
     {
-        this.OrdenInventario = new OrdenInventario();
+        this.salida = new Salida();
     }
 
     public void Guardar()
     {
 
-        if(SalidaBLL.Guardar(this.OrdenInventario))
+        if(SalidaBLL.Guardar(this.salida))
         {
             this.Nuevo();
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });

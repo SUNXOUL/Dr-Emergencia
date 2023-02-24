@@ -8,9 +8,11 @@ namespace DrEmergencias
         public DbSet<Paciente> Pacientes {get;set;}
         public DbSet<Articulo> Articulos {get;set;}
         public DbSet<Suplidor> Suplidores {get;set;}
-        public DbSet<OrdenInventario> Entradas { get; set; }
-        public DbSet<OrdenInventario> Salidas { get; set; }
+        public DbSet<Entrada> Entradas { get; set; }
+        public DbSet<Salida> Salidas { get; set; }
         public Contexto(DbContextOptions<Contexto> Options) : base(Options){}
 
     }
+
+    
 }

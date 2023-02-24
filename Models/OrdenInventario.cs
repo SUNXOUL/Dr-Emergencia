@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-
+namespace DrEmergencias
+{
 public class OrdenInventario
 {
     [Key]
@@ -14,5 +15,14 @@ public class OrdenInventario
     {
         this.Cantidad =0;
         this.Visible = true;
+    }
+}
+    public class Entrada : OrdenInventario
+    {
+        
+    }
+        public class Salida: OrdenInventario
+    {
+        
     }
 }

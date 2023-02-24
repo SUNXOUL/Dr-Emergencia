@@ -11,12 +11,12 @@ namespace DrEmergencias
         _contexto = contexto;
     }
 
-    public bool Guardar(OrdenInventario OrdenInventario)
+    public bool Guardar(Entrada Entrada)
     {
-        if (!Existe(OrdenInventario.OrdenID))
-            return Insertar(OrdenInventario);
+        if (!Existe(Entrada.OrdenID))
+            return Insertar(Entrada);
         else
-            return Modificar(OrdenInventario);
+            return Modificar(Entrada);
     }
 
     public bool Existe(int OrdenID)
@@ -24,49 +24,51 @@ namespace DrEmergencias
         return _contexto.Entradas.Any(o => o.OrdenID== OrdenID);
     }
 
-    private bool Insertar(OrdenInventario OrdenInventario)
+    private bool Insertar(Entrada Entrada)
     {
-        _contexto.Entradas.Add(OrdenInventario);
+        _contexto.Entradas.Add(Entrada);
         int cantidad = _contexto.SaveChanges();
+        _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia + {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
         return cantidad > 0;
     }
 
-    public bool Modificar(OrdenInventario OrdenInventario)
+    public bool Modificar(Entrada Entrada)
     {
-        _contexto.Entry(OrdenInventario).State = EntityState.Modified;
+        _contexto.Entry(Entrada).State = EntityState.Modified;
         int cantidad = _contexto.SaveChanges();
-        _contexto.Entry(OrdenInventario).State = EntityState.Detached;
+        _contexto.Entry(Entrada).State = EntityState.Detached;
         return cantidad > 0;
     }
     
-    public List<OrdenInventario> GetOrdenInventariosDetalles()
+    public List<Entrada> GetEntradasDetalles()
     {
         return _contexto.Entradas.ToList();
     }
 
-        public bool Eliminar(OrdenInventario OrdenInventario)
+        public bool Eliminar(Entrada Entrada)
         {
-            _contexto.Entry(OrdenInventario).State=EntityState.Deleted;
-            _contexto.Database.ExecuteSqlRaw($"DELETE FROM OrdenInventario WHERE OrdenID={OrdenInventario.OrdenID};");
-            _contexto.Entry(OrdenInventario).State = EntityState.Detached;
+            _contexto.Entry(Entrada).State=EntityState.Deleted;
+            _contexto.Database.ExecuteSqlRaw($"DELETE FROM Entrada WHERE OrdenID={Entrada.OrdenID};");
+            _contexto.Entry(Entrada).State = EntityState.Detached;
             return _contexto.SaveChanges()>0;
         }   
 
-        public OrdenInventario? Buscar(int OrdenID)
+        public Entrada? Buscar(int OrdenID)
         {
             return _contexto.Entradas
                     .Where(o => o.OrdenID==OrdenID ).AsNoTracking().SingleOrDefault();
                     
         }
-        public List<OrdenInventario> GetList()
+        public List<Entrada> GetList()
         {
             return _contexto.Entradas.Where(o=>o.Visible == true).AsNoTracking().ToList();
         }
-        public bool hidden(OrdenInventario Entrada)
+        public bool hidden(Entrada Entrada)
         {
             _contexto.Entry(Entrada).State = EntityState.Modified;
             int cantidad = _contexto.SaveChanges();
             _contexto.Database.ExecuteSqlRaw($"UPDATE Entradas SET Visible = false  WHERE EntradaID={Entrada.OrdenID}");
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia - {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
             _contexto.Entry(Entrada).State = EntityState.Detached;
             return cantidad > 0;
         }
