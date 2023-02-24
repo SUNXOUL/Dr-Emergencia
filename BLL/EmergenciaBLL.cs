@@ -20,12 +20,12 @@ namespace DrEmergencias
 
     public bool Existe(int EmergenciaId)
     {
-        return _contexto.Emergencia.Any(o => o.OrdenID== EmergenciaId);
+        return _contexto.Emergencias.Any(o => o.OrdenID== EmergenciaId);
     }
 
     private bool Insertar(Emergencia Emergencia)
     {
-        _contexto.Emergencia.Add(Emergencia);
+        _contexto.Emergencias.Add(Emergencia);
         int cantidad = _contexto.SaveChanges();
         return cantidad > 0;
     }
@@ -40,7 +40,7 @@ namespace DrEmergencias
     
     public List<Emergencia> GetEmergenciasDetalles()
     {
-        return _contexto.Emergencia.ToList();
+        return _contexto.Emergencias.ToList();
     }
 
         public bool Eliminar(Emergencia Emergencia)
@@ -53,13 +53,13 @@ namespace DrEmergencias
 
         public Emergencia? Buscar(int EmergenciaID)
         {
-            return _contexto.Emergencia
+            return _contexto.Emergencias
                     .Where(o => o.OrdenID==EmergenciaID ).AsNoTracking().SingleOrDefault();
                     
         }
         public List<Emergencia> GetList()
         {
-            return _contexto.Emergencia.AsNoTracking().ToList();
+            return _contexto.Emergencias.AsNoTracking().ToList();
         }
     }
 }
