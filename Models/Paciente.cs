@@ -35,42 +35,8 @@ namespace DrEmergencias
         public string? Municipio { get; set; }
 
         public bool? Visible {get; set;}
-
-        [ForeignKey("PacienteID")]
-        public List<EmergenciaADetalle> DetalleAseguradas { get; set; }
-
-        [ForeignKey("PacienteID")]
-
-        public List<EmergenciaDetalle> DetalleNoAseguradas {get; set;} 
         
     }
 
-    public class EmergenciaADetalle
-    {
-        
-        [Key]
 
-        public int ADetalleId { get; set; }
-
-        public int  PacienteID { get; set; }
-
-        public int EmergenciaAId { get; set; }
-
-
-
-    }
-
-    public class EmergenciaDetalle
-    {
-
-        [Key]
-        public int DetalleId { get; set; }
-
-        public int PacienteID { get; set; }
-
-        public int EmergenciaId { get; set; }
-
-
-
-    }
 }

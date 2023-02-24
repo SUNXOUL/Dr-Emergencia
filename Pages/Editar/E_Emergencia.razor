@@ -55,18 +55,17 @@
 
 
     <div class="Form" style="z-index: 1;">
-
-        <div style=" width:100%;">
-            
-            <div>
+           <div>
                 <br>
                 <div style="display: flex; justify-content: space-between;">
                     <div>
-                        <RadzenDropDown AllowClear="true" TValue="string"
+                        
+                        <RadzenDropDown  AllowClear="true" TValue="int"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
-                            class="w-100" Placeholder="Paciente"  Data="Pacientes.GetList()"
-                            TextProperty="Cedula" ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
+                            class="w-100" Placeholder="Paciente"  Data="Pacientes.GetList()" TextProperty="Cedula"
+                            @bind-value=@emergencia.PacienteID ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
                             />
+                            
                     </div>
 
                     <div style="display: flex;">
@@ -77,54 +76,60 @@
                     </div>
                 </div>
 
+    </div>
 
-            </div>
-        </div>
+    <div>
 
         <br>
         <div class="Entrada">
             <label for="M_Consulta">Motivo de Consulta:</label>
-            <RadzenTextBox Bind="emergencia.M_Consulta" name="M_Consulta"/>
-            <RadzenRequiredValidator Component="M_Consulta" Text="Campo Requerido" Popup="true" Style="position: absolute" />
+            <RadzenTextBox type="M_Consulta" id="M_Consulta" @bind-Value="emergencia.M_Consulta" name="M_Consulta"/>
         </div>
 
         <div class="Entrada">
             <label for="A_Relacionados">Antecedentes Relacionados:</label>
-            <RadzenTextBox  Bind="emergencia.Antecedentes" 
-                name="A_Relacionados"/>
+            <RadzenTextBox type="A_Relacionados" id="A_Relacionados" @bind-Value="emergencia.Antecedentes" name="A_Relacionados"/>
         </div>
         <br>
         <div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <RadzenTextBox  Bind="emergencia.AtencionesPrevias"  name="A_Previas"/>
+            <RadzenTextBox type="A_Previas" id="A_Previas" name="A_Previas"/>
         </div>
 
         <div class="Entrada">
             <label for="Donde">Donde?</label>
-            <RadzenTextBox name="Donde"/>
+            <RadzenTextBox type="Donde" id="Donde" @bind-Value="emergencia.Donde" name="Donde"/>
         </div>
 
         <div class="Entrada">
             <label for="M_Base">Medico Base:</label>
-            <RadzenTextBox name="M_Base"/>
+            <RadzenTextBox type="M_Base" id="M_Base" @bind-Value="emergencia.MedicoBase" name="M_Base"/>
         </div>
 
         <div class="Entrada">
             <label for="Peso">Peso:</label>
-            <RadzenTextBox  Bind="emergencia.Peso" name="Peso"/>
+            <RadzenNumeric  id="Peso" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+             @bind-Value="emergencia.Peso" name="Peso"/>
             <label for="Peso">lbs</label>
         </div>
         <br>
         <div class="Entrada">
             <label>Signos Vitales</label>
             <label for="TA">TA:</label>
-            <RadzenTextBox  Bind="emergencia.TA" name="TA"/>
+            <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.TA" name="TA"/>
             <label for="FC">FC:</label>
-            <RadzenTextBox  Bind="emergencia.FC" name="FC"/>
+            <RadzenNumeric  id="FR" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.FR" name="FR"/>
+            <label for="FR">FR</label>
+            <RadzenNumeric  id="FC" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.FC" name="FC"/>
             <label for="Temperatura">Temperatura:</label>
-            <RadzenTextBox  Bind="emergencia.Temperatura" name="Temperatura"/>
+            <RadzenNumeric  id="Temperatura" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
+            @bind-Value="emergencia.Temperatura" name="Temperatura"/>
             <label for="Temperatura">C</label>
         </div>
+
         <RadzenTabs SelectedIndex="0">
         
         <Tabs>
@@ -169,6 +174,13 @@
         </RadzenTabsItem>
         </Tabs>
         </RadzenTabs>
+    </div>
+    <br>
+    <div class="Entrada " style="display:flex;">
+        <label for="TyM">Tratamientos y Medicamentos:</label>
+        <RadzenTextArea  id="TyM" style="width: 100%;" @bind-Value="emergencia.TyM" name="TyM"></RadzenTextArea>
+    </div>
+    </div>
     <center>
         <a href="/V_Emergencia/@emergencia.OrdenID"><button type="button" class="btn btn-primary"
                 style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"
@@ -177,27 +189,25 @@
                 style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;">Cancelar</button></a>
     </center>
 
-    </div>
-
-
 
 </body>
 @code {
+    
     [Parameter]
-    public int ArticuloID { get; set; }
+    public int OrdenID{get; set;}
     public Emergencia emergencia { get; set; } = new Emergencia();
     public Paciente? paciente = new Paciente();
 
     protected override void OnInitialized()
     {
-
+        
         Buscar();
     }
 
 
     private void Buscar()
     {
-        var emergenciaEncontrada = emergenciaBll.Buscar(this.ArticuloID);
+        var emergenciaEncontrada = emergenciaBll.Buscar(this.OrdenID);
         if (emergenciaEncontrada != null)
         {
             Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");
