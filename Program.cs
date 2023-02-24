@@ -18,7 +18,10 @@ builder.Services.AddScoped<EmergenciaBLL>();
 builder.Services.AddScoped<EmergenciaABLL>();
 
 builder.Services.AddScoped<PacienteBLL>();
-
+builder.Services.AddScoped<SuplidorBLL>();
+builder.Services.AddScoped<ArticuloBLL>();
+builder.Services.AddScoped<EntradaBLL>();
+builder.Services.AddScoped<SalidaBLL>();
 builder.Services.AddScoped<NotificationService>();
 
 

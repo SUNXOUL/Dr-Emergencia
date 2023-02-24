@@ -183,19 +183,21 @@
 
 </body>
 @code {
+    [Parameter]
+    public int ArticuloID { get; set; }
     public Emergencia emergencia { get; set; } = new Emergencia();
     public Paciente? paciente = new Paciente();
 
     protected override void OnInitialized()
     {
 
-        emergencia.OrdenID = 0;
+        Buscar();
     }
 
 
     private void Buscar()
     {
-        var emergenciaEncontrada = emergenciaBll.Buscar(emergencia.OrdenID);
+        var emergenciaEncontrada = emergenciaBll.Buscar(this.ArticuloID);
         if (emergenciaEncontrada != null)
         {
             Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");

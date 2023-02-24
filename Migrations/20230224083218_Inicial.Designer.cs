@@ -11,14 +11,37 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrEmergencias.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230223225919_inicial")]
-    partial class inicial
+    [Migration("20230224083218_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.2");
+
+            modelBuilder.Entity("DrEmergencias.Articulo", b =>
+                {
+                    b.Property<int>("ArticuloID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Costo")
+                        .HasColumnType("REAL");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("Existencia")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<double?>("Precio")
+                        .HasColumnType("REAL");
+
+                    b.HasKey("ArticuloID");
+
+                    b.ToTable("Articulos");
+                });
 
             modelBuilder.Entity("DrEmergencias.Emergencia", b =>
                 {
@@ -88,7 +111,7 @@ namespace DrEmergencias.Migrations
 
                     b.HasKey("OrdenID");
 
-                    b.ToTable("Emergencia");
+                    b.ToTable("Emergencias");
                 });
 
             modelBuilder.Entity("DrEmergencias.EmergenciaA", b =>
@@ -192,7 +215,7 @@ namespace DrEmergencias.Migrations
 
                     b.HasKey("OrdenID");
 
-                    b.ToTable("EmergenciaA");
+                    b.ToTable("EmergenciaAs");
                 });
 
             modelBuilder.Entity("DrEmergencias.EmergenciaADetalle", b =>
@@ -292,7 +315,50 @@ namespace DrEmergencias.Migrations
 
                     b.HasKey("PacienteID");
 
-                    b.ToTable("Paciente");
+                    b.ToTable("Pacientes");
+                });
+
+            modelBuilder.Entity("DrEmergencias.Suplidor", b =>
+                {
+                    b.Property<int>("SuplidorID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Contacto")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("SuplidorID");
+
+                    b.ToTable("Suplidores");
+                });
+
+            modelBuilder.Entity("OrdenInventario", b =>
+                {
+                    b.Property<int>("OrdenID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ArticuloID")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Razon")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("OrdenID");
+
+                    b.ToTable("OrdenInventario");
                 });
 
             modelBuilder.Entity("DrEmergencias.EmergenciaADetalle", b =>

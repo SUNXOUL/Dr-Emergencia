@@ -1,0 +1,135 @@
+﻿@page "/Entradas"
+
+@inject NotificationService notificationService
+@inject ArticuloBLL ArticuloBLL
+@inject  EntradaBLL EntradaBLL
+
+<head>
+    <style>
+        .Entrada {
+            display: inline-block;
+            padding: 5px;
+            align-items: center;
+        }
+
+        .Entrada input {
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+        .Entrada label {
+            margin: 5px;
+        }
+
+        .Entrada textarea {
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .Entrada select {
+            width: 200px;
+            height: 35px;
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+<h1>Entradas</h1>
+
+    <RadzenDropDown AllowClear="true" TValue="string"
+    FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+    class="w-100" Placeholder="articulo"  Data="ArticuloBLL.GetList()" TextProperty= "Descripcion"
+    ValueProperty="ArticuloID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
+     />
+
+
+        <div class="Entrada">
+        <label for="Costo">Cantidad:</label>
+        <RadzenNumeric  ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"  name="Cantidad" @bind-Value="OrdenInventario.Cantidad"/>
+    </div>
+        <div class="Entrada">
+        <label for="Razon">Razon:</label>
+        <RadzenTextBox  name="Razon" @bind-Value="OrdenInventario.Razon"/>
+    </div>
+        <div class="Entrada">
+        <label for="Precio">Fecha:</label>
+        <RadzenDatePicker  name="Fecha " @bind-Value="OrdenInventario.Fecha"/>
+    </div>
+
+    <center>
+        <button type="button" class="btn btn-primary"
+            style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"
+            @onclick="Guardar">Registrar</button>
+    </center>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+    Data="EntradaBLL.GetList()" TItem="OrdenInventario" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+        <Columns>
+                <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Articulo" Frozen="true" Title="Acciones">
+            <Template Context="Item">
+                <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") Text="Ver" />
+            </Template>
+                </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="OrdenInventario" Property="ArticuloID" Title="Articulo" />
+            <RadzenDataGridColumn TItem="OrdenInventario" Property="Cantidad" Title="Cantidad" />
+            <RadzenDataGridColumn TItem="OrdenInventario" Property="Razon" Title="Razon" />
+            <RadzenDataGridColumn TItem="OrdenInventario" Property="Fecha" Title="Fecha" />
+
+
+        </Columns>
+
+    </RadzenDataGrid>
+
+</body>
+@code {
+    public OrdenInventario OrdenInventario { get; set; } = new OrdenInventario();
+    
+    protected override void OnInitialized()
+    {
+
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+
+
+    public void Nuevo()
+    {
+        this.OrdenInventario = new OrdenInventario();
+    }
+
+    public void Guardar()
+    {
+
+        if(EntradaBLL.Guardar(this.OrdenInventario))
+        {
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        }
+
+        //Console.WriteLine("Campos no validos o no completados");
+    }
+
+
+}

@@ -1,0 +1,152 @@
+﻿@page "/E_Articulo"
+@page "/E_Articulo/{ArticuloID:int}"
+
+@inject NotificationService notificationService
+@inject ArticuloBLL ArticuloBLL
+
+
+<head>
+    <style>
+        .Entrada {
+            display: inline-block;
+            padding: 5px;
+            align-items: center;
+        }
+
+        .Entrada input {
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+        .Entrada label {
+            margin: 5px;
+        }
+
+        .Entrada textarea {
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .Entrada select {
+            width: 200px;
+            height: 35px;
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    
+
+<h1>Registrar Articulo</h1>
+
+
+    <div class="Entrada">
+        <label for="Descripcion">Descripcion:</label>
+        <RadzenTextBox  name="Descripcion" @bind-Value="articulo.Descripcion"/>
+    </div>
+        <div class="Entrada">
+        <label for="Costo">Costo:</label>
+        <RadzenNumeric  ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"  name="Costo" @bind-Value="articulo.Costo"/>
+    </div>
+        <div class="Entrada">
+        <label for="Precio">Precio:</label>
+        <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"  name="Precio " @bind-Value="articulo.Precio"/>
+    </div>
+
+    <center>
+        <a href="/V_Articulo/@articulo.ArticuloID"><button type="button" class="btn btn-primary"
+                style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"
+                @onclick="Guardar">Guardar</button></a>
+        <a href="/V_Articulo/@articulo.ArticuloID"><button type="button" class="btn btn-danger"
+                style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;">Cancelar</button></a>
+    </center>
+
+</body>
+@code {
+    [Parameter]
+    public int ArticuloID { get; set; }
+    public Articulo articulo { get; set; } = new Articulo();
+    List<Sexo> Sexos = Enum.GetValues(typeof(Sexo))
+    .Cast<Sexo>()
+    .ToList();
+
+    protected override void OnInitialized()
+    {
+        Buscar();
+    }
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+
+    private void Buscar()
+    {
+        var ArticuloEncontrado = ArticuloBLL.Buscar(this.ArticuloID);
+        if (ArticuloEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.articulo.ArticuloID}");
+            this.articulo = ArticuloEncontrado;
+
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo()
+    {
+        this.articulo = new Articulo();
+    }
+
+    public void Guardar()
+    {
+
+        if(ArticuloBLL.Guardar(this.articulo))
+        {
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        }
+
+        //Console.WriteLine("Campos no validos o no completados");
+    }
+
+
+
+
+    public void eliminar()
+    {
+
+
+
+        bool RES = ArticuloBLL.Eliminar(this.articulo);
+
+        if (RES == false)
+        {
+            Console.WriteLine("Eliminado Correctamente");
+            Nuevo();
+        }
+        else
+        {
+            Console.WriteLine("No se borro nada");
+        }
+    }
+}

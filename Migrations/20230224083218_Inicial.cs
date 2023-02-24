@@ -6,45 +6,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DrEmergencias.Migrations
 {
     /// <inheritdoc />
-    public partial class inicial : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Emergencia",
+                name: "Articulos",
                 columns: table => new
                 {
-                    OrdenID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ArticuloID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    EmergenciaID = table.Column<string>(type: "TEXT", nullable: true),
-                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    MConsulta = table.Column<string>(name: "M_Consulta", type: "TEXT", nullable: true),
-                    Antecedentes = table.Column<string>(type: "TEXT", nullable: true),
-                    AtencionesPrevias = table.Column<bool>(type: "INTEGER", nullable: true),
-                    Donde = table.Column<string>(type: "TEXT", nullable: true),
-                    MedicoBase = table.Column<string>(type: "TEXT", nullable: true),
-                    Peso = table.Column<int>(type: "INTEGER", nullable: true),
-                    TA = table.Column<int>(type: "INTEGER", nullable: true),
-                    FC = table.Column<int>(type: "INTEGER", nullable: true),
-                    FR = table.Column<int>(type: "INTEGER", nullable: true),
-                    Temperatura = table.Column<int>(type: "INTEGER", nullable: true),
-                    Diagnostico = table.Column<string>(type: "TEXT", nullable: true),
-                    Hemogramas = table.Column<int>(type: "INTEGER", nullable: true),
-                    ExOrina = table.Column<int>(name: "Ex_Orina", type: "INTEGER", nullable: true),
-                    Glisemia = table.Column<int>(type: "INTEGER", nullable: true),
-                    Coprologico = table.Column<int>(type: "INTEGER", nullable: true),
-                    Imagenes = table.Column<int>(type: "INTEGER", nullable: true),
-                    Especifique = table.Column<string>(type: "TEXT", nullable: true),
-                    TyM = table.Column<string>(type: "TEXT", nullable: true)
+                    Descripcion = table.Column<string>(type: "TEXT", nullable: true),
+                    Costo = table.Column<double>(type: "REAL", nullable: true),
+                    Precio = table.Column<double>(type: "REAL", nullable: true),
+                    Existencia = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Emergencia", x => x.OrdenID);
+                    table.PrimaryKey("PK_Articulos", x => x.ArticuloID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmergenciaA",
+                name: "EmergenciaAs",
                 columns: table => new
                 {
                     OrdenID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -83,11 +67,59 @@ namespace DrEmergencias.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmergenciaA", x => x.OrdenID);
+                    table.PrimaryKey("PK_EmergenciaAs", x => x.OrdenID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Paciente",
+                name: "Emergencias",
+                columns: table => new
+                {
+                    OrdenID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    EmergenciaID = table.Column<string>(type: "TEXT", nullable: true),
+                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    MConsulta = table.Column<string>(name: "M_Consulta", type: "TEXT", nullable: true),
+                    Antecedentes = table.Column<string>(type: "TEXT", nullable: true),
+                    AtencionesPrevias = table.Column<bool>(type: "INTEGER", nullable: true),
+                    Donde = table.Column<string>(type: "TEXT", nullable: true),
+                    MedicoBase = table.Column<string>(type: "TEXT", nullable: true),
+                    Peso = table.Column<int>(type: "INTEGER", nullable: true),
+                    TA = table.Column<int>(type: "INTEGER", nullable: true),
+                    FC = table.Column<int>(type: "INTEGER", nullable: true),
+                    FR = table.Column<int>(type: "INTEGER", nullable: true),
+                    Temperatura = table.Column<int>(type: "INTEGER", nullable: true),
+                    Diagnostico = table.Column<string>(type: "TEXT", nullable: true),
+                    Hemogramas = table.Column<int>(type: "INTEGER", nullable: true),
+                    ExOrina = table.Column<int>(name: "Ex_Orina", type: "INTEGER", nullable: true),
+                    Glisemia = table.Column<int>(type: "INTEGER", nullable: true),
+                    Coprologico = table.Column<int>(type: "INTEGER", nullable: true),
+                    Imagenes = table.Column<int>(type: "INTEGER", nullable: true),
+                    Especifique = table.Column<string>(type: "TEXT", nullable: true),
+                    TyM = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Emergencias", x => x.OrdenID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "OrdenInventario",
+                columns: table => new
+                {
+                    OrdenID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ArticuloID = table.Column<int>(type: "INTEGER", nullable: false),
+                    Cantidad = table.Column<int>(type: "INTEGER", nullable: false),
+                    Razon = table.Column<string>(type: "TEXT", nullable: false),
+                    Fecha = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrdenInventario", x => x.OrdenID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Pacientes",
                 columns: table => new
                 {
                     PacienteID = table.Column<int>(type: "INTEGER", nullable: false)
@@ -112,7 +144,21 @@ namespace DrEmergencias.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Paciente", x => x.PacienteID);
+                    table.PrimaryKey("PK_Pacientes", x => x.PacienteID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Suplidores",
+                columns: table => new
+                {
+                    SuplidorID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nombre = table.Column<string>(type: "TEXT", nullable: false),
+                    Contacto = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Suplidores", x => x.SuplidorID);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,9 +174,9 @@ namespace DrEmergencias.Migrations
                 {
                     table.PrimaryKey("PK_EmergenciaADetalle", x => x.ADetalleId);
                     table.ForeignKey(
-                        name: "FK_EmergenciaADetalle_Paciente_PacienteID",
+                        name: "FK_EmergenciaADetalle_Pacientes_PacienteID",
                         column: x => x.PacienteID,
-                        principalTable: "Paciente",
+                        principalTable: "Pacientes",
                         principalColumn: "PacienteID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -148,9 +194,9 @@ namespace DrEmergencias.Migrations
                 {
                     table.PrimaryKey("PK_EmergenciaDetalle", x => x.DetalleId);
                     table.ForeignKey(
-                        name: "FK_EmergenciaDetalle_Paciente_PacienteID",
+                        name: "FK_EmergenciaDetalle_Pacientes_PacienteID",
                         column: x => x.PacienteID,
-                        principalTable: "Paciente",
+                        principalTable: "Pacientes",
                         principalColumn: "PacienteID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -170,19 +216,28 @@ namespace DrEmergencias.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Emergencia");
-
-            migrationBuilder.DropTable(
-                name: "EmergenciaA");
+                name: "Articulos");
 
             migrationBuilder.DropTable(
                 name: "EmergenciaADetalle");
 
             migrationBuilder.DropTable(
+                name: "EmergenciaAs");
+
+            migrationBuilder.DropTable(
                 name: "EmergenciaDetalle");
 
             migrationBuilder.DropTable(
-                name: "Paciente");
+                name: "Emergencias");
+
+            migrationBuilder.DropTable(
+                name: "OrdenInventario");
+
+            migrationBuilder.DropTable(
+                name: "Suplidores");
+
+            migrationBuilder.DropTable(
+                name: "Pacientes");
         }
     }
 }

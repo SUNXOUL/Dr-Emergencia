@@ -21,12 +21,12 @@ namespace DrEmergencias
 
     public bool Existe(int PacienteId)
     {
-        return _contexto.Paciente.Any(o => o.PacienteID== PacienteId);
+        return _contexto.Pacientes.Any(o => o.PacienteID== PacienteId);
     }
 
     private bool Insertar(Paciente Paciente)
     {
-        _contexto.Paciente.Add(Paciente);
+        _contexto.Pacientes.Add(Paciente);
         int cantidad = _contexto.SaveChanges();
         return cantidad > 0;
     }
@@ -41,7 +41,7 @@ namespace DrEmergencias
     
     public List<Paciente> GetPacientesDetalles()
     {
-        return _contexto.Paciente.ToList();
+        return _contexto.Pacientes.ToList();
     }
 
         public bool Eliminar(Paciente Paciente)
@@ -54,13 +54,13 @@ namespace DrEmergencias
 
         public Paciente? Buscar(int PacienteID)
         {
-            return _contexto.Paciente
+            return _contexto.Pacientes
                     .Where(o => o.PacienteID==PacienteID ).AsNoTracking().SingleOrDefault();
                     
         }
         public List<Paciente> GetList()
         {
-            return _contexto.Paciente.AsNoTracking().ToList();
+            return _contexto.Pacientes.AsNoTracking().ToList();
         }
     }
 }

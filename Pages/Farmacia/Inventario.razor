@@ -1,0 +1,68 @@
+﻿@page "/Inventario"
+<h3>Consultar Articulo</h3>
+
+
+@inject ArticuloBLL ArticuloBLL
+
+<head>
+    <style>
+        .hidden{
+            display: none;
+        }
+
+        .form-select{
+            border: none;
+            width: 150px;
+        }
+        .form-floating {
+            width: 15%;
+        }
+            .Entrada{
+        display: inline-block;
+        padding: 5px;
+        align-items: center;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+
+    </style>
+</head>
+    
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+    Data="ArticuloBLL.GetList()" TItem="Articulo" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+        <Columns>
+                <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Articulo" Frozen="true" Title="Acciones">
+            <Template Context="Item">
+                <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") Text="Ver" />
+            </Template>
+                </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Articulo" Property="ArticuloID" Title="Codigo" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Descripcion" Title="Descripcion" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Precio" Title="Precio" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Costo" Title="Costo" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Existencia" Title="Existencia" />
+        </Columns>
+
+    </RadzenDataGrid>
+
+@code {
+
+}
