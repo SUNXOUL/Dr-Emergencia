@@ -96,7 +96,9 @@
 
 
 
-    <br>
+    <RadzenTabs>
+        <Tabs>
+        <RadzenTabsItem Text="Mayor de Edad">
     <div class="Entrada">
         <label for="Cedula">Cedula:</label>
         <RadzenTextBox type="Cedula" id="Cedula" @bind-Value="paciente.Cedula" name="Cedula"/>
@@ -106,9 +108,9 @@
         <label for="O_Laboral">Ocupacion Laboral:</label>
         <RadzenTextBox type="O_Laboral" id="O_Laboral" @bind-Value="paciente.Ocupacion" name="O_Laboral"/>
     </div>
+        </RadzenTabsItem>
 
-    <hr>
-    <span style="color: rgb(103, 100, 100);">En caso de ser menor</span><br>
+    <RadzenTabsItem Text="Menor de edad">
     <div class="Entrada">
         <label for="N_Tutor">Nombre Tutor:</label>
         <RadzenTextBox type="N_Tutor" id="N_Tutor" @bind-Value="paciente.Tutor" name="N_Tutor"/>
@@ -118,8 +120,9 @@
         <label for="C_Tutor">Cedula Tutor:</label>
         <RadzenTextBox type="C_Tutor" id="C_Tutor" @bind-Value="paciente.CedulaTutor" name="C_Tutor"/>
     </div>
-
-    <hr>
+    </RadzenTabsItem>
+    </Tabs>
+    </RadzenTabs>
 
     <div class="Entrada">
         <label for="Alergias">Alergias:</label>

@@ -121,8 +121,13 @@
             <RadzenTextBox Disabled=true Bind="emergencia.Temperatura" name="Temperatura"/>
             <label for="Temperatura">C</label>
         </div>
+        <RadzenTabs SelectedIndex="0">
+        
+        <Tabs>
+    
+        <RadzenTabsItem Text="Laboratorio">
 
-        <div class="Entrada" style="display: inline-block;">
+        <div class="Entrada" style="display: flex;">
             <label>Laboratorios</label>
             <label for="Hemograma">Hemograma:</label>
             <RadzenTextBox Disabled=true  Bind="emergencia.Hemogramas"  name="Hemograma"/>
@@ -142,7 +147,9 @@
             <RadzenTextArea Disabled=true type="Especificacion" id="Especificacion" Bind="emergencia.Especifique"
                 name="Especificacion"></RadzenTextArea>
         </div>
-    </div>
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Diagnostico">
+    
     <div class="Entrada" style="display: flex;">
         <label for="Diagnostico">Diagnostico</label>
         <RadzenTextArea Disabled=true Bind="emergencia.Diagnostico" name="Diagnostico"/>
@@ -151,11 +158,14 @@
         <label for="TyM">Tratamientos y Medicamentos:</label>
         <RadzenTextArea  Disabled=true Bind="emergencia.TyM" name="TyM"></RadzenTextArea>
     </div>
+    </RadzenTabsItem>
+    </Tabs>
+    </RadzenTabs>
     <center>
         <a href="/E_Emergencia/@emergencia.OrdenID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
         <a href="/"><button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button></a>
     </center>
-
+</div>
 
 
 
