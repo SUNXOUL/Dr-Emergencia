@@ -62,7 +62,17 @@ namespace DrEmergencias
         }
         public List<Paciente> GetList()
         {
-            return _contexto.Pacientes.AsNoTracking().ToList();
+            return _contexto.Pacientes.Where(o=>o.Visible == true).AsNoTracking().ToList();
+        }
+        public bool hidden(Paciente Paciente)
+        {
+            _contexto.Entry(Paciente).State = EntityState.Modified;
+            int cantidad = _contexto.SaveChanges();
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Pacientes SET Visible = false  WHERE PacienteID={Paciente.PacienteID}");
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Emergencias SET Visible = false  WHERE PacienteID={Paciente.PacienteID}");
+            _contexto.Database.ExecuteSqlRaw($"UPDATE EmergenciaAs SET Visible = false  WHERE PacienteID={Paciente.PacienteID}");
+            _contexto.Entry(Paciente).State = EntityState.Detached;
+            return cantidad > 0;
         }
 
     }

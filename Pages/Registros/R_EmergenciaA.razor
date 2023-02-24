@@ -57,9 +57,9 @@
                 <div style="display: flex; justify-content: space-between;">
                     <div>
                         
-                        <RadzenDropDown AllowClear="true" TValue="string"
+                        <RadzenDropDown AllowClear="true" TValue="int"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
-                            class="w-100" Placeholder="Paciente"  Data="Paciente.GetList()" TextProperty="Cedula"
+                            class="w-100" Placeholder="Paciente"  Data="Paciente.GetList()" TextProperty="Cedula" @bind-value=@emergencia.PacienteID 
                             ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
                             />
                             

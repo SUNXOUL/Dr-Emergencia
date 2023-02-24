@@ -60,7 +60,15 @@ namespace DrEmergencias
         }
         public List<Suplidor> GetList()
         {
-            return _contexto.Suplidores.AsNoTracking().ToList();
+            return _contexto.Suplidores.Where(o=>o.Visible == true).AsNoTracking().ToList();
+        }
+                public bool hidden(Suplidor Suplidor)
+        {
+            _contexto.Entry(Suplidor).State = EntityState.Modified;
+            int cantidad = _contexto.SaveChanges();
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Suplidors SET Visible = false  WHERE SuplidorID={Suplidor.SuplidorID}");
+            _contexto.Entry(Suplidor).State = EntityState.Detached;
+            return cantidad > 0;
         }
     }
 }

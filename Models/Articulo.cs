@@ -13,9 +13,11 @@ namespace DrEmergencias
         public double? Precio { get; set; }
         public int? Existencia { get; set; }
 
+        public bool Visible { get; set; }
         public Articulo()
         {
             this.Existencia=0;
+            this.Visible = true;
         }
     }
 }

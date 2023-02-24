@@ -1,9 +1,11 @@
 ﻿@page "/E_Emergencia"
-@page "/E_Emergencia/{OrdenID:int}"
+@page "/E_Emergencia/{OrdennID:int}"
 
+
+<h1>Editar Emergencia</h1>
 @inject NotificationService notificationService
 @inject EmergenciaBLL emergenciaBll
-@inject PacienteBLL Pacientes
+@inject PacienteBLL Paciente
 
 
 <head>
@@ -55,6 +57,7 @@
 
 
     <div class="Form" style="z-index: 1;">
+
            <div>
                 <br>
                 <div style="display: flex; justify-content: space-between;">
@@ -62,7 +65,7 @@
                         
                         <RadzenDropDown  AllowClear="true" TValue="int"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
-                            class="w-100" Placeholder="Paciente"  Data="Pacientes.GetList()" TextProperty="Cedula"
+                            class="w-100" Placeholder="Paciente"  Data="Paciente.GetList()" TextProperty="Cedula"
                             @bind-value=@emergencia.PacienteID ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
                             />
                             
@@ -109,7 +112,7 @@
         <div class="Entrada">
             <label for="Peso">Peso:</label>
             <RadzenNumeric  id="Peso" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
-             @bind-Value="emergencia.Peso" name="Peso"/>
+            @bind-Value="emergencia.Peso" name="Peso"/>
             <label for="Peso">lbs</label>
         </div>
         <br>
@@ -192,22 +195,21 @@
 
 </body>
 @code {
-    
     [Parameter]
-    public int OrdenID{get; set;}
-    public Emergencia emergencia { get; set; } = new Emergencia();
+    public int OrdennID { get; set; }
+public Emergencia emergencia { get; set; } = new Emergencia();
     public Paciente? paciente = new Paciente();
-
     protected override void OnInitialized()
     {
-        
+
+        emergencia.OrdenID =this.OrdennID;
         Buscar();
     }
 
 
     private void Buscar()
     {
-        var emergenciaEncontrada = emergenciaBll.Buscar(this.OrdenID);
+        var emergenciaEncontrada = emergenciaBll.Buscar(this.OrdennID);
         if (emergenciaEncontrada != null)
         {
             Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");
@@ -239,26 +241,12 @@
             this.Nuevo();
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
         }
+        //(Paciente.Buscar(PacienteID)).DetalleNoAseguradas.Add(new EmergenciaDetalle(PacienteID, this.emergencia.OrdenID));
 
     }
 
 
 
-
-    public void eliminar()
-    {
-        bool RES = emergenciaBll.Eliminar(this.emergencia);
-
-        if (RES == false)
-        {
-            Console.WriteLine("Eliminado Correctamente");
-            Nuevo();
-        }
-        else
-        {
-            Console.WriteLine("No se borro nada");
-        }
-    }
 
 
 }

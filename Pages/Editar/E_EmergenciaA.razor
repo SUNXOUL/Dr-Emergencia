@@ -1,9 +1,9 @@
 @page "/E_EmergenciaA"
-@page "/E_EmergenciaA/{OrdenID:int}"
+@page "/E_EmergenciaA/{OrdennID:int}"
 
 @using DrEmergencias;
 
-<h1>Nueva Emergencia Asegurada</h1>
+<h1>Editar Emergencia Asegurada</h1>
 
 @inject NotificationService notificationService
 @inject EmergenciaABLL EmergenciaA
@@ -233,7 +233,14 @@
 
 @code {
     
-    
+    [Parameter]
+    public int OrdennID { get; set; }
+        protected override void OnInitialized()
+    {
+
+        emergencia.OrdenID =this.OrdennID;
+        Buscar();
+    }
     void ShowNotification(NotificationMessage message)
     {
         notificationService.Notify(message);
@@ -242,15 +249,12 @@
 
     public EmergenciaA emergencia {get; set;} = new EmergenciaA();
 
-    protected override void OnInitialized(){
 
-
-    }
 
 
     private void Buscar()
     {
-        var emergenciaEncontrada = EmergenciaA.Buscar(emergencia.OrdenID);
+        var emergenciaEncontrada = EmergenciaA.Buscar(this.OrdennID);
         if(emergenciaEncontrada != null)
         {
             Console.WriteLine($"Se encontro una ocupacion con el ID{this.emergencia.OrdenID}");

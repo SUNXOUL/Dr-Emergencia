@@ -27,8 +27,11 @@ namespace DrEmergencias
         public int? Imagenes { get; set; }
         public string? Especifique { get; set; }
         public string? TyM { get; set; }
-        public bool? Visible {get; set;}
+        public bool Visible {get; set;}
 
-        
+        public Emergencia()
+        {
+            this.Visible=true;
+        }
     }
 }

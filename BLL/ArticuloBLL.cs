@@ -60,7 +60,15 @@ namespace DrEmergencias
         }
         public List<Articulo> GetList()
         {
-            return _contexto.Articulos.AsNoTracking().ToList();
+            return _contexto.Articulos.Where(o=>o.Visible == true).AsNoTracking().ToList();
+        }
+        public bool hidden(Articulo Articulo)
+        {
+            _contexto.Entry(Articulo).State = EntityState.Modified;
+            int cantidad = _contexto.SaveChanges();
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Visible = false  WHERE ArticuloID={Articulo.ArticuloID}");
+            _contexto.Entry(Articulo).State = EntityState.Detached;
+            return cantidad > 0;
         }
     }
 }

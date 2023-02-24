@@ -59,7 +59,15 @@ namespace DrEmergencias
         }
         public List<Emergencia> GetList()
         {
-            return _contexto.Emergencias.AsNoTracking().ToList();
+            return _contexto.Emergencias.Where(o=>o.Visible == true).AsNoTracking().ToList();
+        }
+                public bool hidden(Emergencia Emergencia)
+        {
+            _contexto.Entry(Emergencia).State = EntityState.Modified;
+            int cantidad = _contexto.SaveChanges();
+            _contexto.Database.ExecuteSqlRaw($"UPDATE EmergenciaAs SET Visible = false  WHERE EmergenciaAID={Emergencia.OrdenID}");
+            _contexto.Entry(Emergencia).State = EntityState.Detached;
+            return cantidad > 0;
         }
     }
 }

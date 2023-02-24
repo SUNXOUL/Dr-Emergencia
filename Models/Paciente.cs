@@ -36,6 +36,10 @@ namespace DrEmergencias
 
         public bool? Visible {get; set;}
         
+        public Paciente()
+        {
+            this.Visible=true;
+        }
     }
 
 

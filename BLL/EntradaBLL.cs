@@ -60,7 +60,15 @@ namespace DrEmergencias
         }
         public List<OrdenInventario> GetList()
         {
-            return _contexto.Entradas.AsNoTracking().ToList();
+            return _contexto.Entradas.Where(o=>o.Visible == true).AsNoTracking().ToList();
+        }
+        public bool hidden(OrdenInventario Entrada)
+        {
+            _contexto.Entry(Entrada).State = EntityState.Modified;
+            int cantidad = _contexto.SaveChanges();
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Entradas SET Visible = false  WHERE EntradaID={Entrada.OrdenID}");
+            _contexto.Entry(Entrada).State = EntityState.Detached;
+            return cantidad > 0;
         }
     }
 }

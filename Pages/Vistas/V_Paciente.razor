@@ -149,7 +149,7 @@
     </div>
 
     <center>
-        <a href="/E_Paciente/@paciente.PacienteID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
+        <a href="/E_Paciente/@PacienteID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
         <a href="/"><button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button></a>
 
     </center>
@@ -195,6 +195,7 @@
         notificationService.Notify(message);
     }
     public void Eliminar(){
+        Pacientes.hidden(this.paciente);
         ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Registro Actualizado", Detail = "Eliminado con Exito", Duration = 4000 });
     }
 }

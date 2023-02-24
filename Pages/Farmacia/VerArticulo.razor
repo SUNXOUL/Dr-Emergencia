@@ -134,12 +134,10 @@
 
 
 
-    public void chState()
-    {
-        
-    }
+
 
     public void Eliminar(){
+        ArticuloBLL.hidden(this.articulo);
         ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Registro Actualizado", Detail = "Eliminado con Exito", Duration = 4000 });
     }
 }

@@ -57,10 +57,11 @@
         <Columns>
             <RadzenDataGridColumn TItem="EmergenciaA" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
                 <Template Context="Item">
-                    <RadzenLink Path=@($"V_EmergenciasA/{Item.OrdenID}") Text="Ver" />
+                    <RadzenLink Path=@($"V_EmergenciaA/{Item.OrdenID}") Text="Ver" />
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="EmergenciaA" Property="OrdenID" Title="#ID" />
+            <RadzenDataGridColumn TItem="EmergenciaA" Property="PacienteID" Title="#Paciente" />
             <RadzenDataGridColumn TItem="EmergenciaA" Property="M_Consulta" Title="Motivo consulta" />
             <RadzenDataGridColumn TItem="EmergenciaA" Property="Fecha" Title="Fecha" />
             <RadzenDataGridColumn TItem="EmergenciaA" Property="MedicoBase" Title="Medico Base" />
