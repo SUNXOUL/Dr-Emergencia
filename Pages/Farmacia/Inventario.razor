@@ -1,10 +1,11 @@
-﻿@page "/Inventario"
+@page "/Inventario"
 <h3>Consultar Articulo</h3>
 
 
-@inject ArticuloBLL ArticuloBLL
+@inject ArticuloBLL Articulos
 @inject EntradaBLL Entradas
-@inject  SalidaBLL Salidas
+@inject SalidaBLL Salidas
+@inject NotificationService notificationService
 
 <head>
     <style>
@@ -44,15 +45,13 @@
 
     </style>
 </head>
+
 <div style="Display:flex;">    
-<RadzenDropDown FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
-                    Data="ArticuloBLL.GetList()" TValue="Articulo"  TextProperty="Descripcion" ValueProperty="ArticuloID" AllowClear="true" style="width:100%;" />
-<RadzenButton/>
+<RadzenTextBox  Placeholder="Busque Descripcion" @bind-Value="Buscado" style="width:100%;" />
 </div>
 
-<RadzenTabs SelectedIndex="0">
-        
-        <Tabs>
+<RadzenTabs>
+    <Tabs>
     
         <RadzenTabsItem Text="Proceso Inventario">
         <div class="Entrada">
@@ -68,7 +67,7 @@
             <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
         </div>
 
-        <RadzenButton/>
+        <RadzenButton  onclick="SetBuscado" />
 
 
         </RadzenTabsItem>
@@ -112,14 +111,18 @@
         </Tabs>
 </RadzenTabs>
 
+
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
-    Data="ArticuloBLL.GetList()" TItem="Articulo" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+    Data="Articulos.FindList(Buscado)" TItem="Articulo" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
 
         <Columns>
                 <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Articulo" Frozen="true" Title="Acciones">
             <Template Context="Item">
-                <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") Text="Ver" />
+                <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
+            </Template>
+            <Template Context="Item">
+                <RadzenLink  ><RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="Seleccionar" /></RadzenLink>
             </Template>
                 </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Articulo" Property="ArticuloID" Title="Codigo" />
@@ -132,13 +135,56 @@
     </RadzenDataGrid>
 
 @code {
+        public Articulo articulo = new Articulo();
 
-    public string? Busqueda {get;set;}
-    public Articulo articulo {get;set;} = new Articulo();
-
-        protected override void OnInitialized()
-    {
+        public string Buscado { get; set; } ="";
         
+        public void SetBuscado(string Value)
+        {
+            this.Buscado=Value;
+        }
+    
+    protected override void OnInitialized()
+    {
+
     }
 
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+
+    private void Buscar()
+    {
+        var ArticuloEncontrado = Articulos.Buscar(articulo.ArticuloID);
+        if (ArticuloEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.articulo.ArticuloID}");
+            this.articulo = ArticuloEncontrado;
+
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo()
+    {
+        this.articulo = new Articulo();
+    }
+
+    public void Guardar()
+    {
+
+        if(Articulos.Guardar(this.articulo))
+        {
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        }
+
+        //Console.WriteLine("Campos no validos o no completados");
+    }
 }
