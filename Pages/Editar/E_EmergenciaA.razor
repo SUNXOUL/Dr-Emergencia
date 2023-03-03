@@ -84,8 +84,7 @@
 
         <div class="Entrada" style="">
             <label for="nss">NSS:</label>
-            <RadzenNumeric  id="nss" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
-            @bind-Value="emergencia.NSS" name="nss"/>
+        <RadzenMask Mask="*** ******" Pattern="[^0-9]" Placeholder="000 000000" Name="Phone" @bind-Value=@emergencia.NSS />
         </div>
         <br>
         <div class="Entrada">
@@ -273,19 +272,25 @@
         this.emergencia = new EmergenciaA();
     }
 
-    public void Guardar(){
-        if(EmergenciaA.Guardar(this.emergencia))
-        {
-            Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
-            this.Nuevo();
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Info, Summary = "Registro Actualizado", Detail = "Modificado con Exito", Duration = 4000 });
-        }
-
-        //Console.WriteLine("Campos no validos o no completados");
-    }
     
 
-
+    public void Guardar()
+    {
+        if(Validar())
+        {
+            if(EmergenciaA.Guardar(this.emergencia))
+            {
+                Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
+                this.Nuevo();
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
+        }
+            else
+            {
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de Registro", Detail = "Campos Vacios o mal asignados", Duration = 4000 });
+            }
+        //Console.WriteLine("Campos no validos o no completados");
+    }
 
     public void eliminar(){
     bool RES = EmergenciaA.Eliminar(this.emergencia);
@@ -295,13 +300,22 @@
         Nuevo();
     }
     else{
-       Console.WriteLine("No se borro nada");
+    Console.WriteLine("No se borro nada");
     }
-            
-            
+    }
 
-        
-    }
+        public bool Validar()
+        {
+            if(this.emergencia.PacienteID !=null && this.emergencia.M_Consulta !=null && this.emergencia.AtencionesPrevias !=null && this.emergencia.Peso!=null &&this.emergencia.TA !=null && this.emergencia.FC !=null && this.emergencia.FR !=null && this.emergencia.Temperatura !=null &&  this.emergencia.Diagnostico !=null &&  this.emergencia.Fecha !=null &&  this.emergencia.ARS !=null &&  this.emergencia.NSS!=null )
+            {
+                System.Console.WriteLine("Pase 1");
+                    return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     
 
 }

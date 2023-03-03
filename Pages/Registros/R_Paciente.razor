@@ -101,7 +101,7 @@
         <RadzenTabsItem Text="Mayor de Edad">
     <div class="Entrada">
         <label for="Cedula">Cedula:</label>
-        <RadzenTextBox type="Cedula" id="Cedula" @bind-Value="paciente.Cedula" name="Cedula"/>
+        <RadzenMask Mask="***-*******-**" Pattern="[^0-9]" Placeholder="000-0000000-00" Name="Phone" @bind-Value=@paciente.Cedula />
     </div>
 
     <div class="Entrada">
@@ -118,7 +118,7 @@
 
     <div class="Entrada">
         <label for="C_Tutor">Cedula Tutor:</label>
-        <RadzenTextBox type="C_Tutor" id="C_Tutor" @bind-Value="paciente.CedulaTutor" name="C_Tutor"/>
+        <RadzenMask Mask="***-*******-**" Pattern="[^0-9]" Placeholder="000-0000000-00" Name="Phone" @bind-Value=@paciente.CedulaTutor />
     </div>
     </RadzenTabsItem>
     </Tabs>
@@ -131,7 +131,7 @@
 
     <div class="Entrada">
         <label for="Telefono">Telefono:</label>
-        <RadzenTextBox type="Telefono" id="Telefono" @bind-Value="paciente.Telefono" name="Telefono"/>
+        <RadzenMask Mask="(***) ***-****" Pattern="[^0-9]" Placeholder="(000) 000-0000" Name="Phone" @bind-Value=@paciente.Telefono />
     </div>
 
     <div class="Entrada">
@@ -197,13 +197,20 @@
 
     public void Guardar()
     {
-
-        if(pacienteBll.Guardar(this.paciente))
+        if(Validar())
         {
-            Console.WriteLine($"{this.paciente.PrimerNombre} Se guardo en el {this.paciente.PacienteID}");
-            this.Nuevo();
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            if(pacienteBll.Guardar(this.paciente))
+            {
+                Console.WriteLine($"{this.paciente.PrimerNombre} Se guardo en el {this.paciente.PacienteID}");
+                this.Nuevo();
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
         }
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de Registro", Detail = "Campos Vacios o mal asignados", Duration = 4000 });
+        }
+
 
         //Console.WriteLine("Campos no validos o no completados");
     }
@@ -213,9 +220,6 @@
 
     public void eliminar()
     {
-
-
-
         bool RES = pacienteBll.Eliminar(this.paciente);
 
         if (RES == false)
@@ -228,24 +232,27 @@
             Console.WriteLine("No se borro nada");
         }
 
-
-
-
-
-
-        //Nuevo();
-        //Console.WriteLine("Id no valido");
-
-
-
-
-
-
-
-
-
-
     }
+        public bool Validar()
+        {
+            if(this.paciente.PrimerApellido !=null && this.paciente.SegundoApellido !=null && this.paciente.PrimerNombre !=null  && this.paciente.FechadeNacimiento !=null )
+            {
+                System.Console.WriteLine("Pase 1");
+                if( this.paciente.Tutor!=null && this.paciente.CedulaTutor !=null || this.paciente.Ocupacion!=null && this.paciente.Cedula !=null )
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
 }
