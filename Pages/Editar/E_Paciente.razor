@@ -207,7 +207,9 @@
     public void Guardar()
     {
 
-        if(pacienteBll.Guardar(this.paciente))
+
+        var guardado = pacienteBll.Guardar(this.paciente);
+        if(guardado)
         {
             Console.WriteLine($"{this.paciente.PrimerNombre} Se guardo en el {this.paciente.PacienteID}");
             this.Nuevo();

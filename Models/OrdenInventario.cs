@@ -15,6 +15,7 @@ public class OrdenInventario
     {
         this.Cantidad =0;
         this.Visible = true;
+        this.Fecha= DateTime.Now;
     }
 }
     public class Entrada : OrdenInventario
