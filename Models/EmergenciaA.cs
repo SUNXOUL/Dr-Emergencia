@@ -9,7 +9,7 @@ namespace DrEmergencias
         public string? EmergenciaID{get;set;}
         public int PacienteID { get; set; }
         public string? ARS { get; set; }
-        public int? NSS { get; set; }
+        public string NSS { get; set; }
         public DateTime? Fecha { get; set; }
         public String? M_Consulta { get; set; }
         public String? Antecedentes { get; set; }
