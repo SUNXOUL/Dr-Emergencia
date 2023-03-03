@@ -235,17 +235,37 @@ public Emergencia emergencia { get; set; } = new Emergencia();
 
     public void Guardar()
     {
-        if(emergenciaBll.Guardar(this.emergencia))
+        if(Validar())
         {
-            Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
-            this.Nuevo();
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            if(emergenciaBll.Guardar(this.emergencia))
+                {
+                    Console.WriteLine($"Se guardo en el {this.emergencia.OrdenID}");
+                    this.Nuevo();
+                    ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+                }
+                //(Paciente.Buscar(PacienteID)).DetalleNoAseguradas.Add(new EmergenciaDetalle(PacienteID, this.emergencia.OrdenID));
         }
-        //(Paciente.Buscar(PacienteID)).DetalleNoAseguradas.Add(new EmergenciaDetalle(PacienteID, this.emergencia.OrdenID));
-
+            else
+            {
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de Registro", Detail = "Campos Vacios o mal asignados", Duration = 4000 });
+            }
     }
 
 
+        public bool Validar()
+        {
+            if(this.emergencia.PacienteID !=null && this.emergencia.M_Consulta !=null && this.emergencia.AtencionesPrevias !=null && this.emergencia.Peso!=null &&this.emergencia.TA !=null && this.emergencia.FC !=null && this.emergencia.FR !=null && this.emergencia.Temperatura !=null &&  this.emergencia.Diagnostico !=null &&  this.emergencia.Fecha !=null )
+            {
+                System.Console.WriteLine("Pase 1");
+                    return true;
+
+                
+            }
+            else
+            {
+                return false;
+            }
+        }
 
 
 
