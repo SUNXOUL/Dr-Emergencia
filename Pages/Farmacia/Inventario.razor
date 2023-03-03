@@ -3,6 +3,8 @@
 
 
 @inject ArticuloBLL ArticuloBLL
+@inject EntradaBLL Entradas
+@inject  SalidaBLL Salidas
 
 <head>
     <style>
@@ -42,7 +44,73 @@
 
     </style>
 </head>
+<div style="Display:flex;">    
+<RadzenDropDown FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" FilterOperator="StringFilterOperator.StartsWith" AllowFiltering="true"
+                    Data="ArticuloBLL.GetList()" TValue="Articulo"  TextProperty="Descripcion" ValueProperty="ArticuloID" AllowClear="true" style="width:100%;" />
+<RadzenButton/>
+</div>
+
+<RadzenTabs SelectedIndex="0">
+        
+        <Tabs>
     
+        <RadzenTabsItem Text="Proceso Inventario">
+        <div class="Entrada">
+            <label for="Descripcion">Articulo</label>
+            <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
+        </div>
+                <div class="Entrada">
+            <label for="Descripcion">Cantidad Actual</label>
+            <RadzenNumeric  id="Descripcion" Disabled="true" @bind-Value="articulo.Existencia" name="Descripcion"/>
+        </div>
+                <div class="Entrada">
+            <label for="Descripcion">Nueva Cantidad</label>
+            <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
+        </div>
+
+        <RadzenButton/>
+
+
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Entrada">
+        <div class="Entrada">
+            <label for="Descripcion">Articulo</label>
+            <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
+        </div>
+                <div class="Entrada">
+            <label for="Descripcion">Cantidad Actual</label>
+            <RadzenNumeric  id="Descripcion" Disabled="true" @bind-Value="articulo.Existencia" name="Descripcion"/>
+        </div>
+                <div class="Entrada">
+            <label for="Descripcion">Cantidad de Entrada</label>
+            <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
+        </div>
+
+        <RadzenButton/>
+
+        
+        </RadzenTabsItem>
+        <RadzenTabsItem Text="Salida">
+        <div class="Entrada">
+            <label for="Descripcion">Articulo</label>
+            <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
+        </div>
+                <div class="Entrada">
+            <label for="Descripcion">Cantidad Actual</label>
+            <RadzenNumeric  id="Descripcion" Disabled="true" @bind-Value="articulo.Existencia" name="Descripcion"/>
+        </div>
+                <div class="Entrada">
+            <label for="Descripcion">Cantidad de Salida</label>
+            <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
+        </div>
+
+        <RadzenButton/>
+
+        
+        </RadzenTabsItem>
+
+        </Tabs>
+</RadzenTabs>
 
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
@@ -64,6 +132,9 @@
     </RadzenDataGrid>
 
 @code {
+
+    public string? Busqueda {get;set;}
+    public Articulo articulo {get;set;} = new Articulo();
 
         protected override void OnInitialized()
     {
