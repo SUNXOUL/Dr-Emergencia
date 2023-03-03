@@ -1,5 +1,6 @@
 @page "/Inventario"
-<h3>Consultar Articulo</h3>
+@page "/Inventario/{ArticuloID:int}"
+<h3>Inventario</h3>
 
 
 @inject ArticuloBLL Articulos
@@ -21,9 +22,10 @@
             width: 15%;
         }
             .Entrada{
-        display: inline-block;
+        display: flex;
         padding: 5px;
         align-items: center;
+        width: 100%;
     }
     .Entrada input{
         border-radius: 50px;
@@ -31,6 +33,7 @@
         border-color: #D9D9D9;
         border: 15px;
         margin: 5px;
+        width: 100%;
     }
     .Entrada label
     {
@@ -52,61 +55,52 @@
 
 <RadzenTabs>
     <Tabs>
-    
-        <RadzenTabsItem Text="Proceso Inventario">
-        <div class="Entrada">
-            <label for="Descripcion">Articulo</label>
-            <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
-        </div>
-                <div class="Entrada">
-            <label for="Descripcion">Cantidad Actual</label>
-            <RadzenNumeric  id="Descripcion" Disabled="true" @bind-Value="articulo.Existencia" name="Descripcion"/>
-        </div>
-                <div class="Entrada">
-            <label for="Descripcion">Nueva Cantidad</label>
-            <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
-        </div>
-
-        <RadzenButton  onclick="SetBuscado" />
-
-
-        </RadzenTabsItem>
-        <RadzenTabsItem Text="Entrada">
-        <div class="Entrada">
-            <label for="Descripcion">Articulo</label>
-            <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
-        </div>
-                <div class="Entrada">
-            <label for="Descripcion">Cantidad Actual</label>
-            <RadzenNumeric  id="Descripcion" Disabled="true" @bind-Value="articulo.Existencia" name="Descripcion"/>
-        </div>
-                <div class="Entrada">
-            <label for="Descripcion">Cantidad de Entrada</label>
-            <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
-        </div>
-
-        <RadzenButton/>
-
         
-        </RadzenTabsItem>
-        <RadzenTabsItem Text="Salida">
-        <div class="Entrada">
+        <RadzenTabsItem Text="Proceso Inventario" >
+            <div style="display:flex; justify-items:center;">
+        <div class="Entrada" style="display:flex; justify-items:center;">
             <label for="Descripcion">Articulo</label>
             <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
         </div>
-                <div class="Entrada">
+                <div class="Entrada"style="display:flex; justify-items:center;">
             <label for="Descripcion">Cantidad Actual</label>
-            <RadzenNumeric  id="Descripcion" Disabled="true" @bind-Value="articulo.Existencia" name="Descripcion"/>
+            <RadzenNumeric  id="Descripcion" Disabled="true" ShowUpDown="false"  @bind-Value="articulo.Existencia" name="Descripcion"/>
         </div>
-                <div class="Entrada">
-            <label for="Descripcion">Cantidad de Salida</label>
-            <RadzenTextBox type="Descripcion" id="Descripcion"  name="Descripcion"/>
+                <div class="input-group Entrada"style="display:flex; justify-items:center;">
+            
+            <div class="input-group ">
+                <label for="value">Nueva Cantidad</label>
+                <RadzenNumeric  id="Value" @bind-Value="Value" ShowUpDown="false"   name="value"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="PInventario"><RadzenIcon Icon="done" /></RadzenButton>
+            </div>
+            
         </div>
-
-        <RadzenButton/>
-
+        </div>
         
+
+        </RadzenTabsItem >
+        <RadzenTabsItem Text="Ajuste" >
+                <div style="display:flex; justify-items:center;">
+            <div class="Entrada" style="display:flex; justify-items:center;">
+                <label for="Descripcion">Articulo</label>
+                <RadzenTextBox type="Descripcion" id="Descripcion"  Disabled="true" @bind-Value="articulo.Descripcion" name="Descripcion"/>
+            </div>
+                    <div class="Entrada" style="display:flex; justify-items:center;">
+                <label for="Descripcion">Cantidad Actual</label>
+                <RadzenNumeric  id="Descripcion" Disabled="true" ShowUpDown="false"  @bind-Value="articulo.Existencia" name="Descripcion"/>
+            </div>
+                    <div class="Entrada"style="display:flex; justify-items:center;" >
+                        <div class="input-group ">
+                <label for="Value">Cantidad de Ajuste</label>
+                <RadzenNumeric  id="Value" @bind-Value="entrada.Cantidad" ShowUpDown="false"  name="value"/>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Entrada"><RadzenIcon Icon="done" /></RadzenButton>
+                </div>
+            </div>
+
+            
+            </div>
         </RadzenTabsItem>
+        
 
         </Tabs>
 </RadzenTabs>
@@ -120,9 +114,7 @@
                 <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Articulo" Frozen="true" Title="Acciones">
             <Template Context="Item">
                 <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
-            </Template>
-            <Template Context="Item">
-                <RadzenLink  ><RadzenBadge BadgeStyle="BadgeStyle.Primary" Text="Seleccionar" /></RadzenLink>
+                <button @onclick="() => Buscar(Item.ArticuloID)" style="border:none;" ><RadzenBadge  BadgeStyle="BadgeStyle.Info"  Text="Seleccionar"   /></button>
             </Template>
                 </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="Articulo" Property="ArticuloID" Title="Codigo" />
@@ -135,8 +127,15 @@
     </RadzenDataGrid>
 
 @code {
-        public Articulo articulo = new Articulo();
 
+        [Parameter]
+        public int ArticuloID {get;set;}
+        public Articulo articulo = new Articulo();
+        public Salida salida { get; set; } = new Salida();
+        public Entrada entrada { get; set; } = new Entrada();
+
+        public  int Value { get; set; }
+        
         public string Buscado { get; set; } ="";
         
         public void SetBuscado(string Value)
@@ -146,8 +145,10 @@
     
     protected override void OnInitialized()
     {
-
+            this.articulo.ArticuloID=ArticuloID;
+            Buscar();
     }
+    
 
     void ShowNotification(NotificationMessage message)
     {
@@ -156,7 +157,22 @@
 
     private void Buscar()
     {
-        var ArticuloEncontrado = Articulos.Buscar(articulo.ArticuloID);
+        var ArticuloEncontrado = Articulos.Buscar(ArticuloID);
+        if (ArticuloEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID{this.articulo.ArticuloID}");
+            this.articulo = ArticuloEncontrado;
+
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+        private void Buscar(int ID)
+    {
+        var ArticuloEncontrado = Articulos.Buscar(ID);
         if (ArticuloEncontrado != null)
         {
             Console.WriteLine($"Se encontro una ocupacion con el ID{this.articulo.ArticuloID}");
@@ -187,4 +203,28 @@
 
         //Console.WriteLine("Campos no validos o no completados");
     }
+
+
+    public void PInventario()
+    {
+        if(Value >=0)
+        {
+        this.articulo.Existencia=Value;
+        Guardar();
+        }
+        this.Value=0;
+    }
+
+    public void Entrada()
+    {
+        entrada.Razon="Ajuste Inventario";
+        entrada.ArticuloID=this.articulo.ArticuloID;
+        if(Entradas.Guardar(this.entrada))
+        {
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        }
+        this.entrada = new Entrada();
+    }
+
 }
