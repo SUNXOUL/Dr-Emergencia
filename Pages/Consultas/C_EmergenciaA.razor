@@ -57,7 +57,7 @@
         <Columns>
             <RadzenDataGridColumn TItem="EmergenciaA" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
                 <Template Context="Item">
-                    <RadzenLink Path=@($"V_EmergenciaA/{Item.OrdenID}") Text="Ver" />
+                    <RadzenLink Path=@($"V_EmergenciaA/{Item.OrdenID}") Text="Ver" ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="EmergenciaA" Property="OrdenID" Title="#ID" />

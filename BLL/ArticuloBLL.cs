@@ -62,6 +62,10 @@ namespace DrEmergencias
         {
             return _contexto.Articulos.Where(o=>o.Visible == true).AsNoTracking().ToList();
         }
+        public List<Articulo> FindList(string? Buscado)
+        {
+            return _contexto.Articulos.Where(o=>o.Visible == true && o.Descripcion.Contains(Buscado) ).AsNoTracking().ToList();
+        }
         public bool hidden(Articulo Articulo)
         {
             _contexto.Entry(Articulo).State = EntityState.Modified;
