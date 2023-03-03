@@ -10,6 +10,7 @@ namespace DrEmergencias
         public DbSet<Suplidor> Suplidores {get;set;}
         public DbSet<Entrada> Entradas { get; set; }
         public DbSet<Salida> Salidas { get; set; }
+        public DbSet<OrdenCompras> OrdenCompras {get; set;}
         public Contexto(DbContextOptions<Contexto> Options) : base(Options){}
 
     }
