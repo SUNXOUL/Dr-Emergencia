@@ -9,7 +9,7 @@ namespace DrEmergencias
 
         public string Nombre  { get; set; }
         
-        public string  Contacto{get;set;}
+        public string  Contacto {get;set;}
         public bool Visible { get; set; }
 
         public Suplidor()

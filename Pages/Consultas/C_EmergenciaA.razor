@@ -60,8 +60,17 @@
                     <RadzenLink Path=@($"V_EmergenciaA/{Item.OrdenID}") Text="Ver" ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
                 </Template>
             </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="EmergenciaA" Filterable="true" Sortable="true"  Frozen="false" Title="PacienteId">
+                <Template Context="Item">
+                    <RadzenText>@Item.PacienteID</RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="EmergenciaA" Filterable="true" Sortable="true"  Frozen="false" Title="PrimerNombre">
+                <Template Context="Item">
+                    <RadzenText>@((Paciente.Buscar(Item.PacienteID)).PrimerNombre)</RadzenText>
+                </Template>
+            </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="EmergenciaA" Property="OrdenID" Title="#ID" />
-            <RadzenDataGridColumn TItem="EmergenciaA" Property="PacienteID" Title="#Paciente" />
             <RadzenDataGridColumn TItem="EmergenciaA" Property="M_Consulta" Title="Motivo consulta" />
             <RadzenDataGridColumn TItem="EmergenciaA" Property="Fecha" Title="Fecha" />
             <RadzenDataGridColumn TItem="EmergenciaA" Property="MedicoBase" Title="Medico Base" />

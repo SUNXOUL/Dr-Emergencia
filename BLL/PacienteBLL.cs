@@ -13,6 +13,7 @@ namespace DrEmergencias
 
         public bool Guardar(Paciente Paciente)
         {
+            Console.WriteLine("Entrando a guardar \n\n\n\n\n\n");
             if (!Existe(Paciente.PacienteID))
                 return Insertar(Paciente);
             else
@@ -33,10 +34,15 @@ namespace DrEmergencias
 
         public bool Modificar(Paciente Paciente)
         {
+            
+            Console.WriteLine("Entrando al editar\n\n\n\n\n\n\n\n\n\n\n");
             _contexto.Entry(Paciente).State = EntityState.Modified;
+            Console.WriteLine("Hice ALGO \n\n\n\n\n");
             int cantidad = _contexto.SaveChanges();
             _contexto.Entry(Paciente).State = EntityState.Detached;
+            Console.WriteLine("Sali del editar \n\n\n\n\n");
             return cantidad > 0;
+            
         }
     
         public List<Paciente> GetPacientesDetalles()
