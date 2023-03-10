@@ -1,4 +1,4 @@
-﻿@page "/R_EmergenciaA"
+@page "/R_EmergenciaA"
 @using DrEmergencias;
 
 <h1>Nueva Emergencia Asegurada</h1>
@@ -51,24 +51,25 @@
 <body >
 
     <div class="Form">
-
+<RadzenTemplateForm TItem="EmergenciaA" Data="emergencia" Submit="Guardar" >
             <div>
                 <br>
                 <div style="display: flex; justify-content: space-between;">
                     <div>
-                        
-                        <RadzenDropDown AllowClear="true" TValue="int"
+                        <RadzenDropDown AllowClear="true" TValue="int" Name="Paciente"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
                             class="w-100" Placeholder="Paciente"  Data="Paciente.GetList()" TextProperty="Cedula" @bind-value=@emergencia.PacienteID 
                             ValueProperty="PacienteID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
                             />
+                            <RadzenRequiredValidator Component="Paciente" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
                             
                     </div>
 
                     <div style="display: flex;">
                         <div class="Entrada" style="display: flex;">
                             <RadzenLabel >Fecha</RadzenLabel>
-                            <RadzenDatePicker @bind-Value=@emergencia.Fecha ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" />
+                            <RadzenDatePicker @bind-Value=@emergencia.Fecha Name="Fecha" ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" />
+                            <RadzenRequiredValidator Component="Fecha" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
                         </div>
                     </div>
                 </div>
@@ -77,16 +78,19 @@
         <div class="Entrada">
             <label for="ars">ARS:</label>
             <RadzenTextBox  id="ars"@bind-Value="emergencia.ARS" name="ars"/>
+            <RadzenRequiredValidator Component="ars" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
         </div>
 
         <div class="Entrada" style="">
             <label for="nss">NSS:</label>
-            <RadzenMask Mask="*** ******" Pattern="[^0-9]" Placeholder="000 000000" Name="Phone" @bind-Value=@emergencia.NSS />
+            <RadzenMask Mask="*** ******" Pattern="[^0-9]" Placeholder="000 000000" Name="NSS" @bind-Value=@emergencia.NSS />
+            <RadzenRequiredValidator Component="NSS" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
         </div>
         <br>
         <div class="Entrada">
             <label for="M_Consulta">Motivo de Consulta:</label>
             <RadzenTextBox type="M_Consulta" id="M_Consulta" @bind-Value="emergencia.M_Consulta" name="M_Consulta"/>
+            <RadzenRequiredValidator Component="M_Consulta" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
         </div>
 
         <div class="Entrada">
@@ -96,12 +100,12 @@
         <br>
         <div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <RadzenTextBox @bind-value="emergencia.AtencionesPrevias" type="A_Previas" id="A_Previas" name="A_Previas"/>
+            <RadzenCheckBox @bind-Value=@AP Name="Atenciones" />
         </div>
 
         <div class="Entrada">
             <label for="Donde">Donde?</label>
-            <RadzenTextBox type="Donde" id="Donde" @bind-Value="emergencia.Donde" name="Donde"/>
+            <RadzenTextBox type="Donde" Disabled=@(!AP) id="Donde" @bind-Value="emergencia.Donde" name="Donde"/>
         </div>
 
         <div class="Entrada">
@@ -114,6 +118,7 @@
             <RadzenNumeric  id="Peso" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
              @bind-Value="emergencia.Peso" name="Peso"/>
             <label for="Peso">lbs</label>
+            <RadzenRequiredValidator Component="Peso" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
         </div>
         <br>
         <div class="Entrada">
@@ -121,16 +126,20 @@
             <label for="TA">TA:</label>
             <RadzenNumeric ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
             @bind-Value="emergencia.TA" name="TA"/>
+            <RadzenRequiredValidator Component="TA" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
             <label for="FC">FC:</label>
             <RadzenNumeric  id="FR" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
             @bind-Value="emergencia.FR" name="FR"/>
+            <RadzenRequiredValidator Component="FR" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
             <label for="FR">FR</label>
             <RadzenNumeric  id="FC" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
             @bind-Value="emergencia.FC" name="FC"/>
+            <RadzenRequiredValidator Component="FC" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
             <label for="Temperatura">Temperatura:</label>
             <RadzenNumeric  id="Temperatura" ShowUpDown="false" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;" 
             @bind-Value="emergencia.Temperatura" name="Temperatura"/>
             <label for="Temperatura">C</label>
+            <RadzenRequiredValidator Component="Temperatura" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
         </div>
 
         <RadzenTabs SelectedIndex="0">
@@ -176,6 +185,7 @@
             <div style="display: flex;">
                 <label for="Diagnostico">Diagnostico</label>
                 <RadzenTextArea style="width: 100%;"   id="Diagnostico" @bind-Value="emergencia.Diagnostico" name="Diagnostico"/>
+                <RadzenRequiredValidator Component="Diagnostico" Text=" Campo Requerido" Popup=true Style="position: absolute"/>
             </div>
         </div>
         
@@ -219,16 +229,17 @@
     </Tabs>
     </RadzenTabs>
     <center>
-        <RadzenButton ButtonType="ButtonType.Submit" class="btn btn-primary" Click="Guardar"
+        <RadzenButton ButtonType="ButtonType.Submit" class="btn btn-primary" 
             style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</RadzenButton>
     </center>
     </div>
+    </RadzenTemplateForm>
     </div>
     </body>                             
 
 @code {
     
-    
+    bool AP {get;set;}
     void ShowNotification(NotificationMessage message)
     {
         notificationService.Notify(message);

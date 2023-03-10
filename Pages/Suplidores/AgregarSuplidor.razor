@@ -108,17 +108,33 @@
 
     public void Guardar()
     {
-
-        if(suplidores.Guardar(this.suplidor))
+        if(Validar())
         {
+            if(suplidores.Guardar(this.suplidor))
+            {
             this.Nuevo();
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
         }
-
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de Registro", Detail = "Campos invalidos o mal colocados", Duration = 4000 });
+        }
         //Console.WriteLine("Campos no validos o no completados");
     }
 
-
+    public bool Validar()
+    {
+        if(this.suplidor.Nombre != null && this.suplidor.Contacto != null)
+        {
+            System.Console.WriteLine("Pase 1");
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 

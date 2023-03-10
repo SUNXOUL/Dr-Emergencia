@@ -94,14 +94,14 @@
             <RadzenTextBox type="A_Relacionados" id="A_Relacionados" @bind-Value="emergencia.Antecedentes" name="A_Relacionados"/>
         </div>
         <br>
-        <div class="Entrada">
+<div class="Entrada">
             <label for="A_Previas">Atenciones Previas:</label>
-            <RadzenTextBox type="A_Previas" id="A_Previas" name="A_Previas"/>
+            <RadzenCheckBox @bind-Value=@AP Name="Atenciones" />
         </div>
 
         <div class="Entrada">
             <label for="Donde">Donde?</label>
-            <RadzenTextBox type="Donde" id="Donde" @bind-Value="emergencia.Donde" name="Donde"/>
+            <RadzenTextBox type="Donde" Disabled=@(!AP) id="Donde" @bind-Value="emergencia.Donde" name="Donde"/>
         </div>
 
         <div class="Entrada">
@@ -197,8 +197,9 @@
 @code {
     [Parameter]
     public int OrdennID { get; set; }
-public Emergencia emergencia { get; set; } = new Emergencia();
+    public Emergencia emergencia { get; set; } = new Emergencia();
     public Paciente? paciente = new Paciente();
+    public bool AP {get;set;}
     protected override void OnInitialized()
     {
 

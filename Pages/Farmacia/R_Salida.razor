@@ -121,15 +121,34 @@
 
     public void Guardar()
     {
-
-        if(SalidaBLL.Guardar(this.salida))
+        if(Validar())
         {
+            if(SalidaBLL.Guardar(this.salida))
+            {
             this.Nuevo();
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
         }
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de Registro", Detail = "Campos Vacios o mal asignados", Duration = 4000 });
+        }
+
 
         //Console.WriteLine("Campos no validos o no completados");
     }
 
+        public bool Validar()
+        {
+        if(this.salida.ArticuloID!= null && this.salida.Cantidad != null&& this.salida.Razon != null && this.salida.Fecha != null)
+        {
+            System.Console.WriteLine("Pase 1");
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }

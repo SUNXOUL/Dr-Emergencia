@@ -1,4 +1,4 @@
-﻿@page "/R_Paciente"
+@page "/R_Paciente"
 
 @inject NotificationService notificationService
 @inject PacienteBLL pacienteBll
@@ -51,10 +51,12 @@
 
 <h1>Registrar Paciente</h1>
 
-<EditForm model="Paciente">
+<RadzenTemplateForm TItem="Paciente" Data="paciente" Submit="Guardar" >
     <div class="Entrada">
         <label for="Nombre">Nombre:</label>
         <RadzenTextBox  name="Nombre" @bind-Value="paciente.PrimerNombre"/>
+        <RadzenRequiredValidator Component="Nombre" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
+
     </div>
 
     <div class="Entrada">
@@ -65,11 +67,13 @@
     <div class="Entrada">
         <label for="P_Apellido">Primer Apellido:</label>
         <RadzenTextBox @bind-Value="paciente.PrimerApellido"  name="P_Apellido"/>
+        <RadzenRequiredValidator Component="P_Apellido" Text="Primer Apellido es Campo Requerido" Popup=true Style="position: absolute"/>
     </div>
 
     <div class="Entrada">
         <label for="S_Apellido">Segundo Apellido:</label>
         <RadzenTextBox @bind-Value="paciente.SegundoApellido"  name="S_Apellido"/>
+        <RadzenRequiredValidator Component="S_Apellido" Text="Segundo Apellido es Campo Requerido" Popup=true Style="position: absolute"/>
     </div>
     <br>
 
@@ -91,6 +95,7 @@
                             <RadzenLabel >Fecha Nacimiento</RadzenLabel>
                             <RadzenTextBox style="display: inline-block;" type="date" class="form-control" aria-label="Recipient's username"
                                 aria-describedby="basic-addon2" @bind-Value="paciente.FechadeNacimiento" id="fecha" name="fecha"/>
+                                <RadzenRequiredValidator Component="fecha" Text="Fecha es Campo Requerido" Popup=true Style="position: absolute"/>
                         </div>
                         </div>
 
@@ -101,12 +106,14 @@
         <RadzenTabsItem Text="Mayor de Edad">
     <div class="Entrada">
         <label for="Cedula">Cedula:</label>
-        <RadzenMask Mask="***-*******-**" Pattern="[^0-9]" Placeholder="000-0000000-00" Name="Phone" @bind-Value=@paciente.Cedula />
+        <RadzenMask Mask="***-*******-**" Pattern="[^0-9]" Placeholder="000-0000000-00" Name="Cedula" @bind-Value=@paciente.Cedula />
+        <RadzenRequiredValidator Component="Cedula" Text="Campo Requerido" Popup=true Style="position: absolute"/>
     </div>
 
     <div class="Entrada">
         <label for="O_Laboral">Ocupacion Laboral:</label>
         <RadzenTextBox type="O_Laboral" id="O_Laboral" @bind-Value="paciente.Ocupacion" name="O_Laboral"/>
+        <RadzenRequiredValidator Component="O_Laboral" Text="Campo Requerido" Popup=true Style="position: absolute"/>
     </div>
         </RadzenTabsItem>
 
@@ -114,11 +121,13 @@
     <div class="Entrada">
         <label for="N_Tutor">Nombre Tutor:</label>
         <RadzenTextBox type="N_Tutor" id="N_Tutor" @bind-Value="paciente.Tutor" name="N_Tutor"/>
+        <RadzenRequiredValidator Component="N_Tutor" Text="Campo Requerido" Popup=true Style="position: absolute"/>
     </div>
 
     <div class="Entrada">
         <label for="C_Tutor">Cedula Tutor:</label>
-        <RadzenMask Mask="***-*******-**" Pattern="[^0-9]" Placeholder="000-0000000-00" Name="Phone" @bind-Value=@paciente.CedulaTutor />
+        <RadzenMask Mask="***-*******-**" Pattern="[^0-9]" Placeholder="000-0000000-00" Name="C_Tutor" @bind-Value=@paciente.CedulaTutor />
+        <RadzenRequiredValidator Component="C_Tutor" Text="Campo Requerido" Popup=true Style="position: absolute"/>
     </div>
     </RadzenTabsItem>
     </Tabs>
@@ -150,11 +159,11 @@
     </div>
 
     <center>
-        <RadzenButton ButtonType="ButtonType.Submit" class="btn btn-primary" Click="Guardar"
+        <RadzenButton ButtonType="ButtonType.Submit" class="btn btn-primary"
             style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;">Registrar</RadzenButton>
     </center>
 
-</EditForm>
+</RadzenTemplateForm>
 
 
 

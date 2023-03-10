@@ -133,17 +133,34 @@
 
     public void Guardar()
     {
-
-        
-
-        if(EntradaBLL.Guardar(this.entrada))
+        if(Validar())
         {
-            this.Nuevo();
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            if(EntradaBLL.Guardar(this.entrada))
+            {
+                this.Nuevo();
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
         }
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Erorr de entrada", Detail = "Campos invalidos", Duration = 4000 });
+
+        }
+
 
         //Console.WriteLine("Campos no validos o no completados");
     }
 
-
+    public bool Validar()
+    {
+        if(this.entrada.ArticuloID!= null && this.entrada.Cantidad != null&& this.entrada.Razon != null && this.entrada.Fecha != null)
+        {
+            System.Console.WriteLine("Pase 1");
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

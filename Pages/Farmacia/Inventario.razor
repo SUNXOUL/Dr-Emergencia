@@ -137,6 +137,7 @@
 
     </RadzenDataGrid>
 
+
 @code {
 
         [Parameter]
@@ -218,31 +219,56 @@
 
     public void PInventario()
     {
-       entrada.Razon ="Proceso de Inventario";
-       entrada.cantidad_anterior = this.articulo.Existencia;
-       entrada.ArticuloID = this.articulo.ArticuloID;
-       if(Entradas.Inventario(this.entrada))
-       {
-            this.Nuevo();
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        if(Validar())
+        {
+            entrada.Razon ="Proceso de Inventario";
+            entrada.cantidad_anterior = this.articulo.Existencia;
+            entrada.ArticuloID = this.articulo.ArticuloID;
+            if(Entradas.Inventario(this.entrada))
+            {
+                this.Nuevo();
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
 
-       }
-       this.entrada = new Entrada();
+            }
+            this.entrada = new Entrada();
+        }
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Erorr de Inventario", Detail = "Campos invalidos", Duration = 4000 });
+        }
     }
 
     public void Entrada()
     {
-        entrada.Razon="Ajuste Inventario";
-        entrada.cantidad_anterior = this.articulo.Existencia;
-        entrada.ArticuloID=this.articulo.ArticuloID;
-        if(Entradas.Guardar(this.entrada))
+        if(Validar())
         {
-            this.Nuevo();
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            entrada.Razon="Ajuste Inventario";
+            entrada.cantidad_anterior = this.articulo.Existencia;
+            entrada.ArticuloID=this.articulo.ArticuloID;
+            if(Entradas.Guardar(this.entrada))
+            {
+                this.Nuevo();
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
+            this.entrada = new Entrada();
         }
-        this.entrada = new Entrada();
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Erorr de Ajuste", Detail = "Campos invalidos", Duration = 4000 });
+        }
     }
 
-    
+    public bool Validar()
+    {
+        if(this.articulo.Descripcion != null && this.entrada.Cantidad != null)
+        {
+            System.Console.WriteLine("Pase 1");
+                return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 }
