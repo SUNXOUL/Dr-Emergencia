@@ -1,10 +1,14 @@
 ﻿@page "/C_Suplidor"
 
 
+
+
+
 <h3>Consultar suplidor</h3>
 
 
 @inject SuplidorBLL Suplidor
+@inject DialogService Dialog
 
 
 <head>
@@ -47,7 +51,7 @@
 </head>
     
 
-<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
     Data="Suplidor.GetList()" TItem="Suplidor" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
 
@@ -65,7 +69,40 @@
 
     </RadzenDataGrid>
 
+    <div class="col-2 mt-4 float-right">
+                <button @onclick="ShowInlineDialog" class="btn btn-outline-primary" type="button"> <i
+                        class="bi bi-printer" />Imprimir</button>
+    </div>
+
 @code {
 
+    private List<Suplidor> Supliers {get; set;}
+    
+
+    protected override void OnInitialized()
+    {
+        Supliers = Suplidor.GetList();
+    }
+    byte[] reportData;
+    string pdfContent = "";
+    async Task ShowInlineDialog()
+    {
+        RptSuplidor rptResult = new RptSuplidor();
+        reportData = rptResult.Report(Supliers);
+        pdfContent = "data:application/pdf;base64, " + System.Convert.ToBase64String(reportData);
+        var result = await Dialog.OpenAsync("Reporte de Jugadas", ds =>
+
+    @<div>
+
+        @if (reportData is { })
+            {
+                <object data="@pdfContent" width="800px" height="300px" name="_blank" />
+
+            }
+
+        </div>
+    , new DialogOptions() { Width = "850px", Height = "400px", Resizable = false, Draggable = false });
+
+    }
 }
 
