@@ -1,5 +1,71 @@
-﻿<h3>ConsultarSuplidor</h3>
+﻿@page "/C_Suplidor"
+
+
+<h3>Consultar suplidor</h3>
+
+
+@inject SuplidorBLL Suplidor
+
+
+<head>
+    <style>
+        .hidden{
+            display: none;
+        }
+
+        .form-select{
+            border: none;
+            width: 150px;
+        }
+        .form-floating {
+            width: 15%;
+        }
+            .Entrada{
+        display: inline-block;
+        padding: 5px;
+        align-items: center;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+
+    </style>
+</head>
+    
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+    Data="Suplidor.GetList()" TItem="Suplidor" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+        <Columns>
+                    <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Suplidor" Frozen="true" Title="Acciones">
+                <Template Context="Item">
+                    <RadzenLink Path=@($"V_Suplidor/{Item.SuplidorID}") Text="Ver" ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
+                </Template>
+                    </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Suplidor" Property="SuplidorID" Title="#ID" />
+            <RadzenDataGridColumn TItem="Suplidor" Property="Nombre" Title="Nombre" />
+            <RadzenDataGridColumn TItem="Suplidor" Property="Contacto" Title="Contacto" />
+        
+        </Columns>
+
+    </RadzenDataGrid>
 
 @code {
 
 }
+

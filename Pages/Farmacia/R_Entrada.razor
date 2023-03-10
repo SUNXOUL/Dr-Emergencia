@@ -91,10 +91,16 @@
                 <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") Text="Ver" />
             </Template>
                 </RadzenDataGridColumn>
-            <RadzenDataGridColumn TItem="Entrada" Property="ArticuloID" Title="Articulo" />
-            <RadzenDataGridColumn TItem="Entrada" Property="Cantidad" Title="Cantidad" />
-            <RadzenDataGridColumn TItem="Entrada" Property="Razon" Title="Razon" />
-            <RadzenDataGridColumn TItem="Entrada" Property="Fecha" Title="Fecha" />
+            <RadzenDataGridColumn TItem="Entrada" Property="ArticuloID" Title="Articulo"/>
+            <RadzenDataGridColumn TItem="Entrada" Property="cantidad_anterior" Title="Cantidad Anterior"/>
+            <RadzenDataGridColumn TItem="Entrada" Property="Cantidad" Title="Cantidad de Ajuste"/>
+            <RadzenDataGridColumn Filterable="true" Sortable="false" TItem="Entrada" Frozen="false" Title="Cantidad Actual">
+                <Template Context="Item">
+                    @ArticuloBLL.Buscar(Item.ArticuloID).Existencia
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Entrada" Property="Razon" Title="Razon"/>
+            <RadzenDataGridColumn TItem="Entrada" Property="Fecha" Title="Fecha"/>
 
 
         </Columns>
@@ -104,6 +110,8 @@
 </body>
 @code {
     public Entrada entrada { get; set; } = new Entrada();
+
+    
     
     protected override void OnInitialized()
     {
@@ -125,6 +133,8 @@
 
     public void Guardar()
     {
+
+        
 
         if(EntradaBLL.Guardar(this.entrada))
         {

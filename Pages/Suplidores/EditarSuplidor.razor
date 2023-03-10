@@ -1,5 +1,175 @@
-﻿<h3>EditarSuplidor</h3>
+﻿@page "/E_Suplidor"
+@page "/E_Suplidor/{SuplidorID:int}"
+
+@inject SuplidorBLL suplidores
+@inject NotificationService notificationService
+
+
+<head>
+    <style>
+        .Entrada {
+            display: inline-block;
+            padding: 5px;
+            align-items: center;
+        }
+
+        .Entrada input {
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+        .Entrada label {
+            margin: 5px;
+        }
+
+        .Entrada textarea {
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border-radius: 15px;
+            width: 100%;
+        }
+
+        .Entrada select {
+            width: 200px;
+            height: 35px;
+            border-radius: 50px;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+            border: 15px;
+            margin: 5px;
+        }
+
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+
+<h1>Editar Suplidor</h1>
+
+<EditForm model="Suplidor">
+    <div class="Entrada">
+        <label for="Nombre">Nombre:</label>
+        <RadzenTextBox  name="Nombre" @bind-Value="suplidor.Nombre"/>
+    </div>
+
+    <div class="Entrada">
+        <label for="Contacto">Contacto:</label>
+        <RadzenMask Mask="***-***-****" Pattern="[^0-9]" Placeholder="000-000-0000" Name="Phone" @bind-Value=@suplidor.Contacto/>
+    </div>
+    <br>
+
+   
+
+
+    <center>
+        <a href="/V_Suplidor/@suplidor.SuplidorID"><button type="button" class="btn btn-primary"
+                style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"
+                @onclick="Guardar">Guardar</button></a>
+        <a href="/V_Paciente/@suplidor.SuplidorID"><button type="button" class="btn btn-danger"
+                style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;">Cancelar</button></a>
+    </center>
+
+</EditForm>
+
+
 
 @code {
 
+    [Parameter]
+    public int SuplidorID { get; set; }
+
+    public Suplidor suplidor  { get; set; } = new Suplidor();
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+    protected override void OnInitialized()
+    {
+
+        suplidor.SuplidorID = SuplidorID;
+        Buscar();
+    }
+
+    private void Buscar()
+    {
+        var suplidorEncontrado = suplidores.Buscar(suplidor.SuplidorID);
+        if (suplidorEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro en el ID{this.suplidor.SuplidorID}");
+            this.suplidor = suplidorEncontrado;
+
+        }
+        else
+        {
+            Nuevo();
+            Console.WriteLine("Id no existente");
+        }
+    }
+
+
+    public void Nuevo()
+    {
+        this.suplidor = new Suplidor();
+    }
+
+    public void Guardar()
+    {
+
+        if(Validar())
+        {
+            if(suplidores.Guardar(this.suplidor))
+            {
+                Console.WriteLine($"{this.suplidor.Nombre} Se guardo en el {this.suplidor.SuplidorID}");
+                this.Nuevo();
+                ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+            }
+        }
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error de Registro", Detail = "Campos Vacios o mal asignados", Duration = 4000 });
+        }
+
+
+    }
+
+
+
+
+    public void eliminar()
+    {
+
+
+
+        bool RES = suplidores.Eliminar(this.suplidor);
+
+        if (RES == false)
+        {
+            Console.WriteLine("Eliminado Correctamente");
+            Nuevo();
+        }
+        else
+        {
+            Console.WriteLine("No se borro nada");
+        }
+    }
+
+
+        public bool Validar()
+        {
+            if(this.suplidor.Nombre !=null && this.suplidor.Contacto !=null )
+            {
+               return true;
+                
+            }
+            else
+            {
+                return false;
+            }
+        }
 }

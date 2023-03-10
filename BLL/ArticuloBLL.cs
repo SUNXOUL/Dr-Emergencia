@@ -66,6 +66,20 @@ namespace DrEmergencias
         {
             return _contexto.Articulos.Where(o=>o.Visible == true && o.Descripcion.Contains(Buscado) ).AsNoTracking().ToList();
         }
+
+         public List<Articulo> ReOrdenList()
+        {
+            return _contexto.Articulos.Where(o=>o.Visible == true && o.Estado == ESTADOS.REORDEN).AsNoTracking().ToList();
+        }
+
+        /*public bool VerificarArticulo(int ID)
+        {
+            _contexto.Entry(Buscar(ID)).State = EntityState.Modified;
+            int cantidad = _contexto.SaveChanges();
+            if(Buscar(ID).Existencia <= Buscar(ID).Num_Reorden)
+            _contexto.Database.ExecuteSqlRaw($"UPDATE")
+            
+        }*/
         public bool hidden(Articulo Articulo)
         {
             _contexto.Entry(Articulo).State = EntityState.Modified;

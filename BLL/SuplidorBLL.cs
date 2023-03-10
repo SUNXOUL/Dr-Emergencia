@@ -62,7 +62,7 @@ namespace DrEmergencias
         {
             return _contexto.Suplidores.Where(o=>o.Visible == true).AsNoTracking().ToList();
         }
-                public bool hidden(Suplidor Suplidor)
+        public bool hidden(Suplidor Suplidor)
         {
             _contexto.Entry(Suplidor).State = EntityState.Modified;
             int cantidad = _contexto.SaveChanges();

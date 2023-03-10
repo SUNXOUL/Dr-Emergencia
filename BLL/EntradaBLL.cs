@@ -1,8 +1,12 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
+
+
+
 namespace DrEmergencias
 {
+
     public class EntradaBLL
     {
     private Contexto _contexto;
@@ -29,6 +33,14 @@ namespace DrEmergencias
         _contexto.Entradas.Add(Entrada);
         int cantidad = _contexto.SaveChanges();
         _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia + {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
+        return cantidad > 0;
+    }
+
+    public bool Inventario(Entrada Entrada)
+    {
+       _contexto.Entradas.Add(Entrada);
+        int cantidad = _contexto.SaveChanges();
+        _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
         return cantidad > 0;
     }
 

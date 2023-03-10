@@ -7,7 +7,7 @@ namespace DrEmergencias
         [Key]
         public int ArticuloID { get; set; }
 
-        public int? SuplidorId {get; set;}
+        public int SuplidorId {get; set;}
 
         public string?  Descripcion { get; set; }
         public double? Costo { get;  set; }
@@ -24,7 +24,7 @@ namespace DrEmergencias
         {
             this.Existencia=0;
             this.Visible = true;
-            this.Estado = ESTADOS.ACTIVO;
+            this.Estado = ESTADOS.DESABILITADO;
         }
     }
 

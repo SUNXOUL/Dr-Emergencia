@@ -7,6 +7,7 @@
 @inject EntradaBLL Entradas
 @inject SalidaBLL Salidas
 @inject NotificationService notificationService
+@inject SuplidorBLL suplidores
 
 <head>
     <style>
@@ -70,7 +71,7 @@
             
             <div class="input-group ">
                 <label for="value">Nueva Cantidad</label>
-                <RadzenNumeric  id="Value" @bind-Value="Value" ShowUpDown="false"   name="value"/>
+                <RadzenNumeric  id="Value" @bind-Value="entrada.Cantidad" ShowUpDown="false"   name="value"/>
                 <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="PInventario"><RadzenIcon Icon="done" /></RadzenButton>
             </div>
             
@@ -122,6 +123,16 @@
             <RadzenDataGridColumn TItem="Articulo" Property="Precio" Title="Precio" />
             <RadzenDataGridColumn TItem="Articulo" Property="Costo" Title="Costo" />
             <RadzenDataGridColumn TItem="Articulo" Property="Existencia" Title="Existencia" />
+            <RadzenDataGridColumn Filterable="true" Sortable="false" TItem="Articulo" Frozen="false" Title="Suplidor">
+                <Template Context="Item">
+                    @suplidores.Buscar(Item.SuplidorId).Nombre
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn Filterable="true" Sortable="false" TItem="Articulo" Frozen="false" Title="Contacto">
+                <Template Context="Item">
+                    @suplidores.Buscar(Item.SuplidorId).Contacto
+                </Template>
+            </RadzenDataGridColumn>
         </Columns>
 
     </RadzenDataGrid>
@@ -207,17 +218,22 @@
 
     public void PInventario()
     {
-        if(Value >=0)
-        {
-        this.articulo.Existencia=Value;
-        Guardar();
-        }
-        this.Value=0;
+       entrada.Razon ="Proceso de Inventario";
+       entrada.cantidad_anterior = this.articulo.Existencia;
+       entrada.ArticuloID = this.articulo.ArticuloID;
+       if(Entradas.Inventario(this.entrada))
+       {
+            this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+
+       }
+       this.entrada = new Entrada();
     }
 
     public void Entrada()
     {
         entrada.Razon="Ajuste Inventario";
+        entrada.cantidad_anterior = this.articulo.Existencia;
         entrada.ArticuloID=this.articulo.ArticuloID;
         if(Entradas.Guardar(this.entrada))
         {
@@ -226,5 +242,7 @@
         }
         this.entrada = new Entrada();
     }
+
+    
 
 }
