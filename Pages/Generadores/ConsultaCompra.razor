@@ -1,0 +1,24 @@
+@page "/C_Compra"
+
+@inject OrdenComprasBLL compras
+@inject ArticuloBLL articulos
+
+<PageTitle>Consulta Ordenes de compra.</PageTitle>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false"
+        FilterMode="FilterMode.Advanced" AllowGrouping="true" AllowSorting="true" AllowPaging="true"
+        PagerHorizontalAlign="HorizontalAlign.Left" Data="@compras.GetList()" TItem="OrdenCompras" ColumnWidth="200px"
+        LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+        <Columns>
+            <RadzenDataGridColumn TItem="OrdenCompras" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
+                <Template Context="Item">
+                    <RadzenLink Path=@($"R_Compras/{Item.CompraId}") Text="Ver" ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="OrdenCompras" Property="CompraId" Title="#ID" />
+            <RadzenDataGridColumn TItem="OrdenCompras" Property="Fecha" Title="Fecha" />
+            <RadzenDataGridColumn TItem="OrdenCompras" Property="Total" Title="Total compra" />
+        </Columns>
+
+    </RadzenDataGrid>

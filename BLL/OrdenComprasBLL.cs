@@ -40,6 +40,7 @@ namespace DrEmergencias
                 articulo.Existencia += item.cantidad;
                 
                 
+                
             }
 
             _contexto.OrdenCompras.Add(compra);
@@ -107,10 +108,12 @@ namespace DrEmergencias
         {
             return _contexto.OrdenCompras
                 .Include(c => c.Detalle)
-                .Where(c => c.CompraId == compraId)
+                .Where(c => c.CompraId == compraId && c.Visible == true)
                 .AsNoTracking()
                 .SingleOrDefault();
         }
+
+        
         public List<OrdenCompras> GetList()
         {
             return _contexto.OrdenCompras.Where(o => o.Visible==true).AsNoTracking().ToList();

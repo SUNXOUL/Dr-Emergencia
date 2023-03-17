@@ -71,7 +71,7 @@ namespace DrEmergencias.Migrations
                     b.Property<int>("cantidad")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("costo")
+                    b.Property<double?>("costo")
                         .HasColumnType("REAL");
 
                     b.HasKey("DetalleId");
@@ -304,10 +304,13 @@ namespace DrEmergencias.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("FechaCompra")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("SuplidorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Total")
+                    b.Property<double?>("Total")
                         .HasColumnType("REAL");
 
                     b.Property<bool>("Visible")

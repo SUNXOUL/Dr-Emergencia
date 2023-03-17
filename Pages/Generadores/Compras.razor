@@ -87,31 +87,60 @@
                 <div class="Entrada col-2">
                     <RadzenNumeric  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="detalle.cantidad"></RadzenNumeric>
                 </div>
+                <div class="Entrada col-1">
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="AgregarDetalle"><RadzenIcon Icon="playlist_add"/></RadzenButton>
+                </div>
+               
             </div>
             
-                
-                
-           
+
+        </RadzenStack>
+        <RadzenCard class=" rz-shadow-0 rz-border-radius-0 rz-p-8" style="margin: 1rem calc(-1 * var(--rz-card-padding));">
+            
+            <table class="table table-striped" style="backgroud-color:white">
+                <thead>
+                    <tr>
+                        <th scope="col">#CompraId</th>
+                        <th scope="col">#ArticuloId</th>
+                        <th scope="col">Articulo</th>
+                        <th scope="col">Costo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
                     
-                   
-                    
+                        @foreach(var item in this.compra.Detalle)
+                        {
+                            <tr>
+                            <td>@item.CompraId</td>
+                            <td>@item.ArticuloId</td>
+                            <td>@articulos.Buscar(item.ArticuloId).Descripcion</td>
+                            <td>@item.costo</td>
+                            <td>@item.cantidad</td>
+                            <td>@item.Importe</td>
+                            </tr>
+                        }
                 
-                
-                
-         
-        
-            
-                
-                
-           
-            
-            
-           
-            
-            
-            
+                </tbody>
+            </table>
+           <div class="row d-flex justify-content-end">
+                <div class="Entrada col-3">
+                    <label>Total</label>
+                    <input disabled="true" @bind-value="compra.Total">
+                </div>
+            </div>
+
+
+        </RadzenCard>
+        <RadzenStack>
+            <center>
+                <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"@onclick="Guardar" >Registrar</button>
+                <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button>
+             </center>
         </RadzenStack>
     </RadzenCard>
+
     
     
     
@@ -129,20 +158,22 @@
 
     public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
     
-    public double Total {get; set;}
+    
     protected override void OnInitialized()
     {
         L_Articulos = articulos.GetList();
 
         if(CompraId > 0)
         {
-            CompraId = 0;
+            this.compra.CompraId = CompraId;
+            Buscar();
         }
     }
 
     void Buscar()
     {
         var CompraEncontrada = compras.Buscar(compra.CompraId);
+        
 
         if(CompraEncontrada != null)
         {
@@ -150,9 +181,16 @@
         }
     }
 
+    
+
     void AgregarDetalle()
     {
+        this.detalle.costo= articulos.Buscar(this.detalle.ArticuloId).Costo;
         this.compra.Detalle.Add(this.detalle);
+        foreach(var item in this.compra.Detalle)
+        {
+            this.compra.Total += item.Importe;
+        }
         this.detalle = new ComprasDetalle();
     }
 
@@ -161,11 +199,25 @@
         this.compra = new OrdenCompras();
     }
 
+    void Eliminar()
+    {
+        if(Validar())
+        {
+            compras.Eliminar(this.compra);
+            Nuevo();
+        }
+        else
+        {
+            Console.WriteLine("No se ha borrado nada");
+        }
+    }
+
     void Guardar()
     {
         if(Validar())
         {
             compras.Guardar(this.compra);
+            this.Nuevo();
         }
         else
         {
