@@ -1,0 +1,33 @@
+
+@page "/I_OrdenCompra/{OrdenId:int}"
+@layout EmptyLayout
+
+@inject ArticuloBLL Articulos
+@inject EntradaBLL Entradas
+@inject SalidaBLL Salidas
+@inject SuplidorBLL suplidores
+
+<body onload="window.print()">
+<H1>Dr Emergencias</H1>
+<h4>Orden de compra</h4>
+
+    <RadzenFieldset>
+        <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon icon="account_box" class="me-1" /><b>Detalle</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+
+        </ChildContent>
+    </RadzenFieldset>
+
+</body>
+
+@code{
+
+    [Parameter]
+    public int OrdenId{get;set;}
+
+    
+}
