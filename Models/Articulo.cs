@@ -15,7 +15,7 @@ namespace DrEmergencias
         public double? Precio { get; set; }
         public int? Existencia { get; set; }
 
-        public ESTADOS Estado {get; set;}
+        public string Estado {get; set;}
         public int Num_Reorden {get; set;}
         public bool Visible { get; set; }
 
@@ -24,7 +24,8 @@ namespace DrEmergencias
         {
             this.Existencia=0;
             this.Visible = true;
-            this.Estado = ESTADOS.DESABILITADO;
+            this.Estado = ESTADOS.ACTIVO.ToString();
+            this.Num_Reorden = 5;
         }
     }
 

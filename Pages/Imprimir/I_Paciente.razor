@@ -1,0 +1,188 @@
+@page "/I_Paciente"
+@page "/I_Paciente/{PacienteID:int}"
+@layout EmptyLayout
+
+@inject PacienteBLL Pacientes
+
+
+
+<head>
+    <style>
+        .Entrada {
+            display: inline-block;
+            padding: 5px;
+            align-items: center;
+        }
+
+            .Entrada input {
+                border-radius: 50px;
+                background-color: #D9D9D9;
+                border-color: #D9D9D9;
+                border: 15px;
+                margin: 5px;
+            }
+
+            .Entrada label {
+                margin: 5px;
+            }
+
+            .Entrada textarea {
+                background-color: #D9D9D9;
+                border-color: #D9D9D9;
+                border-radius: 15px;
+                width: 100%;
+            }
+
+            .Entrada select {
+                width: 200px;
+                height: 35px;
+                border-radius: 50px;
+                background-color: #D9D9D9;
+                border-color: #D9D9D9;
+                border: 15px;
+                margin: 5px;
+            }
+
+        body {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body onload="window.print()">
+    <h1>Paciente</h1>
+
+    <EditForm model="Paciente">
+        <div class="Entrada">
+            <label for="Nombre">Nombre:</label>
+            <RadzenTextBox Disabled=true name="Nombre" @bind-Value="paciente.PrimerNombre" />
+        </div>
+
+        <div class="Entrada">
+            <label for="S_Nombre">Segundo Nombre:</label>
+            <RadzenTextBox Disabled=true @bind-Value="paciente.SegundoNombre" name="S_Nombre" />
+        </div>
+        <br>
+        <div class="Entrada">
+            <label for="P_Apellido">Primer Apellido:</label>
+            <RadzenTextBox Disabled=true @bind-Value="paciente.PrimerApellido" name="P_Apellido" />
+        </div>
+
+        <div class="Entrada">
+            <label for="S_Apellido">Segundo Apellido:</label>
+            <RadzenTextBox Disabled=true @bind-Value="paciente.SegundoApellido" name="S_Apellido" />
+        </div>
+        <br>
+
+
+
+        <div style="display: flex; align-items:center;">
+
+            <div class="Entrada">
+                <label>Sexo:</label>
+                <select id="Persona" disabled style="background-color: white;" name="Persona" @bind="paciente.Sexo">
+                    @foreach (var item in Sexos)
+                    {
+                        <option value="@item"> @item</option>
+                    }
+
+                </select>
+            </div>
+            <div class="Entrada" style="display: flex;">
+                <RadzenLabel>Fecha Nacimiento</RadzenLabel>
+                <RadzenTextBox Disabled=true style="display: inline-block;" type="date" class="form-control" aria-label="Recipient's username"
+                               aria-describedby="basic-addon2" @bind-Value="paciente.FechadeNacimiento" id="fecha" name="fecha" />
+            </div>
+        </div>
+
+
+
+        <RadzenTabs>
+            <Tabs>
+                <RadzenTabsItem Text="Mayor de Edad">
+                    <div class="Entrada">
+                        <label for="Cedula">Cedula:</label>
+                        <RadzenTextBox Disabled=true type="Cedula" id="Cedula" @bind-Value="paciente.Cedula" name="Cedula" />
+                    </div>
+
+                    <div class="Entrada">
+                        <label for="O_Laboral">Ocupacion Laboral:</label>
+                        <RadzenTextBox Disabled=true type="O_Laboral" id="O_Laboral" @bind-Value="paciente.Ocupacion" name="O_Laboral" />
+                    </div>
+                </RadzenTabsItem>
+
+                <RadzenTabsItem Text="Menor de edad">
+                    <div class="Entrada">
+                        <label for="N_Tutor">Nombre Tutor:</label>
+                        <RadzenTextBox Disabled=true type="N_Tutor" id="N_Tutor" @bind-Value="paciente.Tutor" name="N_Tutor" />
+                    </div>
+
+                    <div class="Entrada">
+                        <label for="C_Tutor">Cedula Tutor:</label>
+                        <RadzenTextBox Disabled=true type="C_Tutor" id="C_Tutor" @bind-Value="paciente.CedulaTutor" name="C_Tutor" />
+                    </div>
+                </RadzenTabsItem>
+            </Tabs>
+        </RadzenTabs>
+
+        <div class="Entrada">
+            <label for="Alergias">Alergias:</label>
+            <RadzenTextBox Disabled=true type="Alergias" id="Alergias" @bind-Value="paciente.Alergia" name="Alergias" />
+        </div>
+
+        <div class="Entrada">
+            <label for="Telefono">Telefono:</label>
+            <RadzenTextBox Disabled=true type="Telefono" id="Telefono" @bind-Value="paciente.Telefono" name="Telefono" />
+        </div>
+
+        <div class="Entrada">
+            <label for="Direccion">Direccion:</label>
+            <RadzenTextBox Disabled=true @bind-Value="paciente.Direccion" type="Direccion" id="Direccion" name="Direccion" />
+        </div>
+
+        <div class="Entrada">
+            <label for="Provincia">Provincia:</label>
+            <RadzenTextBox Disabled=true @bind-Value="paciente.Provincia" type="Provincia" id="Provincia" name="Provincia" />
+        </div>
+
+        <div class="Entrada">
+            <label for="Municipio">Municipio:</label>
+            <RadzenTextBox Disabled=true @bind-Value="paciente.Municipio" type="Municipio" id="Municipio" name="Municipio" />
+        </div>
+
+    </EditForm>
+
+</body>
+
+@code {
+    [Parameter]
+    public int PacienteID { get; set; }
+    public Paciente paciente { get; set; } = new Paciente();
+    List<Sexo> Sexos = Enum.GetValues(typeof(Sexo))
+                        .Cast<Sexo>()
+                        .ToList();
+
+
+    protected override void OnInitialized()
+    {
+        if (PacienteID > 0)
+        {
+
+
+            Buscar();
+        }
+    }
+
+    private void Buscar()
+    {
+        Paciente? pacienteEncontrado = Pacientes.Buscar(this.PacienteID);
+        if (pacienteEncontrado != null)
+        {
+            Console.WriteLine($"Se encontro una ocupacion con el ID {this.paciente.PacienteID}");
+            this.paciente = pacienteEncontrado;
+            System.Console.WriteLine(paciente.PrimerNombre);
+        }
+
+    }
+
+}

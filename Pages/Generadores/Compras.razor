@@ -1,0 +1,200 @@
+@page "/R_Compras"
+@page "/R_Compras/{CompraId:int}"
+
+
+
+@inject OrdenComprasBLL compras
+@inject ArticuloBLL articulos
+
+<PageTitle>Registro de compras.</PageTitle>
+
+<head>
+    <style>
+        .hidden{
+            display: none;
+        }
+
+        .form-select{
+            border: none;
+            width: 150px;
+        }
+        .form-floating {
+            width: 15%;
+        }
+            .Entrada{
+        display: flex;
+        padding: 5px;
+        align-items: center;
+        
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+        width: 100%;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+
+    </style>
+</head>
+
+<body>
+   
+    <RadzenCard >
+        <RadzenStack>
+            
+                
+            <div  class="d-flex justify-content-between">
+                <div class="Entrada">
+                    <div class="input-group">
+                        <RadzenLabel>CompraId:</RadzenLabel>
+                        <RadzenNumeric ShowUpDown="false" style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="compra.CompraId"/>
+                        <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Buscar"><RadzenIcon Icon="find_replace"/></RadzenButton>
+                    </div>
+                </div>
+                    
+                <br>
+                <div>
+                    <div class="Entrada ">
+                        <div class="input-group ">
+                            <RadzenLabel >Fecha</RadzenLabel>
+                            <RadzenDatePicker @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" Name="Fecha" />
+                            <RadzenRequiredValidator Component="Fecha" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div  class="Entrada col-2">
+                 <RadzenDropDown  AllowClear="true" TValue="int" Name="Articulo"
+                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+                             class="w-100" Placeholder="Articulo"  Data="articulos.GetList()" TextProperty="Descripcion"
+                             @bind-value=@detalle.ArticuloId ValueProperty="ArticuloID" style="border-radius: 25px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 3px; height:40px"
+                             />
+                </div>
+                <div class="Entrada col-2">
+                    <RadzenNumeric  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="detalle.cantidad"></RadzenNumeric>
+                </div>
+            </div>
+            
+                
+                
+           
+                    
+                   
+                    
+                
+                
+                
+         
+        
+            
+                
+                
+           
+            
+            
+           
+            
+            
+            
+        </RadzenStack>
+    </RadzenCard>
+    
+    
+    
+</body>
+
+
+@code
+{
+    [Parameter]
+    public int CompraId {get; set;}
+
+    public OrdenCompras compra {get; set;} = new OrdenCompras();
+
+    public ComprasDetalle detalle {get; set;} = new ComprasDetalle();
+
+    public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
+    
+    public double Total {get; set;}
+    protected override void OnInitialized()
+    {
+        L_Articulos = articulos.GetList();
+
+        if(CompraId > 0)
+        {
+            CompraId = 0;
+        }
+    }
+
+    void Buscar()
+    {
+        var CompraEncontrada = compras.Buscar(compra.CompraId);
+
+        if(CompraEncontrada != null)
+        {
+            this.compra = CompraEncontrada;
+        }
+    }
+
+    void AgregarDetalle()
+    {
+        this.compra.Detalle.Add(this.detalle);
+        this.detalle = new ComprasDetalle();
+    }
+
+    void Nuevo()
+    {
+        this.compra = new OrdenCompras();
+    }
+
+    void Guardar()
+    {
+        if(Validar())
+        {
+            compras.Guardar(this.compra);
+        }
+        else
+        {
+            Console.WriteLine("No se ha guardado nada");
+        }
+    }
+
+    bool Validar()
+    {
+        if(this.compra.Detalle != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
+    
+
+
+
+
+
+ 
+
+
+
+}
+

@@ -32,23 +32,73 @@ namespace DrEmergencias
 
         private bool Insertar(OrdenCompras compra)
         {
+            
+
+            foreach(var item in compra.Detalle)
+            {
+                var articulo = _contexto.Articulos.Find(item.ArticuloId);
+                articulo.Existencia += item.cantidad;
+                
+                
+            }
+
             _contexto.OrdenCompras.Add(compra);
+
             return _contexto.SaveChanges() > 0;
+
         }
 
         private bool Modificar(OrdenCompras compra)
         {
+            
+            var Compra_Anterior =  _contexto.OrdenCompras
+            .Where(c => c.CompraId == compra.CompraId)
+            .Include(c => c.Detalle)
+            .AsNoTracking().SingleOrDefault();
+
+            //Restar inventario del detalle de la Compra_Anterior
+            foreach( var item in Compra_Anterior.Detalle)
+            {
+                var articulo = _contexto.Articulos.Find(item.ArticuloId);
+                articulo.Existencia -= item.cantidad;
+                
+            }
+
+            _contexto.Database.ExecuteSqlRaw($"DELETE FROM ComprasDetalle WHERE CompraId{compra.CompraId}");
+
+            //Sumar el nuevo inventario que ya esta modificado
+
+            foreach(var item in compra.Detalle)
+            {
+                var articulo = _contexto.Articulos.Find(item.ArticuloId);
+
+                articulo.Existencia += item.cantidad;
+                
+
+                _contexto.Entry(item).State = EntityState.Added;
+            }
 
             _contexto.Entry(compra).State = EntityState.Modified;
 
-            var guardo = _contexto.SaveChanges() > 0;
+            var modificado = _contexto.SaveChanges() > 0;
             _contexto.Entry(compra).State = EntityState.Detached;
-            return guardo;
+            return modificado;
+
+            
         }
         public bool Eliminar(OrdenCompras compra)
         {
-            _contexto.Entry(compra).State = EntityState.Deleted;
-            _contexto.Database.ExecuteSqlRaw($"UPDATE OrdebCompras SET Visible = false WHERE CompraId = {compra.CompraId}");
+
+            
+
+            foreach(var item in compra.Detalle)
+            {
+                var articulo = _contexto.Articulos.Find(item.ArticuloId);
+                articulo.Existencia -= item.cantidad;
+                
+            }
+
+            _contexto.Database.ExecuteSqlRaw($"UPDATE OrdenCompras SET Visible = false WHERE CompraId = {compra.CompraId}");
             _contexto.Database.ExecuteSqlRaw($"UPDATE ComprasDetalle SET Visible = false WHERE CompraId = {compra.CompraId}");
             return _contexto.SaveChanges() > 0;
         }
@@ -65,6 +115,8 @@ namespace DrEmergencias
         {
             return _contexto.OrdenCompras.Where(o => o.Visible==true).AsNoTracking().ToList();
         }
+
+        
     }
         
     

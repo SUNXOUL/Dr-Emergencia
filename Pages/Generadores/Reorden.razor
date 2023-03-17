@@ -1,0 +1,88 @@
+@page "/Reorden"
+
+
+<PageTitle>Ariticulos en reorden.</PageTitle>
+
+
+@inject ArticuloBLL articulos
+@inject ArticuloBLL Articulos
+@inject EntradaBLL Entradas
+@inject SalidaBLL Salidas
+@inject NotificationService notificationService
+@inject SuplidorBLL suplidores
+
+
+<head>
+    <style>
+        .hidden{
+            display: none;
+        }
+
+        .form-select{
+            border: none;
+            width: 150px;
+        }
+        .form-floating {
+            width: 15%;
+        }
+            .Entrada{
+        display: inline-block;
+        padding: 5px;
+        align-items: center;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+
+    </style>
+</head>
+
+<h4><b>Articulos en reorden.</b></h4>
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+    Data="articulos.ReOrdenList()" TItem="Articulo" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+        <Columns>
+                    <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="Articulo" Frozen="true" Title="Acciones">
+                <Template Context="Item">
+                    <RadzenLink Path=@($"V_Articulo/{Item.ArticuloID}") Text="Ver" ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
+                </Template>
+                    </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Articulo" Property="ArticuloID" Title="Codigo" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Descripcion" Title="Descripcion" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Precio" Title="Precio" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Costo" Title="Costo" />
+            <RadzenDataGridColumn TItem="Articulo" Property="Existencia" Title="Existencia" />
+            <RadzenDataGridColumn Filterable="true" Sortable="false" TItem="Articulo" Frozen="false" Title="Suplidor">
+                <Template Context="Item">
+                    @suplidores.Buscar(Item.SuplidorId).Nombre
+                </Template>
+            </RadzenDataGridColumn>
+            <RadzenDataGridColumn Filterable="true" Sortable="false" TItem="Articulo" Frozen="false" Title="Contacto">
+                <Template Context="Item">
+                    @suplidores.Buscar(Item.SuplidorId).Contacto
+                </Template>
+            </RadzenDataGridColumn>
+        </Columns>
+
+    </RadzenDataGrid>
+
+@code {
+
+}
+

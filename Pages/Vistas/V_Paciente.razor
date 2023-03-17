@@ -3,6 +3,7 @@
 
 @inject NotificationService notificationService
 @inject PacienteBLL Pacientes
+@inject IJSRuntime IJS
 
 
 
@@ -151,7 +152,10 @@
     <center>
         <a href="/E_Paciente/@PacienteID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
         <a href="/"><button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button></a>
-
+        <div class="col-2 mt-4 float-right">
+                <button @onclick="Imprimir" class="btn btn-outline-primary" type="button"> <i
+                        class="bi bi-printer" />Imprimir</button>
+        </div>
     </center>
 
     </EditForm>
@@ -197,5 +201,10 @@
     public void Eliminar(){
         Pacientes.hidden(this.paciente);
         ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Registro Actualizado", Detail = "Eliminado con Exito", Duration = 4000 });
+    }
+
+    public async Task Imprimir()
+    {
+        IJS.InvokeAsync<object>("open", new object[] { $"/I_Paciente/{this.paciente.PacienteID}","_blank"});
     }
 }

@@ -68,9 +68,11 @@ namespace DrEmergencias
             _contexto.Entry(Salida).State = EntityState.Modified;
             int cantidad = _contexto.SaveChanges();
             _contexto.Database.ExecuteSqlRaw($"UPDATE Salidas SET Visible = false  WHERE SalidaID={Salida.OrdenID}");
-                    _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia + {Salida.Cantidad}  WHERE ArticuloID={Salida.ArticuloID}");
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia + {Salida.Cantidad}  WHERE ArticuloID={Salida.ArticuloID}");
             _contexto.Entry(Salida).State = EntityState.Detached;
             return cantidad > 0;
         }
+
+        
     }
 }

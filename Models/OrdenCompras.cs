@@ -16,7 +16,8 @@ namespace DrEmergencias
         public double Total { get; set; }
 
         public bool Visible { get; set; }
-
+        
+        public DateTime FechaCompra {get; set;}
         [ForeignKey("CompraId")]
         public List<ComprasDetalle> Detalle {get; set;} = new List<ComprasDetalle>();
 

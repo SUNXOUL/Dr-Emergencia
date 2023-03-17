@@ -41,6 +41,7 @@ namespace DrEmergencias
        _contexto.Entradas.Add(Entrada);
         int cantidad = _contexto.SaveChanges();
         _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
+       
         return cantidad > 0;
     }
 
@@ -84,5 +85,6 @@ namespace DrEmergencias
             _contexto.Entry(Entrada).State = EntityState.Detached;
             return cantidad > 0;
         }
+        
     }
 }

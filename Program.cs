@@ -22,6 +22,7 @@ builder.Services.AddScoped<SuplidorBLL>();
 builder.Services.AddScoped<ArticuloBLL>();
 builder.Services.AddScoped<EntradaBLL>();
 builder.Services.AddScoped<SalidaBLL>();
+builder.Services.AddScoped<OrdenComprasBLL>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<DialogService>();
 builder.Services.AddScoped<TooltipService>();

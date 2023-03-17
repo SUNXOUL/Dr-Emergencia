@@ -28,11 +28,14 @@ namespace DrEmergencias
     {
         _contexto.Articulos.Add(Articulo);
         int cantidad = _contexto.SaveChanges();
+        VerificarArticulo(Articulo);
         return cantidad > 0;
     }
 
     public bool Modificar(Articulo Articulo)
     {
+
+        VerificarArticulo(Articulo);
         _contexto.Entry(Articulo).State = EntityState.Modified;
         int cantidad = _contexto.SaveChanges();
         _contexto.Entry(Articulo).State = EntityState.Detached;
@@ -64,12 +67,12 @@ namespace DrEmergencias
         }
         public List<Articulo> FindList(string? Buscado)
         {
-            return _contexto.Articulos.Where(o=>o.Visible == true && o.Descripcion.Contains(Buscado) ).AsNoTracking().ToList();
+            return _contexto.Articulos.Where(o=>o.Visible == true && o.Descripcion.Contains(Buscado) && o.Existencia > o.Num_Reorden ).AsNoTracking().ToList();
         }
 
          public List<Articulo> ReOrdenList()
         {
-            return _contexto.Articulos.Where(o=>o.Visible == true && o.Estado == ESTADOS.REORDEN).AsNoTracking().ToList();
+            return _contexto.Articulos.Where(o=>o.Visible == true && o.Existencia <= o.Num_Reorden).AsNoTracking().ToList();
         }
 
         /*public bool VerificarArticulo(int ID)
@@ -87,6 +90,25 @@ namespace DrEmergencias
             _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Visible = false  WHERE ArticuloID={Articulo.ArticuloID}");
             _contexto.Entry(Articulo).State = EntityState.Detached;
             return cantidad > 0;
+        }
+
+        public bool VerificarArticulo(Articulo articulo)
+        {
+
+            if(articulo.Existencia <= articulo.Num_Reorden)
+            {
+                articulo.Estado = ESTADOS.REORDEN.ToString();
+                _contexto.Entry(articulo).State = EntityState.Modified;
+
+            }
+            else
+            {
+                articulo.Estado = ESTADOS.ACTIVO.ToString();
+                _contexto.Entry(articulo).State = EntityState.Modified;
+            }
+
+
+            return _contexto.SaveChanges() > 0; 
         }
     }
 }

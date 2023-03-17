@@ -8,12 +8,12 @@ namespace DrEmergencias
     public class RptSuplidor : PdfFootSuplidor
     {
 
-        PdfWriter _PdfWriter;
+        PdfWriter? _PdfWriter;
         int maxColumn = 4;
-        Document _document;
+        Document? _document;
         PdfPTable _pdfPTable = new PdfPTable(8);
-        PdfPCell _pdfPCell;
-        Font _fontStyle;
+        PdfPCell? _pdfPCell;
+        Font? _fontStyle;
         MemoryStream _memotyStream = new MemoryStream();
 
 
@@ -32,7 +32,7 @@ namespace DrEmergencias
             Paragraph titlePricipal = new Paragraph();
             titlePricipal.Font = FontFactory.GetFont(FontFactory.TIMES_ROMAN, 14f);
             titlePricipal.Alignment = Element.ALIGN_CENTER;
-            titlePricipal.Add("Lista De Ganancias");
+            titlePricipal.Add("Lista de suplidores");
             titlePricipal.SpacingAfter = 5;
             _document.Add(titlePricipal);
 
@@ -46,13 +46,13 @@ namespace DrEmergencias
             tblLocal.SetWidths(widths);
 
             PdfPCell clId = new PdfPCell(new Phrase("Id", fonttabla));
-            PdfPCell clFecha = new PdfPCell(new Phrase("Nombre", fonttabla));
-            PdfPCell clGanancia = new PdfPCell(new Phrase("Contacto", fonttabla));
+            PdfPCell clNombre = new PdfPCell(new Phrase("Nombre", fonttabla));
+            PdfPCell clContacto = new PdfPCell(new Phrase("Contacto", fonttabla));
         
 
             tblLocal.AddCell(clId);
-            tblLocal.AddCell(clFecha);
-            tblLocal.AddCell(clGanancia);
+            tblLocal.AddCell(clNombre);
+            tblLocal.AddCell(clContacto);
         
 
             PdfPCell cell = new PdfPCell();
