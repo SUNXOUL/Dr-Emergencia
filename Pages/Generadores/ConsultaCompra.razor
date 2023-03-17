@@ -2,6 +2,7 @@
 
 @inject OrdenComprasBLL compras
 @inject ArticuloBLL articulos
+@inject IJSRuntime IJS
 
 <PageTitle>Consulta Ordenes de compra.</PageTitle>
 
@@ -14,6 +15,7 @@
             <RadzenDataGridColumn TItem="OrdenCompras" Filterable="false" Sortable="false"  Frozen="true" Title="Acciones">
                 <Template Context="Item">
                     <RadzenLink Path=@($"R_Compras/{Item.CompraId}") Text="Ver" ><RadzenBadge BadgeStyle="BadgeStyle.Secondary" Text="Ver" /></RadzenLink>
+                   <button @onclick="() => Imprimir(Item.CompraId)" style="border:none;" ><RadzenBadge  BadgeStyle="BadgeStyle.Info"  Text="Imprimir"   /></button>
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn TItem="OrdenCompras" Property="CompraId" Title="#ID" />
@@ -22,3 +24,12 @@
         </Columns>
 
     </RadzenDataGrid>
+
+    @code{
+
+    public async Task Imprimir(int Id)
+    {
+        IJS.InvokeAsync<object>("open", new object[] { $"/I_OrdenCompra/{Id}","_blank"});
+    }
+
+    }

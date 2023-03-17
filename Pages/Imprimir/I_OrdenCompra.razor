@@ -1,15 +1,56 @@
 
-@page "/I_OrdenCompra/{OrdenId:int}"
+@page "/I_OrdenCompra/{CompraId:int}"
 @layout EmptyLayout
 
-@inject ArticuloBLL Articulos
+@inject ArticuloBLL articulos
 @inject EntradaBLL Entradas
 @inject SalidaBLL Salidas
 @inject SuplidorBLL suplidores
+@inject OrdenComprasBLL compras
 
 <body onload="window.print()">
 <H1>Dr Emergencias</H1>
 <h4>Orden de compra</h4>
+<hr>
+
+      
+            <div  class="d-flex justify-content-between">
+                <div class="Entrada">
+                    <div class="input-group">
+                        <RadzenLabel>CompraId:</RadzenLabel>
+                        <RadzenNumeric Disabled="true" ShowUpDown="false"  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="compra.CompraId"/>
+                       
+                    </div>
+                </div>
+                    
+                <br>
+                <div>
+                    <div class="Entrada ">
+                        <div class="input-group ">
+                            <RadzenLabel >Fecha</RadzenLabel>
+                            <RadzenDatePicker Disabled="true"  @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" Name="Fecha" />
+                            <RadzenRequiredValidator Component="Fecha" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div  class="Entrada col-2">
+                 <RadzenDropDown Disabled="true"  AllowClear="true" TValue="int" Name="Articulo"
+                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
+                             class="w-100" Placeholder="Articulo"  Data="articulos.GetList()" TextProperty="Descripcion"
+                             @bind-value=@detalle.ArticuloId ValueProperty="ArticuloID" style="border-radius: 25px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 3px; height:40px"
+                             />
+                </div>
+                <div class="Entrada col-2">
+                    <RadzenNumeric Disabled="true"  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="detalle.cantidad"></RadzenNumeric>
+                </div>
+
+            </div>
+
+
+
 
     <RadzenFieldset>
         <HeaderTemplate>
@@ -18,7 +59,33 @@
             </span>
         </HeaderTemplate>
         <ChildContent>
-
+               <table class="table table-striped" style="backgroud-color:white">
+                <thead>
+                    <tr>
+                        <th scope="col">#CompraId</th>
+                        <th scope="col">#ArticuloId</th>
+                        <th scope="col">Articulo</th>
+                        <th scope="col">Costo</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                        @foreach(var item in this.compra.Detalle)
+                        {
+                            <tr>
+                            <td>@item.CompraId</td>
+                            <td>@item.ArticuloId</td>
+                            <td>@articulos.Buscar(item.ArticuloId).Descripcion</td>
+                            <td>@item.costo</td>
+                            <td>@item.cantidad</td>
+                            <td>@item.Importe</td>
+                            </tr>
+                        }
+                
+                </tbody>
+            </table>
         </ChildContent>
     </RadzenFieldset>
 
@@ -26,8 +93,37 @@
 
 @code{
 
-    [Parameter]
-    public int OrdenId{get;set;}
+ [Parameter]
+    public int CompraId {get; set;}
+
+    public OrdenCompras compra {get; set;} = new OrdenCompras();
+
+    public ComprasDetalle detalle {get; set;} = new ComprasDetalle();
+
+    public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
+    
+    
+    protected override void OnInitialized()
+    {
+        L_Articulos = articulos.GetList();
+
+        if(CompraId > 0)
+        {
+            this.compra.CompraId = CompraId;
+            Buscar();
+        }
+    }
+
+    void Buscar()
+    {
+        var CompraEncontrada = compras.Buscar(compra.CompraId);
+        
+
+        if(CompraEncontrada != null)
+        {
+            this.compra = CompraEncontrada;
+        }
+    }
 
     
 }
