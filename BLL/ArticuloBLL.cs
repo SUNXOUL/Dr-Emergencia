@@ -67,7 +67,7 @@ namespace DrEmergencias
         }
         public List<Articulo> FindList(string? Buscado)
         {
-            return _contexto.Articulos.Where(o=>o.Visible == true && o.Descripcion.Contains(Buscado) && o.Existencia > o.Num_Reorden ).AsNoTracking().ToList();
+            return _contexto.Articulos.Where(o=>o.Visible == true && o.Descripcion.Contains(Buscado)).AsNoTracking().ToList();
         }
 
          public List<Articulo> ReOrdenList()

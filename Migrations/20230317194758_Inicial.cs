@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DrEmergencias.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingReorden : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -137,8 +137,9 @@ namespace DrEmergencias.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Fecha = table.Column<DateTime>(type: "TEXT", nullable: false),
                     SuplidorId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Total = table.Column<double>(type: "REAL", nullable: false),
-                    Visible = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Total = table.Column<double>(type: "REAL", nullable: true),
+                    Visible = table.Column<bool>(type: "INTEGER", nullable: false),
+                    FechaCompra = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -216,7 +217,7 @@ namespace DrEmergencias.Migrations
                     CompraId = table.Column<int>(type: "INTEGER", nullable: false),
                     ArticuloId = table.Column<int>(type: "INTEGER", nullable: false),
                     cantidad = table.Column<int>(type: "INTEGER", nullable: false),
-                    costo = table.Column<double>(type: "REAL", nullable: false),
+                    costo = table.Column<double>(type: "REAL", nullable: true),
                     Visible = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

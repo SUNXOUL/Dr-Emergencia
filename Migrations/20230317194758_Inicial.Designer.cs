@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrEmergencias.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230316153343_Adding Reorden")]
-    partial class AddingReorden
+    [Migration("20230317194758_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,7 +74,7 @@ namespace DrEmergencias.Migrations
                     b.Property<int>("cantidad")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("costo")
+                    b.Property<double?>("costo")
                         .HasColumnType("REAL");
 
                     b.HasKey("DetalleId");
@@ -307,10 +307,13 @@ namespace DrEmergencias.Migrations
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("FechaCompra")
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("SuplidorId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<double>("Total")
+                    b.Property<double?>("Total")
                         .HasColumnType("REAL");
 
                     b.Property<bool>("Visible")
