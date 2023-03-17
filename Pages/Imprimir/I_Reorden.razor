@@ -1,0 +1,53 @@
+@page "/I_Reorden"
+@layout EmptyLayout
+
+@inject ArticuloBLL Articulos
+@inject EntradaBLL Entradas
+@inject SalidaBLL Salidas
+@inject SuplidorBLL suplidores
+
+
+
+<body onload="window.print()">
+<H1>Dr Emergencias</H1>
+<h4>reorden de inventario</h4>
+
+    <RadzenFieldset>
+        <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon icon="account_box" class="me-1" /><b>Reporte</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Descripcion</th>
+                    <th>Precio</th>
+                    <th>Costo</th>
+                    <th>Existencia</th>
+                    <th>Suplidor</th>
+                    <th>Contacto</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach(var Articulo in Articulos.ReOrdenList()){
+                <tr>
+                    <td>@Articulo.ArticuloID</td>
+                    <td>@Articulo.Descripcion</td>
+                    <td>@Articulo.Precio</td>
+                    <td>@Articulo.Costo</td>
+                    <td>@Articulo.Existencia</td>
+                    <td>@suplidores.Buscar(@Articulo.SuplidorId).Nombre</td>
+                    <td>@suplidores.Buscar(@Articulo.SuplidorId).Contacto</td>
+                </tr>
+                }
+                </tbody>
+            </table>
+
+        </ChildContent>
+    </RadzenFieldset>
+
+</body>

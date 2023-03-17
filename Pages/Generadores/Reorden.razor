@@ -10,7 +10,7 @@
 @inject SalidaBLL Salidas
 @inject NotificationService notificationService
 @inject SuplidorBLL suplidores
-
+@inject IJSRuntime IJS
 
 <head>
     <style>
@@ -52,7 +52,10 @@
 </head>
 
 <h4><b>Articulos en reorden.</b></h4>
-
+        <div class="col-2 mt-4 float-right">
+                <button @onclick="Imprimir" class="btn btn-outline-primary" type="button"> <i
+                        class="bi bi-printer" />Imprimir</button>
+        </div>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
     Data="articulos.ReOrdenList()" TItem="Articulo" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
@@ -84,5 +87,9 @@
 
 @code {
 
+    public async Task Imprimir()
+    {
+        IJS.InvokeAsync<object>("open", new object[] { "/I_Reorden","_blank"});
+    }
 }
 
