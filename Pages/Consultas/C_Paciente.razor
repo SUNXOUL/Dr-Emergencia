@@ -1,7 +1,7 @@
 ﻿@page "/C_Paciente"
 @inject PacienteBLL Paciente
 @inject DialogService DialogService
-@inject IJSRuntime IJS
+
 
 <head>
     <style>
@@ -110,15 +110,10 @@
                             <option value="@item"> @item</option>
                         }
                     </select>
-                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir"  ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
+                    <a href=@($"/Pacientes/{Array.IndexOf(opciones, eleccion)}") target="_blank"> <RadzenButton ButtonStyle="ButtonStyle.Secondary" ><RadzenIcon Icon="print"/>Imprimir</RadzenButton></a>
                 </div>
             </div>
         </div>);
-    }
-
-    public async Task Imprimir()
-    {
-        await IJS.InvokeAsync<object>("open", new object[] { $"/Pacientes/{Array.IndexOf(opciones, eleccion)}","_blank"});
     }
 
 }

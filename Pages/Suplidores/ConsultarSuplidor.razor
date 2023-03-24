@@ -3,7 +3,6 @@
 
 
 @inject SuplidorBLL Suplidor
-@inject IJSRuntime IJS
 @inject DialogService DialogService
 
 
@@ -118,15 +117,10 @@
                             <option value="@item"> @item</option>
                         }
                     </select>
-                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir"  ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
+                    <a href=@($"/Suplidores/{Array.IndexOf(opciones, eleccion)}") target="_blank"> <RadzenButton ButtonStyle="ButtonStyle.Secondary"   ><RadzenIcon Icon="print"/>Imprimir</RadzenButton> </a>
                 </div>
             </div>
         </div>);
-    }
-
-    public async Task Imprimir()
-    {
-        await IJS.InvokeAsync<object>("open", new object[] { $"/Suplidores/{Array.IndexOf(opciones, eleccion)}","_blank"});
     }
 
     protected override void OnInitialized()

@@ -5,6 +5,7 @@
 
 @inject OrdenComprasBLL compras
 @inject ArticuloBLL articulos
+@inject DialogService DialogService
 @inject IJSRuntime IJS
 @inject NotificationService notificationService
 
@@ -54,8 +55,15 @@
 </head>
 
 <body>
-   
-    <RadzenCard >
+       <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="feed" class="me-1" /><b>Realizar Orden de compra</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+
         <RadzenStack>
             
                 
@@ -94,13 +102,11 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <p></p>
-                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir" ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
                 </div>
             </div>
 
 
         </RadzenStack>
-        <RadzenCard class=" rz-shadow-0 rz-border-radius-0 rz-p-8" style="margin: 1rem calc(-1 * var(--rz-card-padding));">
         <RadzenFieldset>
         <HeaderTemplate>
             <span class="d-inline-flex align-items-center align-middle">
@@ -154,17 +160,18 @@
                 </div>
             </div>
 
-        </RadzenCard>
         <RadzenStack>
             <center>
                 <RadzenButton ButtonStyle="ButtonStyle.Secondary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" Click="Guardar" >Guardar</RadzenButton>
                 <RadzenButton ButtonStyle="ButtonStyle.Secondary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" Click="Nuevo" >Limpiar compra</RadzenButton>
-                <RadzenButton ButtonStyle="ButtonStyle.Danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" Click=@(Eliminar)>Eliminar</RadzenButton>
+                 <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="ShowInlineDialogDelete">Eliminar</button>
              </center>
         </RadzenStack>
-    </RadzenCard>
 
-    
+
+         </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>   
     
     
 </body>
@@ -198,6 +205,20 @@
             this.compra.CompraId = CompraId;
             Buscar();
         }
+        if(CompraId==-1)
+        {
+            foreach(var articulo in articulos.ReOrdenList())
+            {
+                detalle.ArticuloId =articulo.ArticuloID;
+                detalle.cantidad = articulo.Num_Reorden;
+                detalle.costo = articulo.Costo;
+                detalle.Visible = true;
+
+                AgregarDetalle();
+            }
+                
+        }
+    
         CalcTotales();
     }
 
@@ -222,7 +243,6 @@
 
     public async Task Imprimir()
     {
-        Guardar();
         await IJS.InvokeAsync<object>("open", new object[] { $"/I_OrdenCompra/{CompraRec }","_blank"});
     }
 
@@ -291,10 +311,11 @@
             CompraRec = compra.CompraId;
             this.Nuevo();
             ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
+        ShowInlineDialogPrint();
         }
         else
         {
-            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "No se ha guardado nada", Detail = "Porfabor complete los campos de este formulario", Duration = 4000 });
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "No se ha guardado nada", Detail = "Porfavor complete los campos de este formulario", Duration = 4000 });
         }
     }
 
@@ -310,9 +331,40 @@
     }
 
 
+    async Task ShowInlineDialogDelete()
+    {
+        var result = await DialogService.OpenAsync("Confirmacion de accion", ds =>
+        @<div>
+            <div class="row">
+                <div class="Entrada col">
+                <h4>Esta seguro que desea eliminar este registro?</h4>
+                <br>
+                <hr>
+                    <center>
+                    <a href="/"><RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Eliminar"  ><RadzenIcon Icon="delete"/>"SI (Eliminar)"</RadzenButton></a>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="() => ds.Close(false)"  ><RadzenIcon Icon="cancel"/>"NO"</RadzenButton>
+                    </center>
+                </div>
+            </div>
+        </div>);
+    }
 
-
-
+    async Task ShowInlineDialogPrint()
+    {
+        var result = await DialogService.OpenAsync("Confirmacion de accion", ds =>
+        @<div>
+            <div class="row">
+                <div class="Entrada col">
+                <h4>Desea imprimir este registro?</h4>
+                <br>
+                    <center>
+                    <a href="/"><RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir"   ><RadzenIcon Icon="print"/>"SI()"</RadzenButton></a>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="() => ds.Close(false)"  ><RadzenIcon Icon="cancel"/>"NO"</RadzenButton>
+                    </center>
+                </div>
+            </div>
+        </div>);
+    }
  
 
 

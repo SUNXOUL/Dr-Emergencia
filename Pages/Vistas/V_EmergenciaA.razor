@@ -4,6 +4,8 @@
 
 @inject NotificationService notificationService
 @inject EmergenciaABLL EmergenciaA
+@inject DialogService DialogService
+@inject IJSRuntime IJS
 
 
 <head>
@@ -241,7 +243,8 @@
     </div>
     <center>
         <a href="/E_EmergenciaAA/@emergenciaA.OrdenID"> <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" >Editar</button></a>
-        <a href="/"><button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button></a>
+                <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="ShowInlineDialog">Eliminar</button>
+
     </center>
 
             </ChildContent>
@@ -305,5 +308,22 @@
         EmergenciaA.hidden(this.emergenciaA);
         ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Registro Actualizado", Detail = "Eliminado con Exito", Duration = 4000 });
         
+    }
+
+    
+    async Task ShowInlineDialog()
+    {
+        var result = await DialogService.OpenAsync("Confirmacion de accion", ds =>
+        @<div>
+            <div class="row">
+                <div class="Entrada col">
+                <h4>Esta seguro que desea eliminar este registro?</h4>
+                    <center>
+                    <a href="/"><RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Eliminar"  ><RadzenIcon Icon="delete"/>"SI (Eliminar)"</RadzenButton></a>
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Click="() => ds.Close(false)"  ><RadzenIcon Icon="cancel"/>"NO"</RadzenButton>
+                    </center>
+                </div>
+            </div>
+        </div>);
     }
 }

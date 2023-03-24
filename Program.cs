@@ -5,13 +5,17 @@ using Microsoft.EntityFrameworkCore;
 using DrEmergencias;
 using Radzen;
 using Radzen.Blazor;
+using Microsoft.AspNetCore.Identity;
+using DrEmergencias.Data;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
-builder.Services.AddDbContext<Contexto>(Options =>Options.UseSqlite(ConStr));
+builder.Services.AddDbContext<Contexto>(Options =>Options.UseSqlServer(ConStr));
+builder.Services.AddDbContext<DrEmergenciasContext>(Options => Options.UseSqlServer(ConStr));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<DrEmergenciasContext>();
 
 builder.Services.AddScoped<EmergenciaBLL>();
 

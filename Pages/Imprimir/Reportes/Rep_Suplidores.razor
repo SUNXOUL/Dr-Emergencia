@@ -46,29 +46,30 @@
 
 </body>
 @code {
-    [Parameter]
+   [Parameter]
     public int Tiempo{get;set;}
 
     public IEnumerable<Suplidor> lista {get;set;}
-    public DateTime plazo{get;set;} 
+    
 
-        protected override void OnInitialized()
+    protected override void OnInitialized()
     {
+        var plazo = DateTime.Now.Date;
         if(Tiempo<=0)
         {
             plazo=DateTime.Now;
         }
         else if(Tiempo==1)
         {
-            plazo=plazo.AddDays(-7);
+            plazo=plazo.AddDays(-8);
         }
         else if(Tiempo==2)
         {
-            plazo=plazo.AddDays(-15);
+            plazo=plazo.AddDays(-16);
         }
         else if(Tiempo==3)
         {
-            plazo=plazo.AddDays(-29);
+            plazo=plazo.AddDays(-31);
         }
         else if(Tiempo==4)
         {
@@ -82,6 +83,7 @@
         {
 
         }
+
 
         lista =  Suplidores.GetList().Where(o=>o.FechaRegistro <= plazo);
     }
