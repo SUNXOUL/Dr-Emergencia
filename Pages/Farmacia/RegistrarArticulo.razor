@@ -43,18 +43,27 @@
         }
 
 
+
         body {
-            background-color: white;
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
         }
     </style>
 </head>
 
 <body>
+
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="add" class="me-1" /><b>Nuevo Articulo</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
     
-
-<h1>Registrar Articulo</h1>
-
-
     <div class="Entrada">
         <label for="Descripcion">Descripcion:</label>
         <RadzenTextBox  name="Descripcion" @bind-Value="articulo.Descripcion"/>
@@ -80,6 +89,9 @@
     </center>
 
 
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
 </body>
 @code {
     public Articulo articulo { get; set; } = new Articulo();

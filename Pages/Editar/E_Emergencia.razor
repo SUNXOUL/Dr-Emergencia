@@ -35,7 +35,12 @@
             border-radius: 15px;
             width: 100%;
         }
-
+        body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
         .Form {
             display: block;
         }
@@ -50,7 +55,14 @@
 
 <body>
 
-
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="edit" class="me-1" /><b>Editar Emergencia</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
     <div class="RHeader" style="z-index: -1;">
     </div>
@@ -191,7 +203,9 @@
         <a href="/V_Emergencia/@emergencia.OrdenID"><button type="button" class="btn btn-danger"
                 style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;">Cancelar</button></a>
     </center>
-
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
 
 </body>
 @code {

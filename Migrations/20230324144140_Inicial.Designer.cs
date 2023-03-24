@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DrEmergencias.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20230317194758_Inicial")]
+    [Migration("20230324144140_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -345,6 +345,9 @@ namespace DrEmergencias.Migrations
                     b.Property<int?>("Edad")
                         .HasColumnType("INTEGER");
 
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("FechadeNacimiento")
                         .HasColumnType("TEXT");
 
@@ -392,6 +395,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "809-7877890-1",
                             Direccion = "Nagua,RD",
                             Edad = 19,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6294),
                             FechadeNacimiento = "3/8/2003",
                             Municipio = "Nagua",
                             Ocupacion = "DBA",
@@ -409,6 +413,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "222-3377890-3",
                             Direccion = "Pinia 3",
                             Edad = 17,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6337),
                             FechadeNacimiento = "3/8/2005",
                             Municipio = "SFM",
                             Ocupacion = "Agricultor",
@@ -426,6 +431,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "332-4447822-2",
                             Direccion = "SALCEDO, LAS cuevas",
                             Edad = 23,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6340),
                             FechadeNacimiento = "3/8/2000",
                             Municipio = "Salcedo",
                             Ocupacion = "Estilista",
@@ -444,6 +450,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "402-7877890-1",
                             Direccion = "Cabrera, La entrada",
                             Edad = 33,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6343),
                             FechadeNacimiento = "3/8/1990",
                             Municipio = "Cabrera",
                             Ocupacion = "Civil Engenieer",
@@ -461,6 +468,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "888-7899890-1",
                             Direccion = "Spain, MALLORCA",
                             Edad = 26,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6345),
                             FechadeNacimiento = "3/8/1997",
                             Municipio = "N",
                             Ocupacion = "Analista de sistemas",
@@ -479,6 +487,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "867-1877111-1",
                             Direccion = "USA, CANADA",
                             Edad = 20,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6347),
                             FechadeNacimiento = "3/8/2002",
                             Municipio = "N",
                             Ocupacion = "Enterprise ADMIN",
@@ -496,6 +505,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "222-1111111-1",
                             Direccion = "France, Paris",
                             Edad = 18,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6349),
                             FechadeNacimiento = "3/8/2004",
                             Municipio = "N",
                             Ocupacion = "Senior Dev",
@@ -513,6 +523,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "666-7877890-1",
                             Direccion = "Nagua,RD",
                             Edad = 19,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6351),
                             FechadeNacimiento = "3/8/2003",
                             Municipio = "Nagua",
                             Ocupacion = "Alquimista",
@@ -530,6 +541,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "123-7877890-1",
                             Direccion = "Nagua,RD",
                             Edad = 19,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6353),
                             FechadeNacimiento = "3/8/2003",
                             Municipio = "Nagua",
                             Ocupacion = "Dto",
@@ -547,6 +559,7 @@ namespace DrEmergencias.Migrations
                             Cedula = "804-4877890-4",
                             Direccion = "Nagua,RD",
                             Edad = 19,
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6355),
                             FechadeNacimiento = "3/8/2003",
                             Municipio = "Nagua",
                             Ocupacion = "DBA",
@@ -599,6 +612,9 @@ namespace DrEmergencias.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -615,6 +631,7 @@ namespace DrEmergencias.Migrations
                         {
                             SuplidorID = 1,
                             Contacto = "829-787-5366",
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6552),
                             Nombre = "GBC Enterprise",
                             Visible = true
                         },
@@ -622,6 +639,7 @@ namespace DrEmergencias.Migrations
                         {
                             SuplidorID = 2,
                             Contacto = "809-123-9933",
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6559),
                             Nombre = "FarmaSalud",
                             Visible = true
                         },
@@ -629,6 +647,7 @@ namespace DrEmergencias.Migrations
                         {
                             SuplidorID = 3,
                             Contacto = "829-863-5107",
+                            FechaRegistro = new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6560),
                             Nombre = "Minoxidil",
                             Visible = true
                         });

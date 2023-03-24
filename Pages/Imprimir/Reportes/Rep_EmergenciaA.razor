@@ -1,31 +1,30 @@
-@page "/Pacientes"
-@page "/Pacientes/{Tiempo:int}"
+@page "/EmergenciaAs"
+@page "/EmergenciaAs/{Tiempo:int}"
 @layout EmptyLayout
 
 @inject PacienteBLL Pacientes
+@inject EmergenciaABLL EmergenciaAs
 
 <body onload="window.print()">
 <H1>Dr Emergencias</H1>
-<h4>Orden de compra</h4>
+<h4>Emergencias Aseguradas</h4>
 <hr>
 
 
  <RadzenFieldset>
         <HeaderTemplate>
             <span class="d-inline-flex align-items-center align-middle">
-                <RadzenIcon  class="me-1" /><b>Detalle</b>
+                <RadzenIcon  class="me-1" /><b>Reporte</b>
             </span>
         </HeaderTemplate>
         <ChildContent>
             <table class="table table-striped" style="backgroud-color:white">
                 <thead>
                     <tr>
+                        <th scope="col">Fecha</th>
                         <th scope="col">Nombre</th>
-                        <th scope="col">Sexo</th>
-                        <th scope="col">Cedula</th>
-                        <th scope="col">Ocupacion</th>
-                        <th scope="col">Tutor</th>
-                        <th scope="col">Cedula Tutor</th>
+                        <th scope="col">Motivo Consulta</th>
+                        <th scope="col">Diagnostico</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,12 +32,12 @@
                         @foreach(var item in lista)
                         {
                             <tr>
-                            <td>@item.PrimerNombre @item.SegundoNombre @item.PrimerApellido @item.SegundoApellido</td>
-                            <td>@item.Sexo</td>
-                            <td>@item.Cedula</td>
-                            <td>@item.Ocupacion</td>
-                            <td>@item.Tutor</td>
-                            <td>@item.CedulaTutor</td>
+                            <td>@item.Fecha</td>
+                            <td>@Pacientes.Buscar(item.PacienteID).PrimerNombre @Pacientes.Buscar(item.PacienteID).SegundoNombre @Pacientes.Buscar(item.PacienteID).PrimerApellido @Pacientes.Buscar(item.PacienteID).SegundoApellido</td>
+                            <td>@item.M_Consulta </td>
+                            <td>@item.ARS </td>
+                            <td>@item.NSS </td>
+                            <td>@item.Diagnostico</td>
                             </tr>
                         }
                 
@@ -55,26 +54,27 @@
     [Parameter]
     public int Tiempo{get;set;}
 
-    public IEnumerable<Paciente> lista {get;set;}
-    public DateTime plazo{get;set;} 
+    public IEnumerable<EmergenciaA> lista {get;set;}
+    
 
-        protected override void OnInitialized()
+    protected override void OnInitialized()
     {
+        var plazo = DateTime.Now.Date;
         if(Tiempo<=0)
         {
             plazo=DateTime.Now;
         }
         else if(Tiempo==1)
         {
-            plazo=plazo.AddDays(-7);
+            plazo=plazo.AddDays(-8);
         }
         else if(Tiempo==2)
         {
-            plazo=plazo.AddDays(-15);
+            plazo=plazo.AddDays(-16);
         }
         else if(Tiempo==3)
         {
-            plazo=plazo.AddDays(-29);
+            plazo=plazo.AddDays(-31);
         }
         else if(Tiempo==4)
         {
@@ -89,7 +89,8 @@
 
         }
 
-        lista =  Pacientes.GetList().Where(o=>o.FechaRegistro <= plazo);
+        Console.WriteLine(plazo);
+        lista =  EmergenciaAs.GetList().Where(o=>o.Fecha >= plazo);
     }
 
 

@@ -39,15 +39,24 @@
             margin: 5px;
         }
     
-    body
-    {
-        background-color: white;
-    }
+        body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
         </style>
     </head>
 
     <body>
-        <h1>Ver Suplidor</h1>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="local_shipping" class="me-1" /><b>Suplidor</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
   <EditForm model="Suplidor">
     <div class="Entrada">
@@ -70,6 +79,9 @@
     </center>
 
     </EditForm>
+        </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
     
 </body>
 

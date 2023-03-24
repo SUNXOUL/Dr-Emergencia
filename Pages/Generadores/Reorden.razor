@@ -47,9 +47,23 @@
         border-radius: 15px;
         width: 100%;
     }
-
+    body {
+        background-image: url('https://wallpaper.dog/large/903575.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+        opacity:0.9;
+    }
     </style>
 </head>
+<body>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="emergency" class="me-1" /><b>Registrar Emergencias</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
 <h4><b>Articulos en reorden.</b></h4>
         <div class="col-2 mt-4 float-right">
@@ -83,7 +97,10 @@
         </Columns>
 
     </RadzenDataGrid>
-
+        </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+</body>
 @code {
 
     public async Task Imprimir()

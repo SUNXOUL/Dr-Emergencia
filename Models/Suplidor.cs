@@ -7,14 +7,16 @@ namespace DrEmergencias
         [Key]
         public int SuplidorID { get; set; }
 
-        public string Nombre  { get; set; }
-        
-        public string  Contacto {get;set;}
+        public string Nombre { get; set; }
+
+        public string Contacto { get; set; }
         public bool Visible { get; set; }
+        public DateTime FechaRegistro { get; set; }
 
         public Suplidor()
         {
-            this.Visible=true;
+            this.FechaRegistro = DateTime.Now;
+            this.Visible = true;
         }
     }
 }

@@ -21,10 +21,10 @@ namespace DrEmergencias
 
         public string? Ocupacion { get; set; }
 
-        public string? Tutor {get; set;}
+        public string? Tutor { get; set; }
 
         public string? CedulaTutor { get; set; }
-        
+
         public string? Alergia { get; set; }
 
         public string? Telefono { get; set; }
@@ -34,11 +34,14 @@ namespace DrEmergencias
         public string? Provincia { get; set; }
         public string? Municipio { get; set; }
 
-        public bool? Visible {get; set;}
-        
+        public DateTime FechaRegistro { get; set; }
+
+        public bool? Visible { get; set; }
+
         public Paciente()
         {
-            this.Visible=true;
+            this.Visible = true;
+            this.FechaRegistro = DateTime.Now;
         }
     }
 

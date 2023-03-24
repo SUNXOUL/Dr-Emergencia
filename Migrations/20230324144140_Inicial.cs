@@ -168,6 +168,7 @@ namespace DrEmergencias.Migrations
                     Direccion = table.Column<string>(type: "TEXT", nullable: true),
                     Provincia = table.Column<string>(type: "TEXT", nullable: true),
                     Municipio = table.Column<string>(type: "TEXT", nullable: true),
+                    FechaRegistro = table.Column<DateTime>(type: "TEXT", nullable: false),
                     Visible = table.Column<bool>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -201,7 +202,8 @@ namespace DrEmergencias.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Nombre = table.Column<string>(type: "TEXT", nullable: false),
                     Contacto = table.Column<string>(type: "TEXT", nullable: false),
-                    Visible = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Visible = table.Column<bool>(type: "INTEGER", nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -233,29 +235,29 @@ namespace DrEmergencias.Migrations
 
             migrationBuilder.InsertData(
                 table: "Pacientes",
-                columns: new[] { "PacienteID", "Alergia", "Cedula", "CedulaTutor", "Direccion", "Edad", "FechadeNacimiento", "Municipio", "Ocupacion", "PrimerApellido", "PrimerNombre", "Provincia", "SegundoApellido", "SegundoNombre", "Sexo", "Telefono", "Tutor", "Visible" },
+                columns: new[] { "PacienteID", "Alergia", "Cedula", "CedulaTutor", "Direccion", "Edad", "FechaRegistro", "FechadeNacimiento", "Municipio", "Ocupacion", "PrimerApellido", "PrimerNombre", "Provincia", "SegundoApellido", "SegundoNombre", "Sexo", "Telefono", "Tutor", "Visible" },
                 values: new object[,]
                 {
-                    { 1, null, "809-7877890-1", null, "Nagua,RD", 19, "3/8/2003", "Nagua", "DBA", "Reynoso", "Cesar", "MTS", null, "Jose", "Hombre", "829-567-9072", null, true },
-                    { 2, null, "222-3377890-3", null, "Pinia 3", 17, "3/8/2005", "SFM", "Agricultor", "Sanchez", "Em", "Duarte", null, "Ramon", "Hombre", "849-343-0000", null, true },
-                    { 3, null, "332-4447822-2", null, "SALCEDO, LAS cuevas", 23, "3/8/2000", "Salcedo", "Estilista", "Almonte", "Camila", "Duarte", "Castellanos", "", "Mujer", "787-567-9072", null, true },
-                    { 4, null, "402-7877890-1", null, "Cabrera, La entrada", 33, "3/8/1990", "Cabrera", "Civil Engenieer", "Rodriguez", "Kinsgton", "MTS", null, "Elsmon", "Hombre", "829-337-9712", null, true },
-                    { 5, null, "888-7899890-1", null, "Spain, MALLORCA", 26, "3/8/1997", "N", "Analista de sistemas", "Lopez", "Jeison", "N", "Javier", "Lo", "Hombre", "829-567-7777", null, true },
-                    { 6, null, "867-1877111-1", null, "USA, CANADA", 20, "3/8/2002", "N", "Enterprise ADMIN", "JULIENS", "Yoland", "N", null, "Ves", "Mujer", "829-567-8890", null, true },
-                    { 7, null, "222-1111111-1", null, "France, Paris", 18, "3/8/2004", "N", "Senior Dev", "Estrella", "Holland", "N", null, "Gab", "Hombre", "878-567-9072", null, true },
-                    { 8, null, "666-7877890-1", null, "Nagua,RD", 19, "3/8/2003", "Nagua", "Alquimista", "Martinez", "Nou", "MTS", null, "ester", "Mujer", "829-567-333", null, true },
-                    { 9, null, "123-7877890-1", null, "Nagua,RD", 19, "3/8/2003", "Nagua", "Dto", "Ilstens", "C", "MTS", null, "James", "Hombre", "119-227-3372", null, true },
-                    { 10, null, "804-4877890-4", null, "Nagua,RD", 19, "3/8/2003", "Nagua", "DBA", "Fernandez", "Amanda", "MTS", null, "", "Mujer", "829-567-4444", null, true }
+                    { 1, null, "809-7877890-1", null, "Nagua,RD", 19, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6294), "3/8/2003", "Nagua", "DBA", "Reynoso", "Cesar", "MTS", null, "Jose", "Hombre", "829-567-9072", null, true },
+                    { 2, null, "222-3377890-3", null, "Pinia 3", 17, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6337), "3/8/2005", "SFM", "Agricultor", "Sanchez", "Em", "Duarte", null, "Ramon", "Hombre", "849-343-0000", null, true },
+                    { 3, null, "332-4447822-2", null, "SALCEDO, LAS cuevas", 23, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6340), "3/8/2000", "Salcedo", "Estilista", "Almonte", "Camila", "Duarte", "Castellanos", "", "Mujer", "787-567-9072", null, true },
+                    { 4, null, "402-7877890-1", null, "Cabrera, La entrada", 33, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6343), "3/8/1990", "Cabrera", "Civil Engenieer", "Rodriguez", "Kinsgton", "MTS", null, "Elsmon", "Hombre", "829-337-9712", null, true },
+                    { 5, null, "888-7899890-1", null, "Spain, MALLORCA", 26, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6345), "3/8/1997", "N", "Analista de sistemas", "Lopez", "Jeison", "N", "Javier", "Lo", "Hombre", "829-567-7777", null, true },
+                    { 6, null, "867-1877111-1", null, "USA, CANADA", 20, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6347), "3/8/2002", "N", "Enterprise ADMIN", "JULIENS", "Yoland", "N", null, "Ves", "Mujer", "829-567-8890", null, true },
+                    { 7, null, "222-1111111-1", null, "France, Paris", 18, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6349), "3/8/2004", "N", "Senior Dev", "Estrella", "Holland", "N", null, "Gab", "Hombre", "878-567-9072", null, true },
+                    { 8, null, "666-7877890-1", null, "Nagua,RD", 19, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6351), "3/8/2003", "Nagua", "Alquimista", "Martinez", "Nou", "MTS", null, "ester", "Mujer", "829-567-333", null, true },
+                    { 9, null, "123-7877890-1", null, "Nagua,RD", 19, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6353), "3/8/2003", "Nagua", "Dto", "Ilstens", "C", "MTS", null, "James", "Hombre", "119-227-3372", null, true },
+                    { 10, null, "804-4877890-4", null, "Nagua,RD", 19, new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6355), "3/8/2003", "Nagua", "DBA", "Fernandez", "Amanda", "MTS", null, "", "Mujer", "829-567-4444", null, true }
                 });
 
             migrationBuilder.InsertData(
                 table: "Suplidores",
-                columns: new[] { "SuplidorID", "Contacto", "Nombre", "Visible" },
+                columns: new[] { "SuplidorID", "Contacto", "FechaRegistro", "Nombre", "Visible" },
                 values: new object[,]
                 {
-                    { 1, "829-787-5366", "GBC Enterprise", true },
-                    { 2, "809-123-9933", "FarmaSalud", true },
-                    { 3, "829-863-5107", "Minoxidil", true }
+                    { 1, "829-787-5366", new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6552), "GBC Enterprise", true },
+                    { 2, "809-123-9933", new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6559), "FarmaSalud", true },
+                    { 3, "829-863-5107", new DateTime(2023, 3, 24, 10, 41, 40, 677, DateTimeKind.Local).AddTicks(6560), "Minoxidil", true }
                 });
 
             migrationBuilder.CreateIndex(

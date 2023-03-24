@@ -31,6 +31,12 @@
             border-radius: 15px;
             width: 100%;
         }
+        body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
 
         .Entrada select {
             width: 200px;
@@ -41,15 +47,17 @@
             border: 15px;
             margin: 5px;
         }
-
-        body {
-            background-color: white;
-        }
     </style>
 </head>
-
-
-<h1>Editar Suplidor</h1>
+<body>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="edit" class="me-1" /><b>Editar Suplidor</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
 <EditForm model="Suplidor">
     <div class="Entrada">
@@ -76,8 +84,10 @@
 
 </EditForm>
 
-
-
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+</body>
 @code {
 
     [Parameter]

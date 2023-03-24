@@ -1,8 +1,10 @@
 ﻿@page "/C_EmergenciaA"
-<h3>Consultar Emergencia Asegurada</h3>
+
 
 @inject EmergenciaABLL EmergenciaA
 @inject PacienteBLL Paciente
+@inject DialogService DialogService
+@inject IJSRuntime IJS
 
 
 <head>
@@ -33,6 +35,22 @@
             border: 15px;
             margin: 5px;
         }
+        .Entrada select {
+        width: 200px;
+        height: 35px;
+        border-radius: 50px;
+        background-color: #D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+        }
+        body {
+        background-image: url('https://wallpaper.dog/large/903575.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+        opacity:0.9;
+        }
+
 
         .Entrada label {
             margin: 5px;
@@ -44,11 +62,25 @@
             border-radius: 15px;
             width: 100%;
         }
+                body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
     </style>
 </head>
 
-
-
+<body>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="shield" class="me-1" /><b>Consultar Emergencias Aseguradas</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+     <RadzenButton Click="ShowInlineDialog" ButtonStyle="ButtonStyle.Secondary" ><RadzenIcon Icon="feed"/>Generar Reporte</RadzenButton>
     <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false"
         FilterMode="FilterMode.Advanced" AllowGrouping="true" AllowSorting="true" AllowPaging="true"
         PagerHorizontalAlign="HorizontalAlign.Left" Data="@EmergenciaA.GetList()" TItem="EmergenciaA" ColumnWidth="200px"
@@ -78,7 +110,39 @@
         </Columns>
 
     </RadzenDataGrid>
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+</body>
 
 @code {
-  
+
+    public string eleccion{get;set;}
+    public string[] opciones {get;set;} = {"Hoy","Esta Semana","Ultimos 15 dias","Este mes","Este año","Todos"};
+
+
+    async Task ShowInlineDialog()
+    {
+        var result = await DialogService.OpenAsync("Generar Reporte", ds =>
+        @<div>
+            <div class="row">
+                <div class="Entrada col">
+                <label for="Persona">Rango de Tiempo</label>
+                        <select id="Persona" name="Persona" @bind="eleccion">
+                        @foreach (var item in opciones)
+                        {
+                            <option value="@item"> @item</option>
+                        }
+                    </select>
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir"  ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
+                </div>
+            </div>
+        </div>);
+    }
+
+    public async Task Imprimir()
+    {
+        await IJS.InvokeAsync<object>("open", new object[] { $"/EmergenciaAs/{Array.IndexOf(opciones, eleccion)}","_blank"});
+    }
+
 }

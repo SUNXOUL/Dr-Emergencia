@@ -44,7 +44,10 @@
 
 
         body {
-            background-color: white;
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
         }
     </style>
 </head>
@@ -52,8 +55,14 @@
 <body>
     
 
-<h1>Registrar Suplidores</h1>
-
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="add" class="me-1" /><b>Nuevo Suplidor</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
     <div class="Entrada">
         <label for="Nombre">Nombre:</label>
@@ -70,10 +79,9 @@
             @onclick="Guardar">Guardar</button>
     </center>
 
-<div class="rz-p-12 rz-text-align-center">
-    <RadzenButton Text="Dialog with inline Blazor content" ButtonStyle="ButtonStyle.Secondary" Click=@ShowInlineDialog />
-</div>
-
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
 </body>
 @code {
     public Suplidor suplidor {get; set; } = new Suplidor();

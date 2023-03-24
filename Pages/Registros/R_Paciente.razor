@@ -41,15 +41,25 @@
             margin: 5px;
         }
 
-
         body {
-            background-color: white;
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
         }
+
     </style>
 </head>
+<body>
 
-<RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
-<h1>Registrar Paciente</h1>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="add" class="me-1" /><b>Nuevo Paciente</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
 <RadzenTemplateForm TItem="Paciente" Data="paciente" Submit="Guardar" >
     <div class="Entrada">
@@ -164,8 +174,10 @@
     </center>
 
 </RadzenTemplateForm>
-
-</RadzenCard>
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+</body>
 
 @code {
     public Paciente paciente { get; set; } = new Paciente();

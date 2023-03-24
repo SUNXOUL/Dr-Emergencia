@@ -1,6 +1,6 @@
 @page "/Inventario"
 @page "/Inventario/{ArticuloID:int}"
-<h3>Inventario</h3>
+
 
 
 @inject ArticuloBLL Articulos
@@ -45,9 +45,25 @@
         border-radius: 15px;
         width: 100%;
     }
+                        body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
+
 
     </style>
 </head>
+<body>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="emergency" class="me-1" /><b>Inventario</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
 <div style="Display:flex;">    
 <RadzenTextBox  Placeholder="Busque Descripcion" @bind-Value="Buscado" style="width:100%;" />
@@ -136,6 +152,10 @@
 
     </RadzenDataGrid>
 
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+    </body>
 
 @code {
 

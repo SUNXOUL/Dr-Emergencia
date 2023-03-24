@@ -45,16 +45,24 @@
 
 
         body {
-            background-color: white;
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
         }
     </style>
 </head>
 
 <body>
-    
 
-<h1>Entradas</h1>
-    
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="add" class="me-1" /><b>Nuevo Entrada</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
     <RadzenDropDown AllowClear="true" TValue="int"  @bind-Value="entrada.ArticuloID"
     FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
     class="w-100" Name="Articulo" Placeholder="articulo"  Data="ArticuloBLL.GetList()" TextProperty= "Descripcion"
@@ -80,7 +88,8 @@
             style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"
             @onclick="Guardar">Registrar</button>
     </center>
-<hr>
+    </ChildContent>
+    </RadzenFieldset>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
     Data="EntradaBLL.GetList()" TItem="Entrada" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
@@ -107,6 +116,8 @@
 
     </RadzenDataGrid>
 
+
+    </RadzenCard>
 </body>
 @code {
     public Entrada entrada { get; set; } = new Entrada();

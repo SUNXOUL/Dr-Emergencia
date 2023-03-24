@@ -1,31 +1,28 @@
-@page "/Pacientes"
-@page "/Pacientes/{Tiempo:int}"
+@page "/OrdenesCompra"
+@page "/OrdenesCompra/{Tiempo:int}"
 @layout EmptyLayout
 
-@inject PacienteBLL Pacientes
+@inject OrdenComprasBLL OrdenesCompra
 
 <body onload="window.print()">
 <H1>Dr Emergencias</H1>
-<h4>Orden de compra</h4>
+<h4>Ordenes de compra</h4>
 <hr>
 
 
  <RadzenFieldset>
         <HeaderTemplate>
             <span class="d-inline-flex align-items-center align-middle">
-                <RadzenIcon  class="me-1" /><b>Detalle</b>
+                <RadzenIcon  class="me-1" /><b>Reporte</b>
             </span>
         </HeaderTemplate>
         <ChildContent>
             <table class="table table-striped" style="backgroud-color:white">
                 <thead>
                     <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Sexo</th>
-                        <th scope="col">Cedula</th>
-                        <th scope="col">Ocupacion</th>
-                        <th scope="col">Tutor</th>
-                        <th scope="col">Cedula Tutor</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Total Compra</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,12 +30,9 @@
                         @foreach(var item in lista)
                         {
                             <tr>
-                            <td>@item.PrimerNombre @item.SegundoNombre @item.PrimerApellido @item.SegundoApellido</td>
-                            <td>@item.Sexo</td>
-                            <td>@item.Cedula</td>
-                            <td>@item.Ocupacion</td>
-                            <td>@item.Tutor</td>
-                            <td>@item.CedulaTutor</td>
+                            <td>@item.CompraId</td>
+                            <td>@item.Fecha</td>
+                            <td>@item.Total</td>
                             </tr>
                         }
                 
@@ -55,7 +49,7 @@
     [Parameter]
     public int Tiempo{get;set;}
 
-    public IEnumerable<Paciente> lista {get;set;}
+    public IEnumerable<OrdenCompras> lista {get;set;}
     public DateTime plazo{get;set;} 
 
         protected override void OnInitialized()
@@ -89,7 +83,7 @@
 
         }
 
-        lista =  Pacientes.GetList().Where(o=>o.FechaRegistro <= plazo);
+        lista =  OrdenesCompra.GetList().Where(o=>o.Fecha <= plazo);
     }
 
 

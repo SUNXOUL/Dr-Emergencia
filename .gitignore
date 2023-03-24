@@ -1,2 +1,3 @@
-bin/
-obj/ 
+/bin/
+/obj/
+/DataBase/Emergencias.Db

@@ -37,6 +37,12 @@
     #Hallazgos label{
         width: 100%;
     }
+    body {
+        background-image: url('https://wallpaper.dog/large/903575.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+        opacity:0.9;
+    }
 
 </style>
 
@@ -44,7 +50,14 @@
 
 <body>
     
-
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="emergency" class="me-1" /><b>Emergencia</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
     
     <div class="RHeader" style="z-index: -1;">
     </div>
@@ -185,7 +198,9 @@
     </center>
 
 
-
+        </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
 
 </body>
 @code {

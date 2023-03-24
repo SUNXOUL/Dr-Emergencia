@@ -1,9 +1,9 @@
 ﻿@page "/C_Emergencia"
-    <h3>Consultar Emergencias</h3>
-
 
 @inject EmergenciaBLL Emergencias
 @inject PacienteBLL Paciente
+@inject DialogService DialogService
+@inject IJSRuntime IJS
 
 <head>
     <style>
@@ -15,6 +15,22 @@
             border: none;
             width: 150px;
         }
+        .Entrada select {
+        width: 200px;
+        height: 35px;
+        border-radius: 50px;
+        background-color: #D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        margin: 5px;
+    }
+            body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
+
 
         .form-floating {
             width: 15%;
@@ -46,8 +62,18 @@
         }
     </style>
 </head>
-<div class="body">
+<body>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="emergency" class="me-1" /><b>Consultar Emergencias</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
 
+<div class="body">
+    <RadzenButton Click="ShowInlineDialog" ButtonStyle="ButtonStyle.Secondary" ><RadzenIcon Icon="feed"/>Generar Reporte</RadzenButton>
     <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false"
         FilterMode="FilterMode.Advanced" AllowGrouping="true" AllowSorting="true" AllowPaging="true"
         PagerHorizontalAlign="HorizontalAlign.Left" Data="Emergencias.GetList()" TItem="Emergencia" ColumnWidth="200px"
@@ -79,14 +105,42 @@
         </Columns>
 
     </RadzenDataGrid>
+    </div>
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+</body>
 
 
-
-
-
-
-</div>
 
 @code {
+
+    public string eleccion{get;set;}
+    public string[] opciones {get;set;} = {"Hoy","Esta Semana","Ultimos 15 dias","Este mes","Este año","Todos"};
+
+
+    async Task ShowInlineDialog()
+    {
+        var result = await DialogService.OpenAsync("Generar Reporte", ds =>
+        @<div>
+            <div class="row">
+                <div class="Entrada col">
+                <label for="Persona">Rango de Tiempo</label>
+                        <select id="Persona" name="Persona" @bind="eleccion">
+                        @foreach (var item in opciones)
+                        {
+                            <option value="@item"> @item</option>
+                        }
+                    </select>
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir"  ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
+                </div>
+            </div>
+        </div>);
+    }
+
+    public async Task Imprimir()
+    {
+        await IJS.InvokeAsync<object>("open", new object[] { $"/Emergencias/{Array.IndexOf(opciones, eleccion)}","_blank"});
+    }
 
 }

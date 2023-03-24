@@ -47,10 +47,16 @@
         border: 15px;
         margin: 5px;
     }
+    body {
+    background-image: url('https://wallpaper.dog/large/903575.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+    opacity:0.9;
+    }
 
     </style>
 </head>
-    
+    <body>
     <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
     <RadzenFieldset>
             <HeaderTemplate>
@@ -59,7 +65,7 @@
             </span>
         </HeaderTemplate>
         <ChildContent>
-        <RadzenButton Text="Generar Reporte" Click="ShowInlineDialog" ButtonStyle="ButtonStyle.Secondary" />
+        <RadzenButton Click="ShowInlineDialog" ButtonStyle="ButtonStyle.Secondary" ><RadzenIcon Icon="feed"/>Generar Reporte</RadzenButton>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" PageSize="8" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
     Data="Paciente.GetList()" TItem="Paciente" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
@@ -86,12 +92,10 @@
     </RadzenFieldset>
 
 </RadzenCard>
-
+</body>
 @code {
     public string eleccion{get;set;}
     public string[] opciones {get;set;} = {"Hoy","Esta Semana","Ultimos 15 dias","Este mes","Este año","Todos"};
-
-int orderID = 10248;
 
     async Task ShowInlineDialog()
     {
@@ -106,7 +110,7 @@ int orderID = 10248;
                             <option value="@item"> @item</option>
                         }
                     </select>
-                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir" ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir"  ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
                 </div>
             </div>
         </div>);
@@ -114,7 +118,7 @@ int orderID = 10248;
 
     public async Task Imprimir()
     {
-        await IJS.InvokeAsync<object>("open", new object[] { $"/I_OrdenCompra/{Array.IndexOf(opciones, eleccion)}","_blank"});
+        await IJS.InvokeAsync<object>("open", new object[] { $"/Pacientes/{Array.IndexOf(opciones, eleccion)}","_blank"});
     }
 
 }
