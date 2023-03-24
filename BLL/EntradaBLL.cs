@@ -30,19 +30,25 @@ namespace DrEmergencias
 
     private bool Insertar(Entrada Entrada)
     {
-        _contexto.Entradas.Add(Entrada);
-        int cantidad = _contexto.SaveChanges();
+        
         _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia + {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
-        return cantidad > 0;
+        _contexto.Entradas.Add(Entrada); 
+
+        
+        return _contexto.SaveChanges() > 0;
     }
 
     public bool Inventario(Entrada Entrada)
     {
-       _contexto.Entradas.Add(Entrada);
-        int cantidad = _contexto.SaveChanges();
+
         _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");
+       _contexto.Entradas.Add(Entrada);
+        return _contexto.SaveChanges() > 0;
+        
+
        
-        return cantidad > 0;
+        
+       
     }
 
     public bool Modificar(Entrada Entrada)
@@ -74,7 +80,7 @@ namespace DrEmergencias
         }
         public List<Entrada> GetList()
         {
-            return _contexto.Entradas.Where(o=>o.Visible == true).AsNoTracking().ToList();
+            return _contexto.Entradas.Where(o=>o.Visible == true ).AsNoTracking().ToList();
         }
         public bool hidden(Entrada Entrada)
         {

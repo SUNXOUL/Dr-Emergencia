@@ -28,7 +28,7 @@
                     <div class="Entrada ">
                         <div class="col-md-2 ">
                             <RadzenLabel >Fecha </RadzenLabel>
-                            <RadzenDatePicker Disabled="true"  @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy" Name="Fecha" />
+                            <RadzenDatePicker Disabled="true"  @bind-Value=@compra.Fecha ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy" Name="Fecha" />
                             <RadzenRequiredValidator Component="Fecha" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
                         </div>
                     </div>
@@ -105,8 +105,8 @@
 
     public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
     
-    IEnumerable<int> Cantidades{get;set;} 
-    public int CantidadTotal {get;set;}
+    IEnumerable<int?> Cantidades{get;set;} 
+    public int? CantidadTotal {get;set;}
 
     IEnumerable<double?> Importes{get;set;} 
     public double? ImporteTotal {get;set;}

@@ -223,6 +223,7 @@
             entrada.Razon ="Proceso de Inventario";
             entrada.cantidad_anterior = this.articulo.Existencia;
             entrada.ArticuloID = this.articulo.ArticuloID;
+            entrada.cantidad_Resultante = this.entrada.Cantidad;
             if(Entradas.Inventario(this.entrada))
             {
                 this.Nuevo();
@@ -239,11 +240,12 @@
 
     public void Entrada()
     {
-        if(Validar())
+        if(Validar() && this.entrada.Cantidad > 0)
         {
             entrada.Razon="Ajuste Inventario";
             entrada.cantidad_anterior = this.articulo.Existencia;
             entrada.ArticuloID=this.articulo.ArticuloID;
+            entrada.cantidad_Resultante = this.entrada.Cantidad + entrada.cantidad_anterior;
             if(Entradas.Guardar(this.entrada))
             {
                 this.Nuevo();

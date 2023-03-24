@@ -68,7 +68,7 @@
                         <RadzenDropDown  AllowClear="true" TValue="int"
                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
                             class="w-100" Placeholder="Suplidor"  Data="suplidores.GetList()" TextProperty="Nombre"
-                            @bind-value=@articulo.SuplidorId ValueProperty="SuplidorID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
+                            @bind-Value=@articulo.SuplidorId ValueProperty="SuplidorID" style="border-radius: 50px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 5px;"
                             />
                             
                     </div>
@@ -118,7 +118,7 @@
 
     public void Guardar()
     {
-        if(Validar())
+        if(Validar() && this.articulo.SuplidorId > 0)
         {
             if(ArticuloBLL.Guardar(this.articulo))
             {

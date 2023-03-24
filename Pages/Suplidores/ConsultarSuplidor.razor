@@ -69,10 +69,7 @@
 
     </RadzenDataGrid>
 
-    <div class="col-2 mt-4 float-right">
-                <button @onclick="ShowInlineDialog" class="btn btn-outline-primary" type="button"> <i
-                        class="bi bi-printer" />Imprimir</button>
-    </div>
+    
 
 @code {
 
@@ -83,26 +80,7 @@
     {
         Supliers = Suplidor.GetList();
     }
-    byte[]? reportData;
-    string pdfContent = "";
-    async Task ShowInlineDialog()
-    {
-        RptSuplidor rptResult = new RptSuplidor();
-        reportData = rptResult.Report(Supliers);
-        pdfContent = "data:application/pdf;base64, " + System.Convert.ToBase64String(reportData);
-        var result = await Dialog.OpenAsync("Reporte de Jugadas", ds => @<div>
-
-            @if (reportData is { })
-                {
-                    <object data="@pdfContent" width="800px" height="300px" name="_blank" />
-
-                }
-
-        </div>
-    , new DialogOptions() { Width = "850px", Height = "400px", Resizable = false, Draggable = false });
-
     
-
-    }
+    
 }
 
