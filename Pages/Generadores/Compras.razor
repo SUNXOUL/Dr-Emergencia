@@ -6,6 +6,7 @@
 @inject OrdenComprasBLL compras
 @inject ArticuloBLL articulos
 @inject IJSRuntime IJS
+@inject NotificationService notificationService
 
 <PageTitle>Registro de compras.</PageTitle>
 
@@ -72,7 +73,7 @@
                     <div class="Entrada ">
                         <div class="input-group ">
                             <RadzenLabel >Fecha:</RadzenLabel>
-                            <RadzenDatePicker @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy" Name="Fecha" />
+                            <RadzenDatePicker @bind-Value=@compra.Fecha ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy" Name="Fecha" />
                             <RadzenRequiredValidator Component="Fecha" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
                         </div>
                     </div>
@@ -84,7 +85,7 @@
                  <RadzenDropDown  AllowClear="true" TValue="int" Name="Articulo"
                              FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
                              class="w-100" Placeholder="Articulo"  Data="articulos.GetList()" TextProperty="Descripcion"
-                             @bind-value=@detalle.ArticuloId ValueProperty="ArticuloID" style="border-radius: 25px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 3px; height:40px"
+                             @bind-Value=@detalle.ArticuloId ValueProperty="ArticuloID" style="border-radius: 25px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 3px; height:40px"
                              />
                 </div>
                 <div class="Entrada col-2">
@@ -157,6 +158,7 @@
         <RadzenStack>
             <center>
                 <RadzenButton ButtonStyle="ButtonStyle.Secondary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" Click="Guardar" >Guardar</RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" Click="Nuevo" >Limpiar compra</RadzenButton>
                 <RadzenButton ButtonStyle="ButtonStyle.Danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" Click=@(Eliminar)>Eliminar</RadzenButton>
              </center>
         </RadzenStack>
@@ -181,8 +183,8 @@
     public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
     
 
-    public IEnumerable<int> Cantidades{get;set;} 
-    public int CantidadTotal {get;set;}
+    public IEnumerable<int?> Cantidades{get;set;} 
+    public int? CantidadTotal {get;set;}
 
     public IEnumerable<double?> Importes{get;set;} 
     public double? ImporteTotal {get;set;}
@@ -226,68 +228,86 @@
 
     void AgregarDetalle()
     {
-
-        this.detalle.costo= articulos.Buscar(this.detalle.ArticuloId).Costo;
-        this.compra.Detalle.Add(this.detalle);
-        foreach(var item in this.compra.Detalle)
+        if(this.detalle.ArticuloId != null && this.detalle.cantidad > 0)
         {
-            this.compra.Total += item.Importe;
+            double? costoA = articulos.Buscar(this.detalle.ArticuloId).Costo;
+            this.detalle.costo= costoA;
+            this.compra.Detalle.Add(this.detalle);
+            this.detalle = new ComprasDetalle();
+            foreach(var item in this.compra.Detalle)
+            {
+                this.compra.Total += item.Importe;
+            }
+            
+            CalcTotales();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Detalle añadido con exito!", Duration = 4000 });
         }
-        this.detalle = new ComprasDetalle();
-        CalcTotales();
+        else
+        {
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "Error al agregar detalle", Detail = "Campo de detalle vacio", Duration = 4000 });
+        }
+        
     }
 
     public void EliminarDetalle(int DetalleId)
     {
-        this.compra.Detalle.Remove(compra.Detalle.Where(o=>o.DetalleId == DetalleId).SingleOrDefault());
+        this.compra.Detalle.RemoveAll(d => d.DetalleId == DetalleId);
+        foreach(var item in this.compra.Detalle)
+        {
+            this.compra.Total += item.Importe;
+        }
+        CalcTotales();
+
+        
     }
 
     void Nuevo()
     {
         this.compra = new OrdenCompras();
+        ImporteTotal = 0;
+        CantidadTotal = 0;
     }
 
     void Eliminar()
     {
-        if(Validar())
+        if(Validar() && this.compra.Detalle != null  && ImporteTotal > 0)
         {
             compras.Eliminar(this.compra);
             Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Borrado con exito", Duration = 4000 });
         }
         else
         {
             Console.WriteLine("No se ha borrado nada");
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "No se ha borrado nada", Detail="Errores al borrar la compra, falta algun dato",Duration = 4000 });
         }
     }
 
     void Guardar()
     {
-        if(Validar())
+        if(Validar() && this.compra.Detalle != null && ImporteTotal > 0)
         {
             compras.Guardar(this.compra);
             CompraRec = compra.CompraId;
             this.Nuevo();
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Success, Summary = "Registro Actualizado", Detail = "Guardado con Exito", Duration = 4000 });
         }
         else
         {
-            Console.WriteLine("No se ha guardado nada");
+            ShowNotification(new NotificationMessage { Severity = NotificationSeverity.Error, Summary = "No se ha guardado nada", Detail = "Porfabor complete los campos de este formulario", Duration = 4000 });
         }
     }
 
     bool Validar()
     {
-        if(this.compra.Detalle != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return this.compra.Detalle != null;
     }
 
 
-    
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
 
 
 

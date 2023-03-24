@@ -92,17 +92,16 @@
 
     </RadzenDataGrid>
 
-
         </ChildContent>
     </RadzenFieldset>
     </RadzenCard>
     </body>
 
+
 @code {
 
     private List<Suplidor> Supliers {get; set;} = new List<Suplidor>();
     
-
     public string eleccion{get;set;}
     public string[] opciones {get;set;} = {"Hoy","Esta Semana","Ultimos 15 dias","Este mes","Este año","Todos"};
     
@@ -129,5 +128,11 @@
     {
         await IJS.InvokeAsync<object>("open", new object[] { $"/Suplidores/{Array.IndexOf(opciones, eleccion)}","_blank"});
     }
+
+    protected override void OnInitialized()
+    {
+        Supliers = Suplidor.GetList();
+    }
+    
 }
 

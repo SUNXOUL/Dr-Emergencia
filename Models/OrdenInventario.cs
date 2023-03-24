@@ -8,6 +8,7 @@ public class OrdenInventario
     public int ArticuloID { get; set; }
     public int? Cantidad { get; set; }
     public int? cantidad_anterior { get; set; }
+    public int? cantidad_Resultante {get; set;}
     public string? Razon { get; set; }
     public DateTime? Fecha { get; set; }
     public bool Visible { get; set; }

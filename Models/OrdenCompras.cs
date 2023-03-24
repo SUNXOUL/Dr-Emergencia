@@ -17,7 +17,7 @@ namespace DrEmergencias
 
         public bool Visible { get; set; } = true;
 
-        public DateTime FechaCompra { get; set; }
+        
         [ForeignKey("CompraId")]
         public List<ComprasDetalle> Detalle { get; set; } = new List<ComprasDetalle>();
 
@@ -31,7 +31,7 @@ namespace DrEmergencias
         public int DetalleId { get; set; }
         public int CompraId { get; set; }
         public int ArticuloId { get; set; }
-        public int cantidad { get; set; }
+        public int? cantidad { get; set; }
         public double? costo { get; set; }
         public bool Visible { get; set; }
         [NotMapped]

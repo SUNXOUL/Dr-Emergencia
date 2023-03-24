@@ -80,7 +80,7 @@
     </div>
         <div class="Entrada">
         <label for="Precio">Fecha:</label>
-        <RadzenDatePicker @bind-Value=@entrada.Fecha ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" />
+        <RadzenDatePicker @bind-Value=@entrada.Fecha Disabled ="true" ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" />
     </div>
     </div>
     <center>
@@ -103,11 +103,7 @@
             <RadzenDataGridColumn TItem="Entrada" Property="ArticuloID" Title="Articulo"/>
             <RadzenDataGridColumn TItem="Entrada" Property="cantidad_anterior" Title="Cantidad Anterior"/>
             <RadzenDataGridColumn TItem="Entrada" Property="Cantidad" Title="Cantidad de Ajuste"/>
-            <RadzenDataGridColumn Filterable="true" Sortable="false" TItem="Entrada" Frozen="false" Title="Cantidad Actual">
-                <Template Context="Item">
-                    @ArticuloBLL.Buscar(Item.ArticuloID).Existencia
-                </Template>
-            </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="Entrada" Property="cantidad_Resultante" Title="Cantidad de Resultante"/>
             <RadzenDataGridColumn TItem="Entrada" Property="Razon" Title="Razon"/>
             <RadzenDataGridColumn TItem="Entrada" Property="Fecha" Title="Fecha"/>
 
@@ -144,8 +140,10 @@
 
     public void Guardar()
     {
-        if(Validar())
+        if(Validar() && this.entrada.Cantidad > 0)
         {
+            this.entrada.cantidad_anterior = ArticuloBLL.Buscar(this.entrada.ArticuloID).Existencia;
+            this.entrada.cantidad_Resultante= this.entrada.cantidad_anterior + this.entrada.Cantidad;
             if(EntradaBLL.Guardar(this.entrada))
             {
                 this.Nuevo();
