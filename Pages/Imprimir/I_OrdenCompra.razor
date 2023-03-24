@@ -18,7 +18,7 @@
                 <div class="Entrada">
                     <div class="input-group">
                         <RadzenLabel>CompraId:</RadzenLabel>
-                        <RadzenNumeric Disabled="true" ShowUpDown="false"  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="compra.CompraId"/>
+                        <RadzenText    style=" background-color: #D9D9D9; border-color: #D9D9D9;" >@compra.CompraId</RadzenText>
                        
                     </div>
                 </div>
@@ -26,48 +26,36 @@
                 <br>
                 <div>
                     <div class="Entrada ">
-                        <div class="input-group ">
-                            <RadzenLabel >Fecha</RadzenLabel>
-                            <RadzenDatePicker Disabled="true"  @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" Name="Fecha" />
+                        <div class="col-md-2 ">
+                            <RadzenLabel >Fecha </RadzenLabel>
+                            <RadzenDatePicker Disabled="true"  @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy" Name="Fecha" />
                             <RadzenRequiredValidator Component="Fecha" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
                         </div>
                     </div>
                 </div>
 
             </div>
-            <div class="row">
-                <div  class="Entrada col-2">
-                 <RadzenDropDown Disabled="true"  AllowClear="true" TValue="int" Name="Articulo"
-                             FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowFiltering="true"
-                             class="w-100" Placeholder="Articulo"  Data="articulos.GetList()" TextProperty="Descripcion"
-                             @bind-value=@detalle.ArticuloId ValueProperty="ArticuloID" style="border-radius: 25px; background-color: #D9D9D9; border-color: #D9D9D9; border: 15px; margin: 3px; height:40px"
-                             />
-                </div>
-                <div class="Entrada col-2">
-                    <RadzenNumeric Disabled="true"  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="detalle.cantidad"></RadzenNumeric>
-                </div>
-
-            </div>
-
+            
 
 
 
     <RadzenFieldset>
         <HeaderTemplate>
             <span class="d-inline-flex align-items-center align-middle">
-                <RadzenIcon icon="account_box" class="me-1" /><b>Detalle</b>
+                <RadzenIcon  class="me-1" /><b>Detalle</b>
             </span>
         </HeaderTemplate>
         <ChildContent>
                <table class="table table-striped" style="backgroud-color:white">
                 <thead>
                     <tr>
-                        <th scope="col">#CompraId</th>
-                        <th scope="col">#ArticuloId</th>
+                        <th scope="col">#ID</th>
                         <th scope="col">Articulo</th>
                         <th scope="col">Costo</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Importe</th>
+                        <th scope="col">Suplidor</th>
+                        <th scope="col">Contacto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -75,17 +63,34 @@
                         @foreach(var item in this.compra.Detalle)
                         {
                             <tr>
-                            <td>@item.CompraId</td>
                             <td>@item.ArticuloId</td>
                             <td>@articulos.Buscar(item.ArticuloId).Descripcion</td>
                             <td>@item.costo</td>
                             <td>@item.cantidad</td>
                             <td>@item.Importe</td>
+                            <td>@suplidores.Buscar(articulos.Buscar(item.ArticuloId).SuplidorId).Nombre</td>
+                            <td>@suplidores.Buscar(articulos.Buscar(item.ArticuloId).SuplidorId).Contacto</td>
                             </tr>
                         }
                 
                 </tbody>
             </table>
+
+            <div  class="d-flex justify-content-between">
+                <div class="Entrada">
+                    <div class="input-group">
+                        <RadzenLabel>Total de items:</RadzenLabel>
+                        <RadzenText    style=" background-color: #D9D9D9; border-color: #D9D9D9;" >@CantidadTotal</RadzenText>
+                    </div>
+                </div>
+                <div class="Entrada">
+                    <div class="input-group">
+                        <RadzenLabel>Total:</RadzenLabel>
+                        <RadzenText    style=" background-color: #D9D9D9; border-color: #D9D9D9;" > $ @ImporteTotal . 00</RadzenText>
+                    </div>
+                </div>
+            </div>
+
         </ChildContent>
     </RadzenFieldset>
 
@@ -98,10 +103,13 @@
 
     public OrdenCompras compra {get; set;} = new OrdenCompras();
 
-    public ComprasDetalle detalle {get; set;} = new ComprasDetalle();
-
     public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
     
+    IEnumerable<int> Cantidades{get;set;} 
+    public int CantidadTotal {get;set;}
+
+    IEnumerable<double?> Importes{get;set;} 
+    public double? ImporteTotal {get;set;}
     
     protected override void OnInitialized()
     {
@@ -112,6 +120,12 @@
             this.compra.CompraId = CompraId;
             Buscar();
         }
+
+        Cantidades= from detalle in compra.Detalle select detalle.cantidad;
+        CantidadTotal = Cantidades.Sum();
+
+        Importes= from detalle in compra.Detalle select detalle.Importe;
+        ImporteTotal = Importes.Sum();
     }
 
     void Buscar()

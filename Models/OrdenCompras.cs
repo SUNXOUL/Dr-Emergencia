@@ -9,19 +9,19 @@ namespace DrEmergencias
         [Key]
         public int CompraId { get; set; }
 
-        public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; } = DateTime.Now;
 
         public int SuplidorId { get; set; }
 
         public double? Total { get; set; } = 0;
 
         public bool Visible { get; set; } = true;
-        
-        public DateTime FechaCompra {get; set;}
-        [ForeignKey("CompraId")]
-        public List<ComprasDetalle> Detalle {get; set;} = new List<ComprasDetalle>();
 
-       
+        public DateTime FechaCompra { get; set; }
+        [ForeignKey("CompraId")]
+        public List<ComprasDetalle> Detalle { get; set; } = new List<ComprasDetalle>();
+
+
 
     }
 
@@ -31,13 +31,13 @@ namespace DrEmergencias
         public int DetalleId { get; set; }
         public int CompraId { get; set; }
         public int ArticuloId { get; set; }
-        public int cantidad {get; set;}
-        public double? costo {get; set;}
+        public int cantidad { get; set; }
+        public double? costo { get; set; }
         public bool Visible { get; set; }
         [NotMapped]
         public double? Importe
         {
-            get {return cantidad * costo;}
+            get { return cantidad * costo; }
         }
 
     }

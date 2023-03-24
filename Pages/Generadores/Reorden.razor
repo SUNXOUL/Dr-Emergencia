@@ -53,8 +53,7 @@
 
 <h4><b>Articulos en reorden.</b></h4>
         <div class="col-2 mt-4 float-right">
-                <button @onclick="Imprimir" class="btn btn-outline-primary" type="button"> <i
-                        class="bi bi-printer" />Imprimir</button>
+<RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir" ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
         </div>
 <RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
     AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"

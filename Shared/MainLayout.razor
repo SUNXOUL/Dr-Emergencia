@@ -2,6 +2,8 @@
 @using DrEmergencias
 @using Radzen.Blazor
 
+@inject DialogService DialogService
+
 <PageTitle>Dr Emergencias</PageTitle>
 
 <head>
@@ -10,7 +12,7 @@
 
 
 <RadzenNotification></RadzenNotification>
-
+ <RadzenDialog />
 <RadzenLayout style="height: 100vh">
     
     <RadzenHeader class="rz-background-color-secondary-light" style="display: flex; justify-content: space-between; border:none;">
@@ -37,44 +39,44 @@
         
         <RadzenPanelMenu style="background-color:#28363c;" Multiple="false" >
 
-                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Paciente" >
-                        <RadzenPanelMenuItem  Text="Consultar" Path="C_Paciente" />
-                        <RadzenPanelMenuItem Text="Registrar" Path="R_Paciente" />
-                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    <RadzenPanelMenuItem Selected="true" icon="account_box" style="background-color:#28363c;" Text="Paciente" >
+                        <RadzenPanelMenuItem Selected="true"  icon="search" Text="Consultar" Path="C_Paciente"  />
+                        <RadzenPanelMenuItem Selected="true"  icon="add" Text="Registrar" Path="R_Paciente" />
+                        <RadzenPanelMenuItem Selected="true"  icon="description" Text="Reporte" Path="" />
                     </RadzenPanelMenuItem>
 
 
-                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Emergencias No Aseguradas" >
-                        <RadzenPanelMenuItem  Text="Consultar" Path="C_Emergencia" />
-                        <RadzenPanelMenuItem  Text="Registrar" Path="R_Emergencia" />
-                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    <RadzenPanelMenuItem Selected="true"  icon="emergency" style="background-color:#28363c;" Text="Emergencias No Aseguradas" >
+                        <RadzenPanelMenuItem Selected="true"  icon="search" Text="Consultar" Path="C_Emergencia" />
+                        <RadzenPanelMenuItem  Selected="true" icon="add" Text="Registrar" Path="R_Emergencia" />
+                        <RadzenPanelMenuItem  Selected="true" icon="description" Text="Reporte" Path="" />
                     </RadzenPanelMenuItem>
 
-                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Emergencias Aseguradas" >
-                        <RadzenPanelMenuItem  Text="Consultar" Path="C_EmergenciaA" />
-                        <RadzenPanelMenuItem  Text="Registrar" Path="R_EmergenciaA" />
-                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    <RadzenPanelMenuItem Selected="true" icon="shield"  style="background-color:#28363c;" Text="Emergencias Aseguradas" >
+                        <RadzenPanelMenuItem Selected="true"  icon="search"  Text="Consultar" Path="C_EmergenciaA" />
+                        <RadzenPanelMenuItem Selected="true"  icon="add" Text="Registrar" Path="R_EmergenciaA" />
+                        <RadzenPanelMenuItem Selected="true"  icon="description" Text="Reporte" Path="" />
                     </RadzenPanelMenuItem>
 
-                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Suministros" >
-                        <RadzenPanelMenuItem  Text="Inventario" Path="Inventario" />
-                        <RadzenPanelMenuItem  Text="Agregar" Path="R_Articulo" />
-                        <RadzenPanelMenuItem  Text="Entrada" Path="Entradas" />
-                        <RadzenPanelMenuItem  Text="Salida" Path="Salidas" />
+                    <RadzenPanelMenuItem Selected="true"  icon="inbox" style="background-color:#28363c;" Text="Suministros" >
+                        <RadzenPanelMenuItem Selected="true"   icon="inventory_2" Text="Inventario" Path="Inventario" />
+                        <RadzenPanelMenuItem Selected="true"   icon="add" Text="Agregar" Path="R_Articulo" />
+                        <RadzenPanelMenuItem Selected="true"   icon="archive" Text="Entrada" Path="Entradas" />
+                        <RadzenPanelMenuItem  Selected="true"  icon="unarchive" Text="Salida" Path="Salidas" />
                     </RadzenPanelMenuItem>
 
 
-                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Pedidos" >
-                        <RadzenPanelMenuItem  Text="Articulos en reorden" Path="Reorden" />
-                        <RadzenPanelMenuItem  Text="Realizar orden de compra" Path="R_Compras" />
-                        <RadzenPanelMenuItem  Text="Consulta compras" Path="C_Compra" />
+                    <RadzenPanelMenuItem Selected="true"  icon="request_quote" style="background-color:#28363c;" Text="Pedidos" >
+                        <RadzenPanelMenuItem Selected="true"   icon="category" Text="Articulos en reorden" Path="Reorden" />
+                        <RadzenPanelMenuItem Selected="true"  icon="feed" Text="Realizar orden de compra" Path="R_Compras" />
+                        <RadzenPanelMenuItem Selected="true"  icon="search" Text="Consulta compras" Path="C_Compra" />
                         
                     </RadzenPanelMenuItem>
 
-                    <RadzenPanelMenuItem style="background-color:#28363c;" Text="Suplidores" >
-                        <RadzenPanelMenuItem  Text="Consultar" Path="C_Suplidor" />
-                        <RadzenPanelMenuItem  Text="Agregar " Path="R_Suplidores" />
-                        <RadzenPanelMenuItem  Text="Reporte" Path="" />
+                    <RadzenPanelMenuItem Selected="true"  icon="local_shipping" style="background-color:#28363c;" Text="Suplidores" >
+                        <RadzenPanelMenuItem Selected="true"  icon="search" Text="Consultar" Path="C_Suplidor" />
+                        <RadzenPanelMenuItem Selected="true"  icon="add" Text="Agregar " Path="R_Suplidores" />
+                        <RadzenPanelMenuItem Selected="true"  icon="description" Text="Reporte" Path="" />
                     </RadzenPanelMenuItem>
 
 
@@ -91,5 +93,6 @@
 
 @code {
     bool sidebar1Expanded = true;
+
 
 }

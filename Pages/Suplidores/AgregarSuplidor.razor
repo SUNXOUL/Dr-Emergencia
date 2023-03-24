@@ -1,4 +1,5 @@
 ﻿@page "/R_Suplidores"
+@inject DialogService DialogService
 
 
 @inject SuplidorBLL suplidores
@@ -69,6 +70,9 @@
             @onclick="Guardar">Guardar</button>
     </center>
 
+<div class="rz-p-12 rz-text-align-center">
+    <RadzenButton Text="Dialog with inline Blazor content" ButtonStyle="ButtonStyle.Secondary" Click=@ShowInlineDialog />
+</div>
 
 </body>
 @code {
@@ -135,6 +139,14 @@
             return false;
         }
     }
+
+int orderID = 10248;
+
+    async Task ShowInlineDialog()
+    {
+
+    }
+
 }
 
 

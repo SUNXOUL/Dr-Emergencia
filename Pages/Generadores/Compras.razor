@@ -5,6 +5,7 @@
 
 @inject OrdenComprasBLL compras
 @inject ArticuloBLL articulos
+@inject IJSRuntime IJS
 
 <PageTitle>Registro de compras.</PageTitle>
 
@@ -28,11 +29,7 @@
         
     }
     .Entrada input{
-        border-radius: 50px;
         background-color:#D9D9D9;
-        border-color: #D9D9D9;
-        border: 15px;
-        margin: 5px;
         width: 100%;
     }
     .Entrada label
@@ -68,8 +65,8 @@
                 <div>
                     <div class="Entrada ">
                         <div class="input-group ">
-                            <RadzenLabel >Fecha</RadzenLabel>
-                            <RadzenDatePicker @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy h:mm tt" Name="Fecha" />
+                            <RadzenLabel >Fecha:</RadzenLabel>
+                            <RadzenDatePicker @bind-Value=@compra.FechaCompra ShowTime="true" HourFormat="12" DateFormat="MM/dd/yyyy" Name="Fecha" />
                             <RadzenRequiredValidator Component="Fecha" Text="Nombre es Campo Requerido" Popup=true Style="position: absolute"/>
                         </div>
                     </div>
@@ -86,26 +83,34 @@
                 </div>
                 <div class="Entrada col-2">
                     <RadzenNumeric  style=" background-color: #D9D9D9; border-color: #D9D9D9;" @bind-Value="detalle.cantidad"></RadzenNumeric>
-                </div>
-                <div class="Entrada col-1">
                     <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="AgregarDetalle"><RadzenIcon Icon="playlist_add"/></RadzenButton>
                 </div>
-               
+                <div class="d-flex justify-content-between">
+                    <p></p>
+                    <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="Imprimir" ><RadzenIcon Icon="print"/>Imprimir</RadzenButton>
+                </div>
             </div>
-            
+
 
         </RadzenStack>
         <RadzenCard class=" rz-shadow-0 rz-border-radius-0 rz-p-8" style="margin: 1rem calc(-1 * var(--rz-card-padding));">
-            
+        <RadzenFieldset>
+        <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="feed" class="me-1" /><b>Detalles</b>
+            </span>
+        </HeaderTemplate>
+
+        <ChildContent> 
             <table class="table table-striped" style="backgroud-color:white">
                 <thead>
                     <tr>
-                        <th scope="col">#CompraId</th>
                         <th scope="col">#ArticuloId</th>
                         <th scope="col">Articulo</th>
                         <th scope="col">Costo</th>
                         <th scope="col">Cantidad</th>
                         <th scope="col">Importe</th>
+                        <th scope="col">Eliminar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,30 +118,40 @@
                         @foreach(var item in this.compra.Detalle)
                         {
                             <tr>
-                            <td>@item.CompraId</td>
                             <td>@item.ArticuloId</td>
                             <td>@articulos.Buscar(item.ArticuloId).Descripcion</td>
                             <td>@item.costo</td>
                             <td>@item.cantidad</td>
                             <td>@item.Importe</td>
+                            <td><RadzenButton ButtonStyle="ButtonStyle.Danger" Click="()=>EliminarDetalle(item.DetalleId)" Icon="delete" /></td>
                             </tr>
                         }
                 
                 </tbody>
             </table>
-           <div class="row d-flex justify-content-end">
-                <div class="Entrada col-3">
-                    <label>Total</label>
-                    <input disabled="true" @bind-value="compra.Total">
+            </ChildContent> 
+            </RadzenFieldset>
+
+            <div  class="d-flex justify-content-between">
+                <div class="Entrada" style="display:flex; justify-items:center;">
+                    <div class="input-group">
+                        <RadzenLabel For="Items">Total de items:</RadzenLabel>
+                        <RadzenNumeric Disabled="true" ShowUpDown="false" @bind-Value="CantidadTotal" Name="Items" />
+                    </div>
+                </div>
+                <div class="Entrada">
+                    <div class="input-group">
+                        <RadzenLabel For="Importe">Importe Total:</RadzenLabel>
+                        <RadzenNumeric Disabled="true" ShowUpDown="false" @bind-Value="ImporteTotal" Name="Importe" />
+                    </div>
                 </div>
             </div>
-
 
         </RadzenCard>
         <RadzenStack>
             <center>
-                <button type="button" class="btn btn-primary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;"@onclick="Guardar" >Registrar</button>
-                <button type="button" class="btn btn-danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" @onclick="Eliminar">Eliminar</button>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" style="padding-left: 50px;padding-right: 50px; border-radius:50px; Background-Color:#3AB5F4; border-color:#3AB5F4; margin:10px;" Click="Guardar" >Guardar</RadzenButton>
+                <RadzenButton ButtonStyle="ButtonStyle.Danger" style="padding-left: 50px;padding-right: 50px; border-radius:50px; margin:10px;" Click=@(Eliminar)>Eliminar</RadzenButton>
              </center>
         </RadzenStack>
     </RadzenCard>
@@ -151,6 +166,7 @@
 {
     [Parameter]
     public int CompraId {get; set;}
+    public int CompraRec {get;set;} = 0;
 
     public OrdenCompras compra {get; set;} = new OrdenCompras();
 
@@ -158,6 +174,12 @@
 
     public List<Articulo> L_Articulos {get; set;} = new List<Articulo>();
     
+
+    public IEnumerable<int> Cantidades{get;set;} 
+    public int CantidadTotal {get;set;}
+
+    public IEnumerable<double?> Importes{get;set;} 
+    public double? ImporteTotal {get;set;}
     
     protected override void OnInitialized()
     {
@@ -168,6 +190,7 @@
             this.compra.CompraId = CompraId;
             Buscar();
         }
+        CalcTotales();
     }
 
     void Buscar()
@@ -180,11 +203,24 @@
             this.compra = CompraEncontrada;
         }
     }
+    void CalcTotales()
+    {
+        Cantidades= from detalle in compra.Detalle select detalle.cantidad;
+        CantidadTotal = Cantidades.Sum();
 
-    
+        Importes= from detalle in compra.Detalle select detalle.Importe;
+        ImporteTotal = Importes.Sum();
+    }
+
+    public async Task Imprimir()
+    {
+        Guardar();
+        await IJS.InvokeAsync<object>("open", new object[] { $"/I_OrdenCompra/{CompraRec }","_blank"});
+    }
 
     void AgregarDetalle()
     {
+
         this.detalle.costo= articulos.Buscar(this.detalle.ArticuloId).Costo;
         this.compra.Detalle.Add(this.detalle);
         foreach(var item in this.compra.Detalle)
@@ -192,6 +228,12 @@
             this.compra.Total += item.Importe;
         }
         this.detalle = new ComprasDetalle();
+        CalcTotales();
+    }
+
+    public void EliminarDetalle(int DetalleId)
+    {
+        this.compra.Detalle.Remove(compra.Detalle.Where(o=>o.DetalleId == DetalleId).SingleOrDefault());
     }
 
     void Nuevo()
@@ -217,6 +259,7 @@
         if(Validar())
         {
             compras.Guardar(this.compra);
+            CompraRec = compra.CompraId;
             this.Nuevo();
         }
         else
