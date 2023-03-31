@@ -12,10 +12,13 @@
 
 
 <RadzenNotification></RadzenNotification>
- <RadzenDialog />
+
+
+<CascadingAuthenticationState>
+<AuthorizeView>
+    <Authorized>
 <RadzenLayout style="height: 100vh">
-    
-    <RadzenHeader class="rz-background-color-secondary-light" style="display: flex; justify-content: space-between; border:none;">
+  <RadzenHeader class="rz-background-color-secondary-light" style="display: flex; justify-content: space-between; border:none;">
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" class="rz-background-color-secondary-light" Gap="0">
             <RadzenSidebarToggle Click="@(() => sidebar1Expanded = !sidebar1Expanded)"   style= "border:none;  border-top-right-radius: 25px; border-bottom-right-radius: 25px;"/>
             
@@ -23,17 +26,15 @@
 
     <RadzenProfileMenu style=" border:none;"class="rz-background-color-secondary-light">
         <Template>
-            <RadzenLabel Text="Usuario" style="color:rgb(255, 255, 255)" />
+            <Radzenlink  >@context.User.Identity?.Name!</Radzenlink>
         </Template>
         <ChildContent>
-            <RadzenProfileMenuItem Text="Perfil"  ></RadzenProfileMenuItem>
-            <RadzenProfileMenuItem Text="Cerrar Sesion"  ></RadzenProfileMenuItem>
+            <RadzenProfileMenuItem Text="Perfil" Path="/Identity/Account/Manage" ></RadzenProfileMenuItem>
+            <RadzenProfileMenuItem Text="Cerrar Sesion" Path="/Identity/Account/logout" ></RadzenProfileMenuItem>
         </ChildContent>
     </RadzenProfileMenu>
 
-
     </RadzenHeader>
-
     <RadzenSidebar @bind-Expanded="@sidebar1Expanded"style="background-color:#28363c;" >
         
         
@@ -86,6 +87,19 @@
         </div>
     </RadzenBody>
 </RadzenLayout>
+
+
+
+    </Authorized>
+    <NotAuthorized>
+        <MainPage/>
+    </NotAuthorized>
+</AuthorizeView>
+</CascadingAuthenticationState>
+
+
+    
+  
 
 @code {
     bool sidebar1Expanded = true;

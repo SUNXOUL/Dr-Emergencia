@@ -5,8 +5,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<style>
+body {  font-family: "Lato", sans-serif;
+        background-image: url('https://wallpaper.dog/large/903575.jpg');
+        background-attachment: fixed;
+        background-size: cover;
+        opacity:0.9;
+}
+</style>
+
     <title>@ViewData["Title"] - DrEmergencias</title>
 
     <environment include="Development">
@@ -23,13 +37,15 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" href="~/">DrEmergencias</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+<div class="w3-top" >
+    <div class="w3-bar w3-light-blue w3-card w3-left-align w3-large" >
+        <a href="/"><img  class="w3-bar-item" src="https://blogger.googleusercontent.com/img/a/AVvXsEi4q-kqz34QpRGwgoXDEQtnX68vy8CdlmUBEVnZg6lsA-Om6KxTz1G7ayTUMecnJE9DzVhnlHQeHRg7gqiKMRv3uz-4X2MtwOi4fmf0x_bq6ZJja0StmVpsVxkStpREaH4prGhrCK-4cdguamc8EQDaKjaVEs7v5y-Vrdzb055J93UETHsAOy7bbUjb" height="40px" ></a>
+        <div >
+        <a href="/Identity/Account/Login" class="w3-bar-item w3-button w3-right w3-padding-large w3-hide-small w3-hover-white">Login</a>
+        <a href="/Identity/Account/Register" class="w3-bar-item w3-button w3-right w3-padding-large w3-hide-small w3-hover-white">Registrarse</a>
+        </div>
+  </div>
+</div>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     @{
                         var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
@@ -55,18 +71,7 @@
             @RenderBody()
         </main>
     </div>
-    <footer class="footer border-top pl-3 text-muted">
-        <div class="container">
-        &copy; 2023 - DrEmergencias
-            @{
-                var foundPrivacy = Url.Page("/Privacy", new { area = "" });
-            }
-            @if (foundPrivacy != null)
-            {
-                <a asp-area="" asp-page="/Privacy">Privacy</a>
-            }
-        </div>
-    </footer>
+   
 
     <environment include="Development">
         <script src="~/Identity/lib/jquery/dist/jquery.js"></script>

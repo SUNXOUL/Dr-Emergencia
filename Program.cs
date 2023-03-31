@@ -13,7 +13,7 @@ using DrEmergencias.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
-builder.Services.AddDbContext<Contexto>(Options =>Options.UseSqlServer(ConStr));
+builder.Services.AddDbContext<Contexto>(Options => Options.UseSqlServer(ConStr));
 builder.Services.AddDbContext<DrEmergenciasContext>(Options => Options.UseSqlServer(ConStr));
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<DrEmergenciasContext>();
 
@@ -51,7 +51,13 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
+app.UseAuthentication();
 app.UseRouting();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
