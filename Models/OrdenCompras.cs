@@ -17,6 +17,9 @@ namespace DrEmergencias
 
         public bool Visible { get; set; } = true;
 
+
+        public string Estado {get; set;} = "Esperando";
+
         
         [ForeignKey("CompraId")]
         public List<ComprasDetalle> Detalle { get; set; } = new List<ComprasDetalle>();

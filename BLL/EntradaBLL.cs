@@ -28,7 +28,7 @@ namespace DrEmergencias
         return _contexto.Entradas.Any(o => o.OrdenID== OrdenID);
     }
 
-    private bool Insertar(Entrada Entrada)
+    public bool Insertar(Entrada Entrada)
     {
         
         _contexto.Database.ExecuteSqlRaw($"UPDATE Articulos SET Existencia = Existencia + {Entrada.Cantidad}  WHERE ArticuloID={Entrada.ArticuloID}");

@@ -1,0 +1,198 @@
+@page "/S_Compras"
+
+<PageTitle>Seguimiento compras.</PageTitle>
+
+@inject ArticuloBLL Articulos
+@inject EntradaBLL Entradas
+@inject SalidaBLL Salidas
+@inject OrdenComprasBLL compras
+@inject NotificationService notificationService
+@inject SuplidorBLL suplidores
+
+<head>
+    <style>
+        .hidden{
+            display: none;
+        }
+
+        .form-select{
+            border: none;
+            width: 150px;
+        }
+        .form-floating {
+            width: 15%;
+        }
+            .Entrada{
+        display: flex;
+        padding: 5px;
+        align-items: center;
+        width: 100%;
+    }
+    .Entrada input{
+        border-radius: 50px;
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border: 15px;
+        width: 100%;
+    }
+    .Entrada label
+    {
+        margin: 5px;
+    }
+    .Entrada textarea{
+        background-color:#D9D9D9;
+        border-color: #D9D9D9;
+        border-radius: 15px;
+        width: 100%;
+    }
+                        body {
+            background-image: url('https://wallpaper.dog/large/903575.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            opacity:0.9;
+        }
+
+
+    </style>
+</head>
+<body>
+    <RadzenCard class="rz-shadow-7 rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12">
+    <RadzenFieldset>
+            <HeaderTemplate>
+            <span class="d-inline-flex align-items-center align-middle">
+                <RadzenIcon Icon="local_shipping" class="me-1" /><b>(Estado/Seguimiento) de compras.</b>
+            </span>
+        </HeaderTemplate>
+        <ChildContent>
+
+<RadzenTabs>
+    <Tabs>
+        
+        <RadzenTabsItem Text="Estado de la compra" >
+            <div style="display:flex; justify-items:center;">
+        <div class="Entrada" style="display:flex; justify-items:center;">
+            <label for="CompraId">CompraId#</label>
+            <RadzenNumeric type="CompraId" id="CompraId"  Disabled="true" @bind-Value="compra.CompraId" name="Descripcion"/>
+        </div>
+        
+        <div class="input-group Entrada"style="display:flex; justify-items:center;">
+            
+            <div class="input-group ">
+                <label for="Compra">Estado Actual</label>
+                <select class ="form-select"id="Compra" name="Compra" @bind="compra.Estado">
+                    @foreach (var item in Estados)
+                    {
+                        <option value="@item"> @item</option>
+                    }
+
+                </select>
+                <RadzenButton ButtonStyle="ButtonStyle.Secondary" Click="CambiarEstado" ><RadzenIcon Icon="done" /></RadzenButton>
+            </div>
+            
+        </div>
+        </div>
+        
+
+        </RadzenTabsItem >
+        
+
+        </Tabs>
+</RadzenTabs>
+
+
+<RadzenDataGrid AllowFiltering="true" AllowColumnResize="true" AllowAlternatingRows="false" FilterMode="FilterMode.Advanced"
+    AllowGrouping="true" AllowSorting="true" AllowPaging="true" PagerHorizontalAlign="HorizontalAlign.Left"
+    Data="compras.GetList()" TItem="OrdenCompras" ColumnWidth="300px" LogicalFilterOperator="LogicalFilterOperator.Or" ShowPagingSummary="true">
+
+        <Columns>
+                <RadzenDataGridColumn Filterable="false" Sortable="false" TItem="OrdenCompras" Frozen="true" Title="Acciones">
+            <Template Context="Item">
+                <button @onclick="() => Buscar(Item.CompraId)" style="border:none;" ><RadzenBadge  BadgeStyle="BadgeStyle.Info"  Text="Seleccionar"   /></button>
+            </Template>
+                </RadzenDataGridColumn>
+            <RadzenDataGridColumn TItem="OrdenCompras" Property="CompraId" Title="CompraId#" />
+            <RadzenDataGridColumn TItem="OrdenCompras" Property="Fecha" Title="Fecha" />
+            <RadzenDataGridColumn TItem="OrdenCompras" Property="Estado" Title="Estado compra." />
+            
+        </Columns>
+
+    </RadzenDataGrid>
+
+    </ChildContent>
+    </RadzenFieldset>
+    </RadzenCard>
+    </body>
+
+@code {
+
+    [Parameter]
+    public int CompraId {get; set;}
+    public OrdenCompras compra {get; set;} = new OrdenCompras();
+    public Salida salida { get; set; } = new Salida();
+    public Entrada entrada { get; set; } = new Entrada();
+    
+    public string Estado {get; set;}
+    List<Estado> Estados = Enum.GetValues(typeof(Estado))
+    .Cast<Estado>()
+    .ToList();
+
+    protected override void OnInitialized()
+    {
+            
+    }
+    
+
+    void ShowNotification(NotificationMessage message)
+    {
+        notificationService.Notify(message);
+    }
+
+    private void Buscar(int Id)
+    {
+        var CompraEncontrada = compras.Buscar(Id);
+        if (CompraEncontrada != null)
+        {
+            
+            this.compra = CompraEncontrada;
+
+        }
+        
+    }
+
+    void CambiarEstado()
+    {
+        
+        
+        if(this.compra.Estado.Contains("Liquidada"))
+        {
+
+            foreach(var item in this.compra.Detalle )
+            {
+                entrada.Razon = "Articulo comprado";
+                entrada.Cantidad = item.cantidad;
+                entrada.cantidad_anterior = Articulos.Buscar(item.ArticuloId).Existencia;
+                entrada.ArticuloID = item.ArticuloId;
+                entrada.cantidad_Resultante = item.cantidad + entrada.cantidad_anterior;
+                Entradas.Insertar(entrada);
+                this.entrada = new Entrada();
+
+            }
+            compras.Guardar(this.compra);
+        }
+        else
+        {
+            compras.Guardar(this.compra);
+            
+            
+            
+        
+        }
+
+        
+
+    }
+ 
+    
+
+   
+}
