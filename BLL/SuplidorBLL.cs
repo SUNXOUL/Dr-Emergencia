@@ -66,7 +66,7 @@ namespace DrEmergencias
         {
             _contexto.Entry(Suplidor).State = EntityState.Modified;
             int cantidad = _contexto.SaveChanges();
-            _contexto.Database.ExecuteSqlRaw($"UPDATE Suplidors SET Visible = false  WHERE SuplidorID={Suplidor.SuplidorID}");
+            _contexto.Database.ExecuteSqlRaw($"UPDATE Suplidores SET Visible = false  WHERE SuplidorID={Suplidor.SuplidorID}");
             _contexto.Entry(Suplidor).State = EntityState.Detached;
             return cantidad > 0;
         }
